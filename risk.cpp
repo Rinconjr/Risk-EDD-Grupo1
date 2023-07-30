@@ -3,7 +3,6 @@
 // Proyecto juego risk - Estructuras de datos
 // Compilación: "g++ -std=c++11 risk.cxx risk.cpp -o ejecutable"
 // Ejecución: "./ejecutable"
-// Observaciones: Los piolines gobernaran el mundo
 // 
 //
 //  Archivo creado por Juan Diego Echeverry, Santiago Yañez y Nicolás Rincón
