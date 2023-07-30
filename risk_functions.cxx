@@ -1,7 +1,30 @@
+//*****************************************************************
+// Autores: Juan Diego Echeverry, Santiago Yañez y Nicolás Rincón
+// Proyecto juego risk - Estructuras de datos
+// Compilación: "g++ -std=c++11 risk_functions.cxx risk.cpp -o ejecutable"
+// Ejecución: "./ejecutable"
+// 
+//
+//  Archivo creado por Juan Diego Echeverry, Santiago Yañez y Nicolás Rincón
+//  Fecha de inicio: 28/07/23
+//  Fecha de finalización: ---
+//*****************************************************************
+
+
+//************************************************************************
+// INICIO - LIBRERIAS
+//************************************************************************
 #include "risk.h"
 #include <iostream>
 #include <sstream>
+//************************************************************************
+// FIN - LIBRERIAS
+//************************************************************************
 
+
+//************************************************************************
+// INICIO - FUNCIONES
+//************************************************************************
 void comando_ayuda_comandos(const std::string& comando){
   if (comando == "inicializar"){
     //Diego
@@ -107,5 +130,8 @@ void comando_ayuda() {
   std::cout << "$   salir\n";
   std::cout << "$ Para mas informacion de un comando, escriba 'ayuda' seguido del comando.\n";
 }
+//************************************************************************
+// FIN - FUNCIONES
+//************************************************************************
 
 // eof - risk.cxx
