@@ -77,6 +77,3 @@ int main()
 }
 
 // eof - risk.cpp
-
-
-//Falta ponerlo en Github
