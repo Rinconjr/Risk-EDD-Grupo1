@@ -28,7 +28,8 @@
 //*****************************************************************
 // INICIO - FIRMA FUNCIONES
 //*****************************************************************
-void comando_inicializar();
+void comando_inicializar_nueva_partida();
+void comando_inicializar_existente(const std::string& comando);
 void comando_turno();
 void comando_guardar();
 void comando_guardar_comprimido();
@@ -36,11 +37,13 @@ void comando_costo_conquista();
 void comando_conquista_mas_barata();
 void comando_ayuda();
 void comando_ayuda_comandos(const std::string& comando);
+void limpiar_consola();
 //*****************************************************************
 // FIN - FIRMA FUNCIONES
 //*****************************************************************
 
-
 #endif // RISK_H
+
+//#include "risk.cxx"
 
 //eof - risk.h

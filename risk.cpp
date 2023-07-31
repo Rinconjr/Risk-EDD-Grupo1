@@ -34,7 +34,7 @@ int main()
 
   //Limpia la consola
   if (system("clear") != 0 && system("cls") != 0) {  
-    std::cout<<"$ Error al reiniciar la consola.\n";
+    std::cout<<" Error al reiniciar la consola.\n";
   }
   
   std::cout << "----RISK----\n";
@@ -66,7 +66,12 @@ int main()
       }
     }
     else if(argumentos[0] == "inicializar"){
-      comando_inicializar();
+      if(argumentos.size() == 1){
+        comando_inicializar_nueva_partida();
+      }
+      else{
+        comando_inicializar_existente(argumentos[1]);
+      }
     }
     else if(argumentos[0] == "turno"){
       comando_turno();
@@ -83,12 +88,15 @@ int main()
     else if(argumentos[0] == "conquista_mas_barata"){
       comando_conquista_mas_barata();
     }
+    else if(argumentos[0] == "clear"){
+      limpiar_consola();
+    }
     else if(argumentos[0] == "salir"){
-      std::cout << "$ Fin del Programa\n";
+      std::cout << " Fin del Programa\n";
       exit(0);
     }
     else{
-      std::cout << "$ Error: Comando '" << argumentos[0] << "' no reconocido. Escribe 'ayuda' para ver la lista de comandos disponibles.\n";
+      std::cout << " Error: Comando '" << argumentos[0] << "' no reconocido. Escribe 'ayuda' para ver la lista de comandos disponibles.\n";
     }
   }
 
@@ -97,5 +105,7 @@ int main()
 //*********************************************************************************************************
 //  FIN - PROGRAMA PRINCIPAL
 //*********************************************************************************************************
+
+
 
 // eof - risk.cpp
