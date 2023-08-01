@@ -27,10 +27,12 @@
 //************************************************************************
 void Menu::comando_ayuda_comandos(const std::string& comando){
   if (comando.compare("inicializar") == 0){
+    //Diego
     std::cout << " Comando: inicializar <nombre_archivo>\n";
     std::cout << "   Descripcion: Inicializa un nuevo juego. Ingrese el nombre del archivo para reanudar.\n";
   }
   else if (comando.compare("turno") == 0){
+    //Santiago
     std::cout << " Comando: turno <id_jugador>\n";
     std::cout << "   Descripcion: Primero, informa al jugador la cantidad de unidades puede reclamar,\n";
     std::cout << "   para luego preguntarle en cuales de sus territorios las quiere asignar y en que\n";
@@ -41,16 +43,19 @@ void Menu::comando_ayuda_comandos(const std::string& comando){
     std::cout << "   fortificacion asi como la cantidad de unidades que se trasladaran de uno al otro.\n";
   }
   else if (comando.compare("guardar") == 0){
+    //Nico
     std::cout << " Comando: guardar <nombre_archivo>\n";
     std::cout << "   Descripcion: El estado actual del juego es guardado en un archivo de texto plano,\n";
     std::cout << "   se guarda la cantidad de jugadores, nombre de cada jugador, color de cada jugador,\n";
     std::cout << "   paises que ocupa, etc.\n";
   }
   else if(comando.compare("guardar_comprimido") == 0){
+    //Diego
     std::cout << " Comando: guardar_comprimido <nombre_archivo>\n";
     std::cout << "   Descripcion: La partida actual se guarda en un archivo .bin con la informacion comprimida.\n";
   }
   else if (comando.compare("costo_conquista") == 0){
+    //Santiago
     std::cout << " Comando: costo_conquista <territorio>\n";
     std::cout << "   Descripcion: Se calcula el costo y la secuencia de territorios a ser conquistados\n";
     std::cout << "   para lograr controlar el territorio dado por el usuario. El territorio desde donde\n";
@@ -58,15 +63,18 @@ void Menu::comando_ayuda_comandos(const std::string& comando){
     std::cout << "   jugador.\n";
   }
   else if (comando.compare("conquista_mas_barata") == 0){
+    //Nico
     std::cout << " Comando: conquista_mas_barata'\n";
     std::cout << "   Descripcion: Calcula la conquista mas barata para el jugador de todos los territorios posibles.\n";
     std::cout << "   es decir, aquel territorio que pueda implicar un menor numero de unidades perdidas.\n";
   }
   else if (comando.compare("ayuda") == 0){
+    //?
     std::cout << " Comando: ayuda\n";
     std::cout << "   Descripcion: Muestra la lista de comandos disponibles.\n";
   }
   else if (comando.compare("salir") == 0){
+    //?
     std::cout << " Comando: salir\n";
     std::cout << "   Descripcion: Termina la ejecucion de la aplicacion.\n";
   }
@@ -135,8 +143,11 @@ void Menu::comando_turno() {
   std::cin.ignore();
 }
 
-void Menu::comando_guardar() {
+void Menu::comando_guardar(const std::string& nombreArchivo) {
   std::cout << " Dentro del comando 'guardar'.\n";
+  std::cout << "  Si el comando fue correcto: La partida ha sido guardada correctamente con el nombre de archivo: '" << nombreArchivo << "'.\n";
+  std::cout << "  Si no hay ningun juego inicializado: Esta partida no ha sido inicializada correctamente.\n";
+  std::cout << "  Si hubo algun error al guardar: La partida no ha sido guardada correctamente.\n";
   std::cout << " Presione enter para continuar.";
   std::cin.ignore();
 }
@@ -155,6 +166,14 @@ void Menu::comando_costo_conquista() {
 
 void Menu::comando_conquista_mas_barata() {
   std::cout << " Dentro del comando 'conquista_mas_barata'.\n";
+  std::cout << "  Aqui, de todos los territorios posibles, se calcula aquel que pueda implicar un menor numero de unidades de ejercito perdidas.\n";
+  std::cout << "  Esta informacion se analiza desde el punto de vista del jugador que tiene el turno de juego.\n";
+  std::cout << "  Ejemplo ejecucion correcta:\n";
+  std::cout << "    La conquista mas barata es avanzar sobre el territorio <territorio_1> desde el territorio <territorio_2>.\n";
+  std::cout << "    Para conquistar el territorio <territorio_1>, debe atacar desde <territorio_2>, pasando por los territorios <territorio_3>, <territorio_4>, ..., <territorio_m>.\n"; 
+  std::cout << "    Debe conquistar <n> unidades de ejercito.\n";
+  std::cout << "  Si no hay ningun juego inicializado: Esta partida no ha sido inicializada correctamente.\n";
+  std::cout << "  Si el juego ya termino: Esta partida ya tuvo ganador.\n";
   std::cout << " Presione enter para continuar.";
   std::cin.ignore();
 }
@@ -234,7 +253,7 @@ void Menu::interaccion_usuario(){
     } else if (argumentos[0].compare("turno") == 0) {
       Menu::comando_turno();
     } else if (argumentos[0].compare("guardar") == 0) {
-      Menu::comando_guardar();
+      Menu::comando_guardar(argumentos[1]);
     } else if (argumentos[0].compare("guardar_comprimido") == 0) {
       Menu::comando_guardar_comprimido();
     } else if (argumentos[0].compare("costo_conquista") == 0) {
