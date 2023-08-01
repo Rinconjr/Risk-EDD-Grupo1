@@ -10,10 +10,8 @@
 //  Fecha de finalización: ---
 //*****************************************************************
 
-
 #ifndef __MENU__H__
 #define __MENU__H__
-
 
 //*****************************************************************
 // INICIO - LIBRERIAS INCLUIDAS
@@ -26,20 +24,27 @@
 
 
 //*****************************************************************
-// INICIO - FIRMA FUNCIONES
+// INICIO - CLASE MENU
 //*****************************************************************
-void comando_inicializar_nueva_partida();
-void comando_inicializar_existente(const std::string& comando);
-void comando_turno();
-void comando_guardar();
-void comando_guardar_comprimido();
-void comando_costo_conquista();
-void comando_conquista_mas_barata();
-void comando_ayuda();
-void comando_ayuda_comandos(const std::string& comando);
-void limpiar_consola();
+
+class Menu{
+  public:
+    static void comando_inicializar_nueva_partida();
+    static void comando_inicializar_existente(const std::string& comando);
+    static void comando_turno();
+    static void comando_guardar();
+    static void comando_guardar_comprimido();
+    static void comando_costo_conquista();
+    static void comando_conquista_mas_barata();
+    static void comando_ayuda();
+    static void comando_ayuda_comandos(const std::string& comando);
+    static void limpiar_consola();
+    static void interaccion_usuario();
+
+};
+
 //*****************************************************************
-// FIN - FIRMA FUNCIONES
+// FIN - CLASE MENU
 //*****************************************************************
 
 #include "Menu.hxx"
