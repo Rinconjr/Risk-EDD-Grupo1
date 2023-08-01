@@ -50,5 +50,3 @@ class Menu{
 #include "Menu.hxx"
 
 #endif // __MENU__H__
-
-//eof - menu.h

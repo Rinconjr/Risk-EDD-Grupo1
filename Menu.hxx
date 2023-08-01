@@ -156,6 +156,8 @@ void Menu::interaccion_usuario(){
   std::cout << "(((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((\n";
   std::cout << "---------------------------------------------------------------------------\n";
 
+  std:: cout << " Porfavor ingrese un comando: \n";
+
   while (1) {
     std::cout << "$ ";
     std::getline(std::cin, input);
