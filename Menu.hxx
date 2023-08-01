@@ -84,6 +84,48 @@ void Menu::comando_ayuda_comandos(const std::string& comando){
 }
 
 void Menu::comando_inicializar_nueva_partida() {
+  std::string input, palabra, comando;
+  char delimitador = ' ';
+  bool continuar = false;
+  std::cout << " Ingrese la cantidad de jugadores para la partida (minimo 2, maximo 6): \n";
+
+  do {
+    std::cout << "$ ";
+    std::getline(std::cin, input);
+    std::stringstream stream(input);
+    std::vector<std::string> argumentos;
+
+    // while para ir guardando los argumentos en el vector
+    while (getline(stream, palabra, delimitador)) {
+      argumentos.push_back(palabra);    
+    }
+    // Si no ingreso nada, simplemente continua.
+    if (argumentos.empty()) {
+      continue;
+    }
+    //Regresa al menu principal
+    else if (argumentos[0].compare("salir") == 0) {
+      return;
+    }
+
+    else {
+      try {
+        int cantidad_jugadores = std::stoi(argumentos[0]);
+        
+        if (cantidad_jugadores >= 2 && cantidad_jugadores <= 6) {
+          continuar = true;
+        } 
+        else {
+          std::cout << "Error. Debe ingresar entre 2 a 6 jugadores. \n";
+        }
+      } 
+      catch (const std::invalid_argument&) {
+        std::cout << "Error. Debe ingresar el numero de jugadores para la partida. \n";
+      }
+    }
+  }
+  while(!continuar);
+
   std::cout << " Dentro del comando 'inicializar' para nueva partida.\n";
   std::cout << " Presione enter para continuar.";
   std::cin.ignore();
