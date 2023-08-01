@@ -1,8 +1,8 @@
 //*****************************************************************
 // Autores: Juan Diego Echeverry, Santiago Yañez y Nicolás Rincón
 // Proyecto juego risk - Estructuras de datos
-// Compilación: "g++ -std=c++11 risk_functions.cxx risk.cpp -o ejecutable"
-// Ejecución: "./ejecutable"
+// Compilación: "g++ -std=c++11 main.cpp -o risk"
+// Ejecución: "./risk"
 // 
 //
 //  Archivo creado por Juan Diego Echeverry, Santiago Yañez y Nicolás Rincón
@@ -18,7 +18,7 @@
 #include <string>
 #include <sstream>
 #include <vector>
-#include "risk.h"
+#include "Menu.h"
 //*****************************************************************
 // FIN - LIBRERIAS INCLUIDAS
 //*****************************************************************
