@@ -1,7 +1,7 @@
 
 # ⚔️🗺 ️ Risk 🗺⚔️
 
-![Logo](https://www.decalsextremeonline.com/cdn-cgi/image/quality%3D100/assets/images/tufftweetybird.jpg)
+![Logo](https://i.ibb.co/cwdJYLQ/deporz7-11d17976-7f29-4185-9285-58b58899a15e.png)
 
 ## 📋 Descripcion del proyecto
 
