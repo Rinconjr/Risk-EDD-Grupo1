@@ -9,7 +9,7 @@ RISK es originalmente un juego de mesa de estrategia por turnos creado por Hasbr
 El juego consta de 42 territorios geográficos a lo largo de todo el mapa, cada uno con un color distinto de acuerdo al continente al que pertenecen, pueden jugar de 2 a 6 personas.
 
 ---
-## Como se juega
+## 🎮 Como se juega
 El juego comienza con la ocupación de los territorios en donde se distribuyen las tropas de cada jugador en los territorios que se le asignan dadas las cartas que le toquen, el jugador está en la libertad de distribuir sus tropas en los territorios que domina cuando recibe nuevas tropas. 
 
 ### Bonificacion
@@ -36,7 +36,11 @@ Los resultados de las batallas se deciden al azar, el atacante puede atacar hast
 Cuando se logran derrotar todas las tropas de un territorio, el jugador debe moverse al nuevo territorio y reclamarlo.
 
 ### Fortificación
-Antes de finalizar el turno, el jugador puede mover tropas de territorios siempre y cuando sea por territorios vecinos que el posea y no se debe ningun territorio sin tropas.
+Antes de finalizar el turno, el jugador puede mover tropas de territorios siempre y cuando sea por territorios vecinos que el posea.
+
+**Este proceso se repite hasta que un sólo jugador haya tomado control de los 42 territorios del tablero**    
+
+**Si desea mas información sobre las reglas del juego, consulte el manual de risk: ** [Click aqui](https://www.hasbro.com/common/instruct/risk.pdf)
 
 ---
 ## 👀 Características
