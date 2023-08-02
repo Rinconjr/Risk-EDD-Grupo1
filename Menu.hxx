@@ -195,8 +195,13 @@ void Menu::comando_guardar_comprimido(const std::string& nombreArchivo) {
   std::cin.ignore();
 }
 
-void Menu::comando_costo_conquista() {
+void Menu::comando_costo_conquista(const std::string& territorio) {
   std::cout << " Dentro del comando 'costo_conquista'.\n";
+  std::cout << "   Ejemplo ejecucion correcta: Para conquistar el territorio ''" << territorio << "'' debe\n";
+  std::cout << "   atacar desde <territorio_1>, pasando por <territorio_2> ,<territorio_3>. Debe conquistar <n> unidades de ejercito.\n";
+  std::cout << "   Se calcula el costo y secuencia de territorios a ser conquistados para lograr\n";
+  std::cout << "   controlar el territorio dado por el usuario. Aclarar que, el territorio donde se debe\n";
+  std::cout << "   atacar debe ser el aquel que el jugador tenga controlado más cerca al dado por el jugador.\n";
   std::cout << " Presione enter para continuar.";
   std::cin.ignore();
 }
@@ -332,7 +337,18 @@ void Menu::interaccion_usuario(){
         Menu::comando_guardar_comprimido(argumentos[1]);
       }
     } else if (argumentos[0].compare("costo_conquista") == 0) {
-      Menu::comando_costo_conquista();
+        if(argumentos.size() < 2){
+          std::cout << " Error: Debe ingresar el nombre del territorio para calcular la conquista.\n";
+          continue;
+        } 
+        else if (argumentos[1].empty()){
+          std::cout << "Error: El territorio vacio no existe.\n";
+          continue;
+        }
+        else{
+          //La funcion posteriormente guardara el archivo en un .bin
+          Menu::comando_costo_conquista(argumentos[1]);
+      }
     } else if (argumentos[0].compare("conquista_mas_barata") == 0) {
       Menu::comando_conquista_mas_barata();
     } else if (argumentos[0].compare("clear") == 0) {
