@@ -50,7 +50,7 @@ Si desea mas información sobre las reglas del juego, consulte el manual de risk
 
 - **inicializar:** Comando: *inicializar <nombre_archivo>*  
     Descripcion: Se inicializa una nueva partida si no se especifica el nombre del archivo de la partida guardada. De especificarse uno se reanuda la partida.
-- **turno: Comando: *turno <id_jugador>*
+- **turno:** Comando: *turno <id_jugador>*
     Descripcion: Informa al jugador la cantidad de unidades que puede reclamar, para luego asignaralas y en que cantidad. Despues, se encarga de la configuración del ataque desde que territorio y hacia cual, luego informa los valores obtenidos con los dados y la cantidad de unidades que se ganan o se pierden, este proceso se repite hasta que alguno de los territorios se quede sin unidades o hasta que el atacante decida detenerse. Por ultimo, pregunta al jugador los territorios vecinos que desea seleccionar para la fortificación tambien la cantidad de unidades que se traslaradan de uno al otro.
 - **guardar:** Comando: *guardar nombre_archivo*      
     Descripcion: El estado actual del juego es guardado en un archivo de texto plano, se guarda la cantidad de jugadores, nombre de cada jugador, color de cada jugador, paises que ocupa, etc.
