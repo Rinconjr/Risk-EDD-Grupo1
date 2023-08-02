@@ -1,7 +1,7 @@
 
 # ⚔️🗺 ️Risk 🗺⚔️
 
-![Logo](https://i.ibb.co/cwdJYLQ/deporz7-11d17976-7f29-4185-9285-58b58899a15e.png)
+![Logo](Entrega%200/bannerRisk.png)
 
 ## 📋 Descripción del proyecto
 RISK es originalmente un juego de mesa de estrategia por turnos creado por Hasbro®, que consiste en conquistar territorios a través del mundo. El objetivo es cumplir las misiones del jugador, o alcanzar la supremacia mundial atacando y capturando territorios enemigos.
@@ -9,6 +9,13 @@ RISK es originalmente un juego de mesa de estrategia por turnos creado por Hasbr
 El juego consta de 42 territorios geográficos a lo largo de todo el mapa, cada uno con un color distinto de acuerdo al continente al que pertenecen, pueden jugar de 2 a 6 personas.
 
 ---
+## 🦾 Requerimientos
+- Sistema operativo Linux o Windows
+- Version de C++11
+- 2 a 6 jugadores
+
+---
+
 ## 🎮 Como se juega
 El juego comienza con la ocupación de los territorios en donde se distribuyen las tropas de cada jugador en los territorios que se le asignan dadas las cartas que le toquen, el jugador está en la libertad de distribuir sus tropas en los territorios que domina cuando recibe nuevas tropas. 
 
@@ -61,23 +68,26 @@ Antes de finalizar el turno, el jugador puede mover tropas de territorios siempr
     Descripcion: Termina la ejecución del programa. Toda partida que no se halla guardado se perdera.
 
 ---
-## 🦾 Requerimientos
-- Sistema operativo Linux o Windows
-- Version de C++11
-- 2 a 6 jugadores
 
----
 ## 💻  Compilación y Ejecución
-1. Paso 1: Abrir consola o CMD
-2. Paso 2: g++ -std=c++11 main.cpp -o risk
-3. Paso 3: (Windows): risk.exe
-4. Paso 3: (Linux):  ./risk
+1. Compilación
+   
+        g++ -std=c++11 main.cpp -o risk
+   
+2. Ejecución
+- **Linux**:
 
+        ./risk
+      
+- **Windows**:
+
+        risk.exe
+  
 ---
 ## 💼  Integrantes
 
-- Nicolás Rincón Ballesteros
-- Santiago Yañez Barajas
-- Juan Diego Echeverry Plazas
+- [Nicolás Rincón Ballesteros](https://github.com/Rinconjr)
+- [Santiago Yañez Barajas](https://github.com/SantiagoYB)
+- [Juan Diego Echeverry Plazas](https://github.com/JuanDiegoEcheverryP)
 
 ---
