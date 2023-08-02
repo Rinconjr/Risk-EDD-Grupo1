@@ -233,7 +233,8 @@ void Menu::interaccion_usuario(){
   std::cout << "                                          &@(                                                                                                       \n";
   std::cout << "---------------------------------------------------------------------------\n";
 
-  std:: cout << " Porfavor ingrese un comando: \n";
+  std::cout << "  Escribe 'ayuda' para ver la lista de comandos disponibles.\n";
+  std::cout << " Porfavor ingrese un comando: \n";
 
   while (1) {
     std::cout << "$ ";
@@ -269,7 +270,17 @@ void Menu::interaccion_usuario(){
     } else if (argumentos[0].compare("turno") == 0) {
       Menu::comando_turno();
     } else if (argumentos[0].compare("guardar") == 0) {
-      Menu::comando_guardar(argumentos[1]);
+      if(argumentos.size() < 2){
+        std::cout << " Error: Debe ingresar el nombre del archivo para guardar la partida.\n";
+        continue;
+      } else if (argumentos[1].empty()){
+        std::cout << "Error: El nombre del archivo no puede estar vacio.\n";
+        continue;
+      }
+      else{
+        Menu::comando_guardar(argumentos[1]);
+      }
+      
     } else if (argumentos[0].compare("guardar_comprimido") == 0) {
       Menu::comando_guardar_comprimido();
     } else if (argumentos[0].compare("costo_conquista") == 0) {
