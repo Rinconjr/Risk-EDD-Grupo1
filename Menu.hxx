@@ -521,6 +521,7 @@ void Menu::interaccion_usuario(){
           } catch (std::invalid_argument&) {
             std::cout << "Error: El segundo argumento debe ser un número.\n";
           }
+      }
       } else if (argumentos[0].compare("guardar") == 0) {
       if(argumentos.size() < 2){
         std::cout << " Error: Debe ingresar el nombre del archivo para guardar la partida.\n";
