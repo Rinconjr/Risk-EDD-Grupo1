@@ -44,19 +44,19 @@ Antes de finalizar el turno, el jugador puede mover tropas de territorios siempr
 ---
 ## ⚙️ Como funciona
 
-- **inicializar:** Comando: *inicializar <nombre_archivo>*
+- **inicializar:** Comando: *inicializar <nombre_archivo>*  
     Descripcion: Se inicializa una nueva partida si no se especifica el nombre del archivo de la partida guardada. De especificarse uno se reanuda la partida.
 - **turno:**
 - **guardar:** Comando: *guardar nombre_archivo*      
     Descripcion: El estado actual del juego es guardado en un archivo de texto plano, se guarda la cantidad de jugadores, nombre de cada jugador, color de cada jugador, paises que ocupa, etc.
-- **Guardar_comprimido:** Comando: *guardar nombre_archivo*
+- **Guardar_comprimido:** Comando: *guardar nombre_archivo*  
     Descripción: el estado del juego actual es guardado en un archivo binario. Se guarda la cantidad de jugadores, nombre de cada jugador, color de cada jugador, paises que ocupa, etc.
 - **costo_conquista:**
 - **conquista_mas_barata:** Comando: *conquista_mas_barata*  
     Descripcion: Calcula la conquista mas barata para el jugador actual de todos los territorios posibles. Es decir, aquel territorio que pueda implicar un menor numero de unidades perdidas.
-- **clear:** Comando: *clear*
+- **clear:** Comando: *clear*  
     Descripcion: Limpia la consola
-- **salir:** Comando: *salir*
+- **salir:** Comando: *salir*  
     Descripcion: Termina la ejecución del programa. Toda partida que no se halla guardado se perdera.
 
 ---
