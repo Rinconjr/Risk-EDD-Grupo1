@@ -11,14 +11,14 @@
 ---
 ## ⚙️ Como funciona
 
-- **inicializar:** Comando: *guardar nombre_archivo*      
-    Descripcion: El estado actual del juego es guardado en un archivo de texto plano, se guarda la cantidad de jugadores, nombre de cada jugador, color de cada jugador, paises que ocupa, etc.
+- **inicializar:** 
 - **turno:**
-- **guardar:** Comando: *conquista_mas_barata*  
-    Descripcion: Calcula la conquista mas barata para el jugador actual de todos los territorios posibles. Es decir, aquel territorio que pueda implicar un menor numero de unidades perdidas.
+- **guardar:** Comando: *guardar nombre_archivo*      
+    Descripcion: El estado actual del juego es guardado en un archivo de texto plano, se guarda la cantidad de jugadores, nombre de cada jugador, color de cada jugador, paises que ocupa, etc.
 - **Guardar_comprimido:**
 - **costo_conquista:**
-- **conquista_mas_barata:**
+- **conquista_mas_barata:** Comando: *conquista_mas_barata*  
+    Descripcion: Calcula la conquista mas barata para el jugador actual de todos los territorios posibles. Es decir, aquel territorio que pueda implicar un menor numero de unidades perdidas.
 - **clear:**
 - **salir:**
 
