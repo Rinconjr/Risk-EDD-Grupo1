@@ -212,32 +212,36 @@ void Menu::comando_turno(const std::string& comando) {
   std::cin >> canti_territorios;
   
   for (int i = 0; i < canti_territorios; i++) {
+    std::string nombre_territorio;
     do {
-      std::cout << "  En cual territorio desea colocar tropas?\n";
-      std::cin >> nombre_territorio;
-
-      for (int j = 0; j < num_territorios; j++) {
-        if (nombre_territorio == territorios[j]) {
-          territorio_valido = true;
-          do {
-            std::cout << "  Cuantas tropas desea colocar en " << nombre_territorio << "\n";
-            std::cin >> canti_tropas;
-            
-            if (canti_tropas > fichas_reclamar) {
-              std::cout << "  Coloco mas fichas de las que tiene\n";
-            }else {
-              fichas_reclamar= fichas_reclamar - canti_tropas;
-              break;
+        std::cout << " En cual territorio desea colocar tropas?\n";
+        std::cin >> nombre_territorio;
+        for (int j = 0; j < num_territorios; j++) {
+          if (nombre_territorio == territorios[j]) {
+            territorio_valido = true;
+            if(canti_territorios=1){
+              std::cout<< " Se han agregado las 7 tropas a "<<nombre_territorio<<"\n";
+            }else{
+              do {
+                std::cout << " Cuantas tropas desea colocar en " << nombre_territorio << "\n";
+                std::cin >> canti_tropas;
+                if (canti_tropas > fichas_reclamar) {
+                  std::cout << " Coloco mas fichas de las que tiene\n";
+                  } else {
+                    fichas_reclamar -= canti_tropas;
+                    break;
+                    }
+                  } while (true);
+                    break;
             }
-          } while (true);
-          break;
-        }
-      }
-      if (!territorio_valido) {
-        std::cout << "   Ingrese de nuevo el nombre\n";
-      }
-    } while (!territorio_valido);
+          }
+       }
+        if (!territorio_valido) {
+          std::cout << " Ingrese de nuevo el nombre\n";
+        }   
+      } while (!territorio_valido);
   }
+
 
   std::cout << " Ahora, configuracion de ataque\n";
   
