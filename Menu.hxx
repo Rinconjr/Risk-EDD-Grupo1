@@ -104,6 +104,10 @@ void Menu::comando_inicializar_nueva_partida() {
     if (argumentos.empty()) {
       continue;
     }
+    else if(argumentos.size() > 1) {
+      std::cout << "El nombre de la partida no puede estar separada por espacios. \n";
+      continue;
+    }
     //Regresa al menu principal
     else if (argumentos[0].compare("salir") == 0) {
       return;
@@ -130,6 +134,10 @@ void Menu::comando_inicializar_nueva_partida() {
     }
     // Si no ingreso nada, simplemente continua.
     if (argumentos.empty()) {
+      continue;
+    }
+    else if(argumentos.size() > 1) {
+      std::cout << "Ingrese solamente la cantidad de jugadores";
       continue;
     }
     //Regresa al menu principal
@@ -181,7 +189,7 @@ void Menu::comando_guardar(const std::string& nombreArchivo) {
   std::cin.ignore();
 }
 
-void Menu::comando_guardar_comprimido() {
+void Menu::comando_guardar_comprimido(const std::string& nombreArchivo) {
   std::cout << " Dentro del comando 'guardar_comprimido'.\n";
   std::cout << " Presione enter para continuar.";
   std::cin.ignore();
@@ -233,22 +241,22 @@ void Menu::interaccion_usuario(){
   Menu::limpiar_consola();
 
   std::cout << "---------------------------------------------------------------------BIENVENIDO!----------------------------------------------------------------------\n";
-  std::cout << "                       #&        &@ &&&&     ,&&@&@@@@@@@@@@@@@&                                                                                      \n";
+  std::cout << "                                             ,&&@&@@@@@@@@@@@@@&                                                                                      \n";
   std::cout << "                                                &@&@&@@@&@@@&@&&                                                                                      \n";
   std::cout << "                    *@@@@@@@@@@@&@@@@@@@@@@&      &@@@@@@@@&&*                                     %@@@@@@@@@@@@@@@@@@@@@@@&&&&&&&&&&&&%              \n";
   std::cout << "    .&@@@@@@@@@@@@&@@@@@@@@@@@@@&@@@@@    @@@&,   &@@@@@@&&                   @@&@@@@@@@@@@@@@@@&@@@@@@@@@@@@@@@&@@@@@@@@@@@@@@@&@@@@@@@@@@@@@@@&&.   \n";
   std::cout << "     &@@@@@@@@@@@@@@@@@@@@@@@@@@&@@& &&.  /&&&     &&&@&*      /&.         &&@&@@@@@@@@@@@@@@@@@&@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@&@@@@@@@@@@@@&////,   \n";
   std::cout << "      @&&@%////@@@@@@@@@&@@@@@@@&@%     #&@@                               @@@@@&@@@@@@@&@@@@@@@&@@@@@@@&@@@@@@@&@@@@@@@&@@@@@@@@///////&@&%          \n";
-  std::cout << "                 ,&@@@@@@@@@@@@@&@&,.   ........                     ..,   @@#        ,&@@@/............&..........&@@@@@@@@@@@@      %@@             \n";
-  std::cout << "                    &&@@@@@@@@@@&@  &@@@@@@@@@@@@@@@@@,    (@@@@@@@@@@&  @  /@@@&*,%@@@@% & &@@@@@@@@@@/  @@@@@@@@  @@@@@@@@@@@@      (               \n";
-  std::cout << "                     ,@@@@@@@@@@&@@@  @@@@@@@    @@@@@@@,    #@@@@@@@ *@/ &@@@@, @@%  @@% @@% @@@@@@@  @  &@@@. .@@@@@@@@@@@&@@                       \n";
-  std::cout << "                     ,&@&@&@&@&@&@&@  @@@@@@@    #@@@@@@#    #@@@@@@@ /@  @@@@@@@   (  @% &@% @@@@@@@   %@@@  (@&@&@&@&@&@&&#   @                     \n";
-  std::cout << "                       @@@@@@@@@&@@@  @@@@@@@    @@@@@@%     #@@@@@@@ ,   @@@@@@@@@@@#   &@@% @@@@@@@ (@@@@  @@@@@@@@@@@  %/  *@                      \n";
-  std::cout << "                         #@@@@@@&@@@  @@@@@@@@@@@@@/         #@@@@@@@ /@@%  @@@@@@@@@@@@@  @% @@@@@@@@@@@@@@  &@&@@@@@@@    /                         \n";
-  std::cout << "                            @@@@&     @@@@@@@   @@@@@@@      #@@@@@@@ /@    *   %@@@@@@@@@    @@@@@@@ @@@@@@@# *@@@@@@&&                              \n";
-  std::cout << "                              #@&@#   @@@@@@@   &@@@@@@%     #@@@@@@@ /@  @@  @@&*  @@@@@@  % @@@@@@@  @@@@@@@@  &@@@.                                \n";
-  std::cout << "                                   (  @@@@@@@    @@@@@@@     #@@@@@@@ /@  @@@&  .#  @@@@@  .  @@@@@@@   .@@@@@@@@       &                             \n";
-  std::cout << "                                    @@@@@@@@@@@.  .@@@@@@@ (@@@@@@@@@@@ ,  /@@@@@@@@@@/  /& @@@@@@@@@@@/   %@@@@@@@   . .&                            \n";
+  std::cout << "                 ,&@@@@@@@@@@@@@&@&                                                                                @@@@@@@@@@@@@@             \n";
+  std::cout << "                    &&@@@@@@@@@@&@   @@@@@@@@@@@@@@@@@,     @@@@@@@@@@&     @@@@@@@@@@@@   @@@@@@@@@@@   @@@@@@  @@@@@@@@@@@@@@                     \n";
+  std::cout << "                     ,@@@@@@@@@@&@@@  @@@@@@@    @@@@@@@,     @@@@@@@     @@@@@       @@%     @@@@@@@     &@@@  .@@@@@@@@@@@&@@                       \n";
+  std::cout << "                     ,&@&@&@&@&@&@&@  @@@@@@@    #@@@@@@#     @@@@@@@     @@@@@@@      @%     @@@@@@@   @@@@   @&@&@&@&@&@&&#   @                     \n";
+  std::cout << "                       @@@@@@@@@&@@@  @@@@@@@    @@@@@@%      @@@@@@@     @@@@@@@@@@          @@@@@@@  @@@@   @@@@@@@@@@  %/  *@                      \n";
+  std::cout << "                         #@@@@@@&@@@  @@@@@@@@@@@@@/          @@@@@@@       @@@@@@@@@@@@@     @@@@@@@@@@@@@@   @&@@@@@@@    /                         \n";
+  std::cout << "                            @@@@&     @@@@@@@   @@@@@@@       @@@@@@@           %@@@@@@@@@    @@@@@@@ @@@@@@@   &@@@@@@&&                              \n";
+  std::cout << "                              #@&@#   @@@@@@@   &@@@@@@%      @@@@@@@     @@        @@@@@@    @@@@@@@  @@@@@@@@   @@@@.                                \n";
+  std::cout << "                                   (  @@@@@@@    @@@@@@@      @@@@@@@     @@@&      @@@@@     @@@@@@@    @@@@@@@@       &                             \n";
+  std::cout << "                                     @@@@@@@@@@    @@@@@@@  @@@@@@@@@@@     @@@@@@@@@@      @@@@@@@@@@@    @@@@@@@@   . .&                            \n";
   std::cout << "                                        &&@@@@@@@&@                        &&%,    .#&@@@@                    %/.   *&#                               \n";
   std::cout << "                                        @@@@&@@@&@@@&&&&                     @@@&@@@&@@&                        %@  &@*&     @((#                     \n";
   std::cout << "                                        @@@@@@@@@@@@@@@&%                    @@@@@@@@@@(                           ######         %.                  \n";
@@ -311,7 +319,18 @@ void Menu::interaccion_usuario(){
       }
       
     } else if (argumentos[0].compare("guardar_comprimido") == 0) {
-      Menu::comando_guardar_comprimido();
+      if(argumentos.size() < 2){
+        std::cout << " Error: Debe ingresar el nombre del archivo para guardar la partida comprimida.\n";
+        continue;
+      } 
+      else if (argumentos[1].empty()){
+        std::cout << "Error: El nombre del archivo no puede estar vacio.\n";
+        continue;
+      }
+      else{
+        //La funcion posteriormente guardara el archivo en un .bin
+        Menu::comando_guardar_comprimido(argumentos[1]);
+      }
     } else if (argumentos[0].compare("costo_conquista") == 0) {
       Menu::comando_costo_conquista();
     } else if (argumentos[0].compare("conquista_mas_barata") == 0) {
