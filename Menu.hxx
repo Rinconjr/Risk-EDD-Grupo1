@@ -84,11 +84,40 @@ void Menu::comando_ayuda_comandos(const std::string& comando){
 }
 
 void Menu::comando_inicializar_nueva_partida() {
-  std::string input, palabra, comando;
+  std::string input, palabra, comando, nombre_partida;
+  int cantidad_jugadores;
   char delimitador = ' ';
   bool continuar = false;
-  std::cout << " Ingrese la cantidad de jugadores para la partida (minimo 2, maximo 6): \n";
+  std::cout << " Ingrese el nombre para la partida: \n";
 
+  do {
+    std::cout << "$ ";
+    std::getline(std::cin, input);
+    std::stringstream stream(input);
+    std::vector<std::string> argumentos;
+
+    // while para ir guardando los argumentos en el vector
+    while (getline(stream, palabra, delimitador)) {
+      argumentos.push_back(palabra);    
+    }
+    // Si no ingreso nada, simplemente continua.
+    if (argumentos.empty()) {
+      continue;
+    }
+    //Regresa al menu principal
+    else if (argumentos[0].compare("salir") == 0) {
+      return;
+    }
+    else {
+      nombre_partida = argumentos[0];
+      continuar = true;
+    }
+  }
+  while(!continuar);
+
+  continuar = false;
+
+  std::cout << " Ingrese la cantidad de jugadores para la partida (minimo 2, maximo 6): \n";
   do {
     std::cout << "$ ";
     std::getline(std::cin, input);
@@ -110,7 +139,7 @@ void Menu::comando_inicializar_nueva_partida() {
 
     else {
       try {
-        int cantidad_jugadores = std::stoi(argumentos[0]);
+        cantidad_jugadores = std::stoi(argumentos[0]);
         
         if (cantidad_jugadores >= 2 && cantidad_jugadores <= 6) {
           continuar = true;
@@ -126,7 +155,7 @@ void Menu::comando_inicializar_nueva_partida() {
   }
   while(!continuar);
 
-  std::cout << " Dentro del comando 'inicializar' para nueva partida.\n";
+  std::cout << " Inicializar (En construccion).\n";
   std::cout << " Presione enter para continuar.";
   std::cin.ignore();
 }
