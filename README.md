@@ -77,3 +77,5 @@ Antes de finalizar el turno, el jugador puede mover tropas de territorios siempr
 - [😎 Juan Diego Echeverry Plazas](https://github.com/JuanDiegoEcheverryP)
 
 ---
+
+## [🚀 Wiki](https://github.com/Rinconjr/Risk-EDD-Grupo1/wiki)
