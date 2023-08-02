@@ -38,9 +38,9 @@ Cuando se logran derrotar todas las tropas de un territorio, el jugador debe mov
 ### Fortificación
 Antes de finalizar el turno, el jugador puede mover tropas de territorios siempre y cuando sea por territorios vecinos que el posea.
 
-**Este proceso se repite hasta que un sólo jugador haya tomado control de los 42 territorios del tablero**    
+### Este proceso se repite hasta que un sólo jugador haya tomado control de los 42 territorios del tablero**    
 
-**Si desea mas información sobre las reglas del juego, consulte el manual de risk: ** [Click aqui](https://www.hasbro.com/common/instruct/risk.pdf)
+Si desea mas información sobre las reglas del juego, consulte el manual de risk: [Manual Risk](https://www.hasbro.com/common/instruct/risk.pdf)
 
 ---
 ## 👀 Características
