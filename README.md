@@ -3,7 +3,7 @@
 
 ![Logo](https://i.ibb.co/cwdJYLQ/deporz7-11d17976-7f29-4185-9285-58b58899a15e.png)
 
-## 📋 Descripcion del proyecto
+## 📋 Descripción del proyecto
 RISK es originalmente un juego de mesa de estrategia por turnos creado por Hasbro®, que consiste en conquistar territorios a través del mundo. El objetivo es cumplir las misiones del jugador, o alcanzar la supremacia mundial atacando y capturando territorios enemigos.
 
 El juego consta de 42 territorios geográficos a lo largo de todo el mapa, cada uno con un color distinto de acuerdo al continente al que pertenecen, pueden jugar de 2 a 6 personas.
@@ -14,36 +14,31 @@ El juego comienza con la ocupación de los territorios en donde se distribuyen l
 
 ### Bonificacion
 Al inicio de cada turno, el jugador recibe tropas en su ejercto. Las nuevas unidades que recibe se determinan por la cantidad de territorios/continentes/cartas que posea:
-- **Territorios: Cada 3 territorios el jugador recibe una tropa adicional.**
-- **Continentes: Si el jugador ocupa todos los territorios de un continente, recibe una bonificación de acuerdo a la dificultad del continente:**
-    - **America del sur: 2 tropas adicionales**
-    - **Oceania: 2 tropas adicionales**
-    - **Africa: 3 tropas adicionales**
-    - **America del norte: 5 tropas adicionales**
-    - **Europa: 5 tropas adicionales**
-    - **Asia: 7 tropas adicionales**
-- **Cartas:**
+- **Territorios:** Cada 3 territorios el jugador recibe una tropa adicional.
+- **Continentes:** Si el jugador ocupa todos los territorios de un continente, recibe una bonificación de acuerdo a la dificultad del continente:
+    - **America del sur:** 2 tropas adicionales.
+    - **Oceania:** 2 tropas adicionales.
+    - **Africa:** 3 tropas adicionales.
+    - **America del norte:** 5 tropas adicionales.
+    - **Europa:** 5 tropas adicionales.
+    - **Asia:** 7 tropas adicionales.
+- **Cartas:** Cuando el jugador conquista territorios, gana cartas. Dependiendo de la combinación que posea podrá canjear determinados números de tropas.
 
 Las bonificaciones de un mismo turno son acumulativas.
 
 ### Ataques
 El jugador puede atacar cualquier territorio siempre y cuando:
-- Sea un territorio vecino a uno de los territorios que posee el jugador
-- El jugador tenga más de una tropa en su territorio para poder atacar (una tropa siempre debe estar ocupando el territorio y no tiene permitido atacar a otros territorios)
+- Sea un territorio vecino a uno de los territorios que posee el jugador.
+- El jugador tenga más de una tropa en su territorio para poder atacar (una tropa siempre debe estar ocupando el territorio y no tiene permitido atacar a otros territorios).
 
 Los resultados de las batallas se deciden al azar, el atacante puede atacar hasta con un máximo de tres tropas simultaneamente, el defensor tambien puede defenderse con tres tropas a la vez hasta que no tenga como defenderse, o cuando el atacante se rinda.
 
 Cuando se logran derrotar todas las tropas de un territorio, el jugador debe moverse al nuevo territorio y reclamarlo.
 
 ### Fortificación
-Antes de finalizar el turno, el jugador puede mover tropas de territorios siempre y cuando sea por territorios vecinos que el posea.
+Antes de finalizar el turno, el jugador puede mover tropas de territorios siempre y cuando sea por territorios vecinos que el posea. Este proceso se repite hasta que un sólo jugador haya tomado control de los 42 territorios del tablero      
 
-### Este proceso se repite hasta que un sólo jugador haya tomado control de los 42 territorios del tablero      
-
-Si desea mas información sobre las reglas del juego, consulte el manual de risk: [Manual Risk](https://www.hasbro.com/common/instruct/risk.pdf)
-
----
-## 👀 Características
+**Para más información del juego original, consulte el manual de RISK: [Manual Risk](https://www.hasbro.com/common/instruct/risk.pdf)**
 
 ---
 ## ⚙️ Como funciona
@@ -69,6 +64,7 @@ Si desea mas información sobre las reglas del juego, consulte el manual de risk
 ## 🦾 Requerimientos
 - Sistema operativo Linux o Windows
 - Version de C++11
+- 2 a 6 jugadores
 
 ---
 ## 💻  Compilación y Ejecución
