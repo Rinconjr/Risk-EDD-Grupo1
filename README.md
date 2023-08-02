@@ -65,7 +65,7 @@ Antes de finalizar el turno, el jugador puede mover tropas de territorios siempr
 - Version de C++11
 
 ---
-## 💻  Compilación
+## 💻  Compilación y Ejecución
 1. Paso 1: Abrir consola o CMD
 2. Paso 2: g++ -std=c++11 main.cpp -o risk
 3. Paso 3 (Windows): risk.exe
