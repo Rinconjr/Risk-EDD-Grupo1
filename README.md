@@ -1,5 +1,5 @@
 
-# ⚔️🗺 ️ Risk 🗺⚔️
+# ⚔️🗺 ️Risk 🗺⚔️
 
 ![Logo](https://i.ibb.co/cwdJYLQ/deporz7-11d17976-7f29-4185-9285-58b58899a15e.png)
 
@@ -68,8 +68,8 @@ Antes de finalizar el turno, el jugador puede mover tropas de territorios siempr
 ## 💻  Compilación y Ejecución
 1. Paso 1: Abrir consola o CMD
 2. Paso 2: g++ -std=c++11 main.cpp -o risk
-3. Paso 3 (Windows): risk.exe
-4. Paso 3 (Linux):  ./risk
+3. Paso 3: (Windows): risk.exe
+4. Paso 3: (Linux):  ./risk
 
 ---
 ## 💼  Integrantes
