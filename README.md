@@ -17,9 +17,11 @@ El juego consta de 42 territorios geográficos a lo largo de todo el mapa, cada 
 ---
 
 ## 🎮 Como se juega
-El juego comienza con la ocupación de los territorios en donde se distribuyen las tropas de cada jugador en los territorios que se le asignan dadas las cartas que le toquen, el jugador está en la libertad de distribuir sus tropas en los territorios que domina cuando recibe nuevas tropas. 
+Cada turno esta compuesto por tres etapas:
 
 ### Bonificacion
+El juego comienza con la ocupación de los territorios en donde se distribuyen las tropas de cada jugador en los territorios que se le asignan dadas las cartas que le toquen, el jugador está en la libertad de distribuir sus tropas en los territorios que domina cuando recibe nuevas tropas. 
+
 Al inicio de cada turno, el jugador recibe tropas en su ejercto. Las nuevas unidades que recibe se determinan por la cantidad de territorios/continentes/cartas que posea:
 - **Territorios:** Cada 3 territorios el jugador recibe una tropa adicional.
 - **Continentes:** Si el jugador ocupa todos los territorios de un continente, recibe una bonificación de acuerdo a la dificultad del continente:
@@ -29,16 +31,18 @@ Al inicio de cada turno, el jugador recibe tropas en su ejercto. Las nuevas unid
     - **America del norte:** 5 tropas adicionales.
     - **Europa:** 5 tropas adicionales.
     - **Asia:** 7 tropas adicionales.
-- **Cartas:** Cuando el jugador conquista territorios, gana cartas. Dependiendo de la combinación que posea podrá canjear determinados números de tropas.
+- **Cartas:** Cuando el jugador conquista territorios, gana cartas. Dependiendo de la combinación que posea podrá canjear determinados números de tropas. Si un jugador elimina a otro, podrá quedarse con las cartas para canjearlas.
 
-Las bonificaciones de un mismo turno son acumulativas.
+Las bonificaciones son acumulativas dentro del mismo turno hasta que se canjean.
 
 ### Ataques
 El jugador puede atacar cualquier territorio siempre y cuando:
 - Sea un territorio vecino a uno de los territorios que posee el jugador.
 - El jugador tenga más de una tropa en su territorio para poder atacar (una tropa siempre debe estar ocupando el territorio y no tiene permitido atacar a otros territorios).
 
-Los resultados de las batallas se deciden al azar, el atacante puede atacar hasta con un máximo de tres tropas simultaneamente, el defensor tambien puede defenderse con tres tropas a la vez hasta que no tenga como defenderse, o cuando el atacante se rinda.
+Los resultados de las batallas se deciden al azar por los dados de la jugada, los dados de mayor valor se comparan y el que saque mayor valor destruye una tropa del contrincante, en caso de que se saque el mismo valor, el defensor es quien destruye una tropa. El mismo procedimiento se repite con los dados restantes.
+
+El atacante puede atacar hasta con un máximo de tres tropas simultaneamente, el defensor tambien puede defenderse con tres tropas a la vez hasta que no tenga como defenderse, o cuando el atacante se rinda.
 
 Cuando se logran derrotar todas las tropas de un territorio, el jugador debe moverse al nuevo territorio y reclamarlo.
 
@@ -68,8 +72,8 @@ Antes de finalizar el turno, el jugador puede mover tropas de territorios siempr
 ---
 ## 💼  Integrantes
 
-- [Nicolás Rincón Ballesteros](https://github.com/Rinconjr)
-- [Santiago Yañez Barajas](https://github.com/SantiagoYB)
-- [Juan Diego Echeverry Plazas](https://github.com/JuanDiegoEcheverryP)
+- [🐼 Nicolás Rincón Ballesteros](https://github.com/Rinconjr)
+- [⚽ Santiago Yañez Barajas](https://github.com/SantiagoYB)
+- [😎 Juan Diego Echeverry Plazas](https://github.com/JuanDiegoEcheverryP)
 
 ---
