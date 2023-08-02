@@ -698,7 +698,8 @@ void Menu::comando_turno(const std::string& comando) {
   else {
     std::cout << "  El defensor ha perdido todas sus tropas.\n";
   }
-  
+  std::cout << " Por ultimo el atacante procedera a reagrupar tropas. \n";
+  std::cout << " Para esto se deben tener en cuenta los territorios vecinos. \n";
   std::cout << " Presione enter para continuar.";
   std::cin.ignore();
 }
