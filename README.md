@@ -1,7 +1,7 @@
 
 # ⚔️🗺 ️Risk 🗺⚔️
 
-![Logo](Entrega%200/bannerRisk.png)
+![Logo](Documentacion/bannerRisk.png)
 
 ## 📋 Descripción del proyecto
 RISK es originalmente un juego de mesa de estrategia por turnos creado por Hasbro®, que consiste en conquistar territorios a través del mundo. El objetivo es cumplir las misiones del jugador, o alcanzar la supremacia mundial atacando y capturando territorios enemigos.
@@ -52,7 +52,7 @@ Antes de finalizar el turno, el jugador puede mover tropas de territorios siempr
 **Para más información del juego original, consulte el manual de RISK: [Manual Risk](https://www.hasbro.com/common/instruct/risk.pdf)**
 
 ---
-## ⚙️ [Como funciona](Entrega%200/ComoFunciona.md)
+## ⚙️ [Como funciona](Documentacion/ComoFunciona.md)
 ---
 
 ## 💻  Compilación y Ejecución
