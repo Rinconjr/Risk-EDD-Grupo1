@@ -34,7 +34,7 @@ class Menu{
     static void comando_turno();
     static void comando_guardar(const std::string& nombreArchivo);
     static void comando_guardar_comprimido(const std::string& nombreArchivo);
-    static void comando_costo_conquista();
+    static void comando_costo_conquista(const std::string& territorio);
     static void comando_conquista_mas_barata();
     static void comando_ayuda();
     static void comando_ayuda_comandos(const std::string& comando);
