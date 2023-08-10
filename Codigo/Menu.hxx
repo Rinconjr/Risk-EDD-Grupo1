@@ -91,7 +91,7 @@ void Menu::comando_inicializar_nueva_partida() {
   int cantidad_jugadores;
   char delimitador = ' ';
   bool continuar = false;
-  std::cout << "Se creara una partida nueva. \nSi desea cargar una partida existente, regrese al menu principal escribiendo 'salir' y luego escriba 'Inicializar <nombre_archivo>' \n";
+  std::cout << "Se creara una partida nueva. \nSi desea cargar una partida existente, regrese al menu principal escribiendo 'salir' y luego escriba 'inicializar <nombre_archivo>' \n";
 
   do {
     //std::cout << "$ ";
