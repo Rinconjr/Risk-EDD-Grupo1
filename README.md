@@ -56,7 +56,7 @@ Antes de finalizar el turno, el jugador puede mover tropas de territorios siempr
 ---
 
 ## 💻  Compilación y Ejecución
-1. Compilación
+1. Compilación (Desde la carpeta Codigo)
    
         g++ -std=c++11 main.cpp -o risk
    
