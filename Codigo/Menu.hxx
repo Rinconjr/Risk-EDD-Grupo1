@@ -80,7 +80,7 @@ void Menu::comando_ayuda_comandos(const std::string& comando){
   }
 }
 
-//Entramos a la función con la que se incicia el juego
+//Es la función con la que se inicializa el juego
 void Menu::comando_inicializar_nueva_partida() {
   std::string input, palabra, comando, nombre_partida;
   int cantidad_jugadores;
@@ -714,7 +714,7 @@ void Menu::comando_guardar(const std::string& nombreArchivo) {
   std::cin.ignore();
 }
 
-//El usuario haciendo uso del comando ayuda con guardar comprimido se le indacara que hace
+//Mediante la función se brinda ayuda para la opcion de guardar comprimido
 void Menu::comando_guardar_comprimido(const std::string& nombreArchivo) {
   std::cout << " Dentro del comando 'guardar_comprimido'.\n";
   std::cout << " Presione enter para continuar.";
@@ -733,7 +733,7 @@ void Menu::comando_costo_conquista(const std::string& territorio) {
   std::cin.ignore();
 }
 
-//Se le informa al usuario como hacer uso del comando de costo conquista mas barata
+//Con la función se le informa al usuario como hacer uso del comando de costo conquista mas barata
 void Menu::comando_conquista_mas_barata() {
   std::cout << " Dentro del comando 'conquista_mas_barata'.\n";
   std::cout << "  Aqui, de todos los territorios posibles, se calcula aquel que pueda implicar un menor numero de unidades de ejercito perdidas.\n";
@@ -769,14 +769,9 @@ void Menu::limpiar_consola() {
   }
 }
 
-//Es el inicio del programa y se redirreciona dependiendo de la opcion que quiera hacer el usuario
-void Menu::interaccion_usuario(){
-  std::string input, palabra, comando;
-  char delimitador = ' ';
-
-  Menu::limpiar_consola();
-
-  std::cout << "---------------------------------------------------------------------BIENVENIDO!----------------------------------------------------------------------\n";
+//Simplemente es la imagen de inicio del juego
+void Menu::imagen_risk(){
+    std::cout << "---------------------------------------------------------------------BIENVENIDO!----------------------------------------------------------------------\n";
   std::cout << "                                             ,&&@&@@@@@@@@@@@@@&                                                                                      \n";
   std::cout << "                                                &@&@&@@@&@@@&@&&                                                                                      \n";
   std::cout << "                    *@@@@@@@@@@@&@@@@@@@@@@&      &@@@@@@@@&&*                                     %@@@@@@@@@@@@@@@@@@@@@@@&&&&&&&&&&&&%              \n";
@@ -807,6 +802,15 @@ void Menu::interaccion_usuario(){
   std::cout << "                                                                                                                                                      \n";
   std::cout << "                                                              Version 0.1.4                                                                           \n";
   std::cout << "------------------------------------------------------------------------------------------------------------------------------------------------------\n";
+}
+
+//Es el inicio del programa y se redirreciona dependiendo de la opcion que quiera hacer el usuario
+void Menu::interaccion_usuario(){
+  std::string input, palabra, comando;
+  char delimitador = ' ';
+  Menu::limpiar_consola();
+
+  Menu::imagen_risk();
 
   std::cout << "  Escribe 'ayuda' para ver la lista de comandos disponibles.\n";
   std::cout << " Porfavor ingrese un comando: \n";

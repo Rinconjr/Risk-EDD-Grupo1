@@ -40,6 +40,7 @@ class Menu{
     static void comando_ayuda_comandos(const std::string& comando);
     static void limpiar_consola();
     static void interaccion_usuario();
+    static void imagen_risk();
 
 };
 
@@ -47,6 +48,6 @@ class Menu{
 // FIN - CLASE MENU
 //*****************************************************************
 
-#include "Menu.hxx"
+#include "menu.hxx"
 
 #endif // __MENU__H__
