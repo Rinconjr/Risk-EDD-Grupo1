@@ -47,7 +47,7 @@ El atacante puede atacar hasta con un máximo de tres tropas simultaneamente, el
 Cuando se logran derrotar todas las tropas de un territorio, el jugador debe moverse al nuevo territorio y reclamarlo.
 
 ### Fortificación
-Antes de finalizar el turno, el jugador puede mover tropas de territorios siempre y cuando sea por territorios vecinos que el posea. Este proceso se repite hasta que un sólo jugador haya tomado control de los 42 territorios del tablero      
+Antes de finalizar el turno, el jugador puede mover tropas de territorios siempre y cuando sea por territorios vecinos que el posea. Este proceso se repite hasta que un sólo jugador haya tomado control de los 42 territorios del tablero.      
 
 **Para más información del juego original, consulte el manual de RISK: [Manual Risk](https://www.hasbro.com/common/instruct/risk.pdf)**
 
