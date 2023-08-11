@@ -31,6 +31,8 @@ void Menu::comando_ayuda_comandos(const std::string& comando){
     //Diego
     std::cout << " Comando: inicializar <nombre_archivo>\n";
     std::cout << "   Descripcion: Inicializa un nuevo juego. Ingrese el nombre del archivo para reanudar.\n";
+    std::cout << "   Para crear una partida nueva, escriba unicamente 'inicializar'.\n";
+    std::cout << "   Para cargar una partida existente, escriba 'inicializar' seguido del nombre del archivo de la partida.\n";
   }
   else if (comando.compare("turno") == 0){
     //Santiago
@@ -89,10 +91,11 @@ void Menu::comando_inicializar_nueva_partida() {
   int cantidad_jugadores;
   char delimitador = ' ';
   bool continuar = false;
-  std::cout << " Ingrese el nombre para la partida: \n";
+  std::cout << "Se creara una partida nueva. \nSi desea cargar una partida existente, regrese al menu principal escribiendo 'salir' y luego escriba 'inicializar <nombre_archivo>' \n";
 
   do {
-    std::cout << "$ ";
+    //std::cout << "$ ";
+    std::cout << "Ingrese el nombre para la partida: ";
     std::getline(std::cin, input);
     std::stringstream stream(input);
     std::vector<std::string> argumentos;
@@ -122,9 +125,9 @@ void Menu::comando_inicializar_nueva_partida() {
 
   continuar = false;
 
-  std::cout << " Ingrese la cantidad de jugadores para la partida (minimo 2, maximo 6): \n";
   do {
-    std::cout << "$ ";
+    //std::cout << "$ ";
+    std::cout << "Cuantos jugadores tendra la partida "<< nombre_partida <<" (Min 2, Max 6): ";
     std::getline(std::cin, input);
     std::stringstream stream(input);
     std::vector<std::string> argumentos;
@@ -138,7 +141,7 @@ void Menu::comando_inicializar_nueva_partida() {
       continue;
     }
     else if(argumentos.size() > 1) {
-      std::cout << "Ingrese solamente la cantidad de jugadores";
+      std::cout << "Ingrese solamente la cantidad de jugadores\n";
       continue;
     }
     //Regresa al menu principal
@@ -164,13 +167,13 @@ void Menu::comando_inicializar_nueva_partida() {
   }
   while(!continuar);
 
-  std::cout << " Inicializar (En construccion).\n";
+  std::cout << " Inicializar partida nueva (En construccion).\n";
   std::cout << " Presione enter para continuar.";
   std::cin.ignore();
 }
 
 void Menu::comando_inicializar_existente(const std::string& comando) {
-  std::cout << " Dentro del comando 'inicializar' para partida existente.\n";
+  std::cout << " Inicializar partida existente (En construccion).\n";
   std::cout << " Presione enter para continuar.";
   std::cin.ignore();
 }
