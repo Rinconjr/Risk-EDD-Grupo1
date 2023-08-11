@@ -803,7 +803,9 @@ void Menu::interaccion_usuario(){
   std::cout << "                                          @&@@&&&                                                                              *&&&.         @        \n";
   std::cout << "                                          &&@@.                                                                                   &         &&        \n";
   std::cout << "                                          &@(                                                                                                         \n";
-  std::cout << "                                          &@(                                                                                                       \n";
+  std::cout << "                                          &@(                                                                                                         \n";
+  std::cout << "                                                                                                                                                      \n";
+  std::cout << "                                                              Version 0.1.4                                                                           \n";
   std::cout << "------------------------------------------------------------------------------------------------------------------------------------------------------\n";
 
   std::cout << "  Escribe 'ayuda' para ver la lista de comandos disponibles.\n";
