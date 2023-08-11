@@ -26,16 +26,16 @@
 //************************************************************************
 // INICIO - FUNCIONES
 //************************************************************************
+
+//La función se emplea en situaciones en las cuales el usuario requiere asistencia en relación al funcionamiento de alguno de los comandos. Se procederá a verificar cuál es el comando específico con respecto al cual necesita ayuda, y se le proporcionará la asistencia correspondiente.
 void Menu::comando_ayuda_comandos(const std::string& comando){
   if (comando.compare("inicializar") == 0){
-    //Diego
     std::cout << " Comando: inicializar <nombre_archivo>\n";
     std::cout << "   Descripcion: Inicializa un nuevo juego. Ingrese el nombre del archivo para reanudar.\n";
     std::cout << "   Para crear una partida nueva, escriba unicamente 'inicializar'.\n";
     std::cout << "   Para cargar una partida existente, escriba 'inicializar' seguido del nombre del archivo de la partida.\n";
   }
   else if (comando.compare("turno") == 0){
-    //Santiago
     std::cout << " Comando: turno <id_jugador>\n";
     std::cout << "   Descripcion: Primero, informa al jugador la cantidad de unidades puede reclamar,\n";
     std::cout << "   para luego preguntarle en cuales de sus territorios las quiere asignar y en que\n";
@@ -46,19 +46,16 @@ void Menu::comando_ayuda_comandos(const std::string& comando){
     std::cout << "   fortificacion asi como la cantidad de unidades que se trasladaran de uno al otro.\n";
   }
   else if (comando.compare("guardar") == 0){
-    //Nico
     std::cout << " Comando: guardar <nombre_archivo>\n";
     std::cout << "   Descripcion: El estado actual del juego es guardado en un archivo de texto plano,\n";
     std::cout << "   se guarda la cantidad de jugadores, nombre de cada jugador, color de cada jugador,\n";
     std::cout << "   paises que ocupa, etc.\n";
   }
   else if(comando.compare("guardar_comprimido") == 0){
-    //Diego
     std::cout << " Comando: guardar_comprimido <nombre_archivo>\n";
     std::cout << "   Descripcion: La partida actual se guarda en un archivo .bin con la informacion comprimida.\n";
   }
   else if (comando.compare("costo_conquista") == 0){
-    //Santiago
     std::cout << " Comando: costo_conquista <territorio>\n";
     std::cout << "   Descripcion: Se calcula el costo y la secuencia de territorios a ser conquistados\n";
     std::cout << "   para lograr controlar el territorio dado por el usuario. El territorio desde donde\n";
@@ -66,18 +63,15 @@ void Menu::comando_ayuda_comandos(const std::string& comando){
     std::cout << "   jugador.\n";
   }
   else if (comando.compare("conquista_mas_barata") == 0){
-    //Nico
     std::cout << " Comando: conquista_mas_barata'\n";
     std::cout << "   Descripcion: Calcula la conquista mas barata para el jugador de todos los territorios posibles.\n";
     std::cout << "   es decir, aquel territorio que pueda implicar un menor numero de unidades perdidas.\n";
   }
   else if (comando.compare("ayuda") == 0){
-    //?
     std::cout << " Comando: ayuda\n";
     std::cout << "   Descripcion: Muestra la lista de comandos disponibles.\n";
   }
   else if (comando.compare("salir") == 0){
-    //?
     std::cout << " Comando: salir\n";
     std::cout << "   Descripcion: Termina la ejecucion de la aplicacion.\n";
   }
@@ -86,6 +80,7 @@ void Menu::comando_ayuda_comandos(const std::string& comando){
   }
 }
 
+//Entramos a la función con la que se incicia el juego
 void Menu::comando_inicializar_nueva_partida() {
   std::string input, palabra, comando, nombre_partida;
   int cantidad_jugadores;
@@ -172,12 +167,14 @@ void Menu::comando_inicializar_nueva_partida() {
   std::cin.ignore();
 }
 
+//Mediante esta función se vuelve cargar un juego que ya exista previamente
 void Menu::comando_inicializar_existente(const std::string& comando) {
   std::cout << " Inicializar partida existente (En construccion).\n";
   std::cout << " Presione enter para continuar.";
   std::cin.ignore();
 }
 
+//La siguiente función tiene como fin realizar el turno de cada jugador con su ataque, defensa y reorganización pertinente
 void Menu::comando_turno(const std::string& comando) {
   std::string input, palabra;
   int cantidad_jugadores;
@@ -707,6 +704,7 @@ void Menu::comando_turno(const std::string& comando) {
   std::cin.ignore();
 }
 
+//Con esta función se notifica al usuario que hace la opcion de guardar
 void Menu::comando_guardar(const std::string& nombreArchivo) {
   std::cout << " Dentro del comando 'guardar'.\n";
   std::cout << "  Si el comando fue correcto: La partida ha sido guardada correctamente con el nombre de archivo: '" << nombreArchivo << "'.\n";
@@ -716,12 +714,14 @@ void Menu::comando_guardar(const std::string& nombreArchivo) {
   std::cin.ignore();
 }
 
+//El usuario haciendo uso del comando ayuda con guardar comprimido se le indacara que hace
 void Menu::comando_guardar_comprimido(const std::string& nombreArchivo) {
   std::cout << " Dentro del comando 'guardar_comprimido'.\n";
   std::cout << " Presione enter para continuar.";
   std::cin.ignore();
 }
 
+//Se le informa al usuario como hacer uso del comando de costo conquista
 void Menu::comando_costo_conquista(const std::string& territorio) {
   std::cout << " Dentro del comando 'costo_conquista'.\n";
   std::cout << "   Ejemplo ejecucion correcta: Para conquistar el territorio ''" << territorio << "'' debe\n";
@@ -733,6 +733,7 @@ void Menu::comando_costo_conquista(const std::string& territorio) {
   std::cin.ignore();
 }
 
+//Se le informa al usuario como hacer uso del comando de costo conquista mas barata
 void Menu::comando_conquista_mas_barata() {
   std::cout << " Dentro del comando 'conquista_mas_barata'.\n";
   std::cout << "  Aqui, de todos los territorios posibles, se calcula aquel que pueda implicar un menor numero de unidades de ejercito perdidas.\n";
@@ -747,6 +748,7 @@ void Menu::comando_conquista_mas_barata() {
   std::cin.ignore();
 }
 
+//Función para en caso de ser necesaria brindar ayuda al usuario 
 void Menu::comando_ayuda() {
   std::cout << " Los siguientes son los comandos disponibles: \n";
   std::cout << "   inicializar\n";
@@ -759,6 +761,7 @@ void Menu::comando_ayuda() {
   std::cout << " Para mas informacion de un comando, escriba 'ayuda' seguido del comando.\n";
 }
 
+//Se usa para cuando hay muchas cosas en consola, por lo tanto limpia la consola
 void Menu::limpiar_consola() {
   //Limpia la consola
   if (system("clear") != 0 && system("cls") != 0) {  
@@ -766,6 +769,7 @@ void Menu::limpiar_consola() {
   }
 }
 
+//Es el inicio del programa y se redirreciona dependiendo de la opcion que quiera hacer el usuario
 void Menu::interaccion_usuario(){
   std::string input, palabra, comando;
   char delimitador = ' ';
