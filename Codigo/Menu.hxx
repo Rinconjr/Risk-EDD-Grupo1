@@ -245,7 +245,7 @@ void Menu::comando_turno(const std::string& comando) {
         continuar = true;
       } 
       catch (const std::invalid_argument&) {
-        std::cout << "Error. Debe ingresar la cantidad de territorios. \n";
+        std::cout << "Error. Por favor ingrese la cantidad de territorios. \n";
       }
     }
   }
@@ -256,9 +256,9 @@ void Menu::comando_turno(const std::string& comando) {
   for (int i = 0; i < canti_territorios; i++) {
     std::string nombre_territorio;
     std::cout << " En cual territorio desea colocar tropas?\n";
-    do {        
+    do {  
+      std::cout << "# ";      
       do {
-        std::cout << "# ";
         std::getline(std::cin, input);
         std::stringstream stream(input);
         std::vector<std::string> argumentos;
@@ -271,7 +271,7 @@ void Menu::comando_turno(const std::string& comando) {
         if (argumentos.empty()) {
           continue;
         }else if(argumentos.size() > 1) {
-          std::cout << "Ingrese solamente el territorio para colocar tropas";
+          std::cout << "Ingrese solamente el nombre del territorio en donde desea colocar tropas\n";
           continue;
         }
         //Regresa al menu principal
@@ -288,11 +288,12 @@ void Menu::comando_turno(const std::string& comando) {
       for (int j = 0; j < num_territorios; j++) {
         if (nombre_territorio == territorios[j]) {
           territorio_valido = true;
-          if(canti_territorios=1){
+          if(canti_territorios==1){
             std::cout<< " Se han agregado las 7 tropas a "<<nombre_territorio<<"\n";
           }else{
              do {
               std::cout << " Cuantas tropas desea colocar en " << nombre_territorio << "\n";
+              std::cout << "# ";
               std::cin >> canti_tropas;
               if (canti_tropas > fichas_reclamar) {
                 std::cout << " Coloco mas fichas de las que tiene\n";
@@ -314,16 +315,15 @@ void Menu::comando_turno(const std::string& comando) {
           }   
     }while (!territorio_valido);
   }
-  std::cout << " --------\n";
-  std::cout << " Ahora, configuracion de ataque!!!! ¿Desde cual territorio desea atacar?\n";
+  std::cout << " --------CONFIGURACION DE ATAQUE--------\n";
+  std::cout << " Desde cual territorio desea atacar?\n";
   std::cout << " Recuerde que tiene los siguientes territorios: \n";
   for(int i=0;i<num_territorios;i++){
     std::cout<<"   -"<<territorios[i]<<"\n";
   }
     do {
-
+      std::cout << "# ";
       do {
-        std::cout << "# ";
         std::getline(std::cin, input);
         std::stringstream stream(input);
         std::vector<std::string> argumentos;
@@ -509,7 +509,7 @@ void Menu::comando_turno(const std::string& comando) {
     std::cout << "   1. Lanzar dados\n";
     std::cout << "   2. Retirarse\n";
     
-    std::cout << "  Elija una opcion: ";
+    std::cout << "  Elija una opcion: \n";
 
     do {
       std::cout << "# ";
@@ -553,7 +553,7 @@ void Menu::comando_turno(const std::string& comando) {
   
       // Atacante elige la cantidad de dados a lanzar
       do {
-        std::cout << "  Cuantos dados desea lanzar el atacante (1, 2 o 3)?: ";
+        std::cout << "  Cuantos dados desea lanzar el atacante (1, 2 o 3)?: \n";
         //std::cin >> num_dados_atacante;
 
         do {
@@ -597,7 +597,7 @@ void Menu::comando_turno(const std::string& comando) {
   
       // Defensor elige la cantidad de dados a lanzar
       do {
-        std::cout << "  Cuantos dados desea lanzar el defensor (1 o 2)?: ";
+        std::cout << "  Cuantos dados desea lanzar el defensor (1 o 2)?: \n";
 
         do {
           std::cout << "# ";
