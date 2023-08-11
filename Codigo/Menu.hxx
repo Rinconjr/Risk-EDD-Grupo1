@@ -37,13 +37,13 @@ void Menu::comando_ayuda_comandos(const std::string& comando){
   }
   else if (comando.compare("turno") == 0){
     std::cout << " Comando: turno <id_jugador>\n";
-    std::cout << "   Descripcion: Primero, informa al jugador la cantidad de unidades puede reclamar,\n";
-    std::cout << "   para luego preguntarle en cuales de sus territorios las quiere asignar y en que\n";
-    std::cout << "   cantidad. Segundo, pregunta la configuración del ataque donde se elige desde cual\n"; 
-    std::cout << "   territorio a cual territorio se dirigen a atacar. Tercero, deberia informar acerca\n"; 
-    std::cout << "   de los valores de los dados y la cantidad de tropas que se gano o perdio. Por \n"; 
-    std::cout << "   ultimo, pregunta al jugadorlos territorios que desea seleccionar para la ,\n"; 
-    std::cout << "   fortificacion asi como la cantidad de unidades que se trasladaran de uno al otro.\n";
+    std::cout << "   Descripcion: Informa al jugador la cantidad de unidades que puede reclamar para\n";
+    std::cout << "   para saber en cuales de sus territorios las quiere asignar y en que cantidad.\n";
+    std::cout << "   Segundo, pregunta la configuración del ataque, se elige desde y hacia cual territorio\n"; 
+    std::cout << "   se quiere a atacar. Tercero, entra en juego los valores de los dados y la cantidad\n"; 
+    std::cout << "   de tropas que se gano o perdio. Por ultimo, pregunta al jugador los territorios que\n"; 
+    std::cout << "   desea seleccionar para la fortificacion asi como la cantidad de unidades que se\n"; 
+    std::cout << "   se trasladaran de uno al otro.\n";
   }
   else if (comando.compare("guardar") == 0){
     std::cout << " Comando: guardar <nombre_archivo>\n";
@@ -704,7 +704,7 @@ void Menu::comando_turno(const std::string& comando) {
   std::cin.ignore();
 }
 
-//Con esta función se notifica al usuario que hace la opcion de guardar
+//Con esta función se guarda la partida
 void Menu::comando_guardar(const std::string& nombreArchivo) {
   std::cout << " Dentro del comando 'guardar'.\n";
   std::cout << "  Si el comando fue correcto: La partida ha sido guardada correctamente con el nombre de archivo: '" << nombreArchivo << "'.\n";
@@ -714,14 +714,14 @@ void Menu::comando_guardar(const std::string& nombreArchivo) {
   std::cin.ignore();
 }
 
-//Mediante la función se brinda ayuda para la opcion de guardar comprimido
+//Mediante la función se guarda un comprimido de lo que se lleve del juego
 void Menu::comando_guardar_comprimido(const std::string& nombreArchivo) {
   std::cout << " Dentro del comando 'guardar_comprimido'.\n";
   std::cout << " Presione enter para continuar.";
   std::cin.ignore();
 }
 
-//Se le informa al usuario como hacer uso del comando de costo conquista
+//La función realiza la opcion del comando de costo conquista
 void Menu::comando_costo_conquista(const std::string& territorio) {
   std::cout << " Dentro del comando 'costo_conquista'.\n";
   std::cout << "   Ejemplo ejecucion correcta: Para conquistar el territorio ''" << territorio << "'' debe\n";
@@ -733,7 +733,7 @@ void Menu::comando_costo_conquista(const std::string& territorio) {
   std::cin.ignore();
 }
 
-//Con la función se le informa al usuario como hacer uso del comando de costo conquista mas barata
+//Con la función se ingresa a la opcion de conquista mas barata
 void Menu::comando_conquista_mas_barata() {
   std::cout << " Dentro del comando 'conquista_mas_barata'.\n";
   std::cout << "  Aqui, de todos los territorios posibles, se calcula aquel que pueda implicar un menor numero de unidades de ejercito perdidas.\n";
