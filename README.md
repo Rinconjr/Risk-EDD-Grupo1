@@ -56,16 +56,20 @@ Antes de finalizar el turno, el jugador puede mover tropas de territorios siempr
 ---
 
 ## 💻  Compilación y Ejecución
-1. Compilación (Desde la carpeta **Codigo**)
+### 1. Compilación (Desde la carpeta **Codigo**)
+   
+<br>![C++](https://img.shields.io/badge/c++-%2300599C.svg?style=for-the-badge&logo=c%2B%2B&logoColor=white)
    
         g++ -std=c++11 main.cpp -o risk
-   
-2. Ejecución
-- **Linux**:
+
+
+### 2. Ejecución
+
+ <br>![Linux](https://img.shields.io/badge/Linux-FCC624?style=for-the-badge&logo=linux&logoColor=black)
 
         ./risk
-      
-- **Windows**:
+
+ <br>![Windows](https://img.shields.io/badge/Windows-0078D6?style=for-the-badge&logo=windows&logoColor=white)
 
         risk.exe
   
