@@ -14,7 +14,7 @@
 //************************************************************************
 // INICIO - LIBRERIAS
 //************************************************************************
-#include "Menu.h"
+#include "menu.h"
 #include <iostream>
 #include <sstream>
 #include <cstdlib>
@@ -849,7 +849,7 @@ void Menu::interaccion_usuario(){
       }
     } else if (argumentos[0].compare("turno") == 0) {
       if (argumentos.size() < 2) {
-        std::cout << "Error: Debe ingresar el número de turno.\n";
+        std::cout << "Error: Debe ingresar el numero de turno.\n";
       } else {
         try {
           int numero_turno = std::stoi(argumentos[1]);
@@ -912,4 +912,4 @@ void Menu::interaccion_usuario(){
 // FIN - FUNCIONES
 //************************************************************************
 
-// eof - Menu.hxx
+// eof - menu.hxx
