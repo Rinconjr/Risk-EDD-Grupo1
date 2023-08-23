@@ -36,15 +36,14 @@ class Dado{
         //============================
         //Constructor
         //============================
-        Dado();
-        Dado(const std::string& color, int valor);
+        Dado(std::string color, int valor);
 
         //============================
         //Getters y Setters
         //============================
-        std::string ObtenerColor() const;
-        int ObtenerValor() const;
-        void FijarColor(const std::string& ncolor);
+        std::string ObtenerColor() ;
+        int ObtenerValor() ;
+        void FijarColor(std::string ncolor);
         void FijarValor(int nvalor);
 };
 

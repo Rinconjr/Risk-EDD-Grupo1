@@ -27,21 +27,21 @@
 
 Dado::Dado() : color("negro"), valor(0) {}
 
-Dado::Dado(const std::string& color, int valor) : color(color), valor(valor) {}
+Dado::Dado(std::string color, int valor) : color(color), valor(valor) {}
 
-std::string Dado::ObtenerColor() const {
+std::string Dado::ObtenerColor(){
     return color;
 }
 
-int Dado::ObtenerValor() const {
+int Dado::ObtenerValor(){
     return valor;
 }
 
-void Dado::FijarColor(const std::string& ncolor){
+void Dado::FijarColor(std::string ncolor){
     color = ncolor;
 }
 
-void Dado::FijarValor(const int nvalor){
+void Dado::FijarValor(int nvalor){
     valor = nvalor;
 }
 
