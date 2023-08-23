@@ -23,30 +23,40 @@
 // INICIO - FUNCIONES
 //************************************************************************
 
-Carta::Carta() : tipo(""), pais(""), tropa("") {}
+Carta::Carta(){
+    this->tipo="";
+    this->pais="";
+    this->tropa="";
+}
+
+Carta::Carta(std::string tipo,std::string pais, std::string tropa):tipo(tipo),pais(pais),tropa(tropa){
+    this->tipo=tipo;
+    this->pais=pais;
+    this->tropa=tropa;
+}
 
 std::string Carta::ObtenerTipo() const {
-    return tipo;
+    return this-> tipo;
 }
 
 std::string Carta::ObtenerPais() const {
-    return pais;
+    return this->pais;
 }
 
 std::string Carta::ObtenerTropa() const {
-    return tropa;
+    return this->tropa;
 }
 
 void Carta::FijarTipo(const std::string ncarta) {
-    tipo = ncarta;
+    this->tipo = ncarta;
 }
 
 void Carta::FijarPais(const std::string ntarjeta) {
-    pais = ntarjeta;
+    this->pais = ntarjeta;
 }
 
 void Carta::FijarTropa(const std::string ntropa) {
-    tropa = ntropa;
+    this->tropa = ntropa;
 }
 
 //************************************************************************
