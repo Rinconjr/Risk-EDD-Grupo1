@@ -25,24 +25,30 @@
 // INICIO - FUNCIONES
 //************************************************************************
 
-Dado::Dado() : color("negro"), valor(0) {}
+Dado::Dado(){
+    this->color="";
+    this->valor=0;
+}
 
-Dado::Dado(std::string color, int valor) : color(color), valor(valor) {}
+Dado::Dado(std::string color, int valor) : color(color), valor(valor) {
+    this->color=color;
+    this->valor=valor;
+}
 
 std::string Dado::ObtenerColor(){
-    return color;
+    return this->color;
 }
 
 int Dado::ObtenerValor(){
-    return valor;
+    return this->valor;
 }
 
 void Dado::FijarColor(std::string ncolor){
-    color = ncolor;
+    this->color = ncolor;
 }
 
 void Dado::FijarValor(int nvalor){
-    valor = nvalor;
+    this->valor = nvalor;
 }
 
 //************************************************************************
