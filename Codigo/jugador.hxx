@@ -26,46 +26,47 @@
 //************************************************************************
 // INICIO - FUNCIONES
 //************************************************************************
+Jugador::Jugador(){}
 
-    jugador::jugador(const std::string& id, bool estado, const std::string& color, const std::vector<pais>& paises, const std::vector<carta>& cartas): 
-      id_jugador(id), 
-      estadoJugador(estado), 
-      color(color), 
-      paises(paises), 
-      cartas(cartas) 
-    {}
-    
-    std::string  jugador::ObtenerIdJugador() const {
-        return id_jugador;
-    }
-    bool ObtenerEstadoJugador() const {
-        return estadoJugador;
-    }
-    std::string jugador::ObtenerColor() const {
-        return color;
-    }
-    td::vector<pais> jugador::ObtenerPaises() const {
-        return paises;
-    }
-    std::vector<carta> jugador::ObtenerCartas() const {
-        return cartas;
-    }
+std::string Jugador::ObtenerId() const {
+    return id;
+}
 
-    void jugador::FijarIdJugador(const std::string& id) {
-        id_jugador = id;
-    }
-    void jugador::FijarEstadoJugador(bool estado) {
-        estadoJugador = estado;
-    }
-    void jugador::FijarColor(const std::string& col) {
-        color = col;
-    }
-    void jugador::FijarPaises(const std::vector<pais>& p) {
-        paises = p;
-    }
-    void jugador::FijarCartas(const std::vector<carta>& c) {
-        cartas = c;
-    }
+bool Jugador::ObtenerEstado() const {
+    return estado;
+}
+
+std::string Jugador::ObtenerColor() const {
+    return color;
+}
+
+std::vector<Pais> Jugador::ObtenerPaises() const {
+    return paises;
+}
+
+std::vector<Carta> Jugador::ObtenerCartas() const {
+    return cartas;
+}
+
+void Jugador::FijarId(const std::string& nid) {
+    id = nid;
+}
+
+void Jugador::FijarEstado(bool nbool) {
+    estado = nbool;
+}
+
+void Jugador::FijarColor(const std::string& ncolor) {
+    color = ncolor;
+}
+
+void Jugador::FijarPaises(const std::vector<Pais>& npaises) {
+    paises = npaises;
+}
+
+void Jugador::FijarCartas(const std::vector<Carta>& ncartas) {
+    cartas = ncartas;
+}
 
 //************************************************************************
 // FIN - FUNCIONES

@@ -36,6 +36,7 @@ class Dado{
         //============================
         //Constructor
         //============================
+        Dado();
         Dado(const std::string& color, int valor);
 
         //============================

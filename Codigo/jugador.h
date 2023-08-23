@@ -23,37 +23,35 @@
 //*****************************************************************
 // FIN - LIBRERIAS INCLUIDAS
 //*****************************************************************
-
-class jugador {
+class Jugador {
   private:
-    std::string id_jugador;
-    bool estadoJugador;
+    std::string id;
+    bool estado;
     std::string color;
-    std::vector<pais>paises;
-    std::vector<carta>cartas;
+    std::vector<Pais> paises;
+    std::vector<Carta> cartas;
 
   public:
-
+  
     //============================
     //Constructor
     //============================
-    jugador(const std::string& id, bool estado, const std::string& color, const std::vector<pais>& paises, const std::vector<carta>& cartas);
+    Jugador();
 
     //============================
     //Getters y Setters
     //============================
-
-    std::string ObtenerIdJugador() const;
-    bool ObtenerEstadoJugador() const;
+    std::string ObtenerId() const;
+    bool ObtenerEstado() const;
     std::string ObtenerColor() const;
-    std::vector<pais> ObtenerPaises() const;
-    std::vector<carta> ObtenerCartas() const;
+    std::vector<Pais> ObtenerPaises() const;
+    std::vector<Carta> ObtenerCartas() const;
 
-    void FijarIdJugador(const std::string& id);
-    void FijarEstadoJugador(bool estado);
-    void FijarColor(const std::string& col);
-    void FijarPaises(const std::vector<pais>& p);
-    void FijarCartas(const std::vector<carta>& c);
+    void FijarId(const std::string& nid);
+    void FijarEstado(bool nbool);
+    void FijarColor(const std::string& ncolor);
+    void FijarPaises(const std::vector<Pais>& npaises);
+    void FijarCartas(const std::vector<Carta>& ncartas);
 };
 
 //*****************************************************************

@@ -22,6 +22,7 @@
 #include "dado.h"
 #include "pais.h"
 #include "jugador.h"
+#include "partida.h"
 #include <iostream>
 //************************************************************************
 // FIN - LIBRERIAS
@@ -32,61 +33,50 @@
 // INICIO - FUNCIONES
 //************************************************************************
 
-     partida::partida(std::string nombre, std::string tipoJuego, int FijarsTradeados, std::vector<continente> continentes, std::queue<jugador> jugadores, std::vector<carta>cartas,std::vector<dado>dados):
-      nombre(nombre),
-      tipoJuego(tipoJuego),
-      FijarsTradeados(FijarsTradeados),
-      continentes(continentes),
-      jugadores(jugadores),
-      cartas(cartas),
-      dados(dados)
-    {}
+    Partida::Partida() : nombre(""), tipo(""), setsTradeados(0) {}
 
-    //============================
-    //Getters y Setters
-    //============================
-    std::string partida::ObtenerNombre() const {
+    std::string Partida::ObtenerNombre() const {
         return nombre;
     }
-    std::string partida::ObtenerTipoJuego() const {
-        return tipoJuego;
+    std::string Partida::ObtenerTipoPartida() const {
+        return tipo;
     }
-    int partida::ObtenerFijarsTradeados() const {
-        return FijarsTradeados;
+    int Partida::ObtenersetsTradeados() const {
+        return setsTradeados;
     }
-    std::vector<continente> partida::ObtenerContinentes() const {
+    std::vector<Continente> Partida::ObtenerContinentes() const {
         return continentes;
     }
-    std::queue<jugador> partida::ObtenerJugadores() const {
+    std::queue<Jugador> Partida::ObtenerJugadores() const {
         return jugadores;
     }
-    std::vector<carta> partida::ObtenerCartas() const {
+    std::vector<Carta> Partida::ObtenerCartas() const {
         return cartas;
     }
-    std::vector<dado> partida::ObtenerDados() const {
+    std::vector<Dado> Partida::ObtenerDados() const {
         return dados;
     }
 
-    void partida::FijarNombre(const std::string& nuevoNombre) {
-        nombre = nuevoNombre;
+    void Partida::FijarNombre(const std::string& nnombre) {
+        nombre = nnombre;
     }
-    void partida::FijarTipoJuego(const std::string& nuevoTipoJuego) {
-        tipoJuego = nuevoTipoJuego;
+    void Partida::FijarTipoJuego(const std::string& ntipo) {
+        tipo = ntipo;
     }
-    void partida::FijarFijarsTradeados(int nuevosFijarsTradeados) {
-        FijarsTradeados = nuevosFijarsTradeados;
+    void Partida::FijarsetsTradeados(int ntradeos) {
+        setsTradeados = ntradeos;
     }
-    void partida::FijarContinentes(const std::vector<continente>& nuevosContinentes) {
-        continentes = nuevosContinentes;
+    void Partida::FijarContinentes(const std::vector<Continente>& ncontinentes) {
+        continentes = ncontinentes;
     }
-    void partida::FijarJugadores(const std::queue<jugador>& nuevosJugadores) {
-        jugadores = nuevosJugadores;
+    void Partida::FijarJugadores(const std::queue<Jugador>& njugadores) {
+        jugadores = njugadores;
     }
-    void partida::FijarCartas(const std::vector<carta>& nuevasCartas) {
-        cartas = nuevasCartas;
+    void Partida::FijarCartas(const std::vector<Carta>& ncartas) {
+        cartas = ncartas;
     }
-    void partida::FijarDados(const std::vector<dado>& nuevosDados) {
-        dados = nuevosDados;
+    void Partida::FijarDados(const std::vector<Dado>& ndados) {
+        dados = ndados;
     }
 
 //************************************************************************

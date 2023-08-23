@@ -22,19 +22,27 @@
 //*****************************************************************
 
 class Carta {
-public:
-    Carta(const std::string& tipo, const std::string& pais, const std::string& tropa);
-    std::string ObtenerTipo() const;
-    std::string ObtenerPais() const;
-    std::string ObtenerTropa() const;
-    void FijarTipo(const std::string& ncarta);
-    void FijarPais(const std::string& ntarjeta);
-    void FijarTropa(const std::string& ntropa);
+    private:
+        std::string tipo;
+        std::string pais;
+        std::string tropa;
 
-private:
-    std::string tipo;
-    std::string pais;
-    std::string tropa;
+    public:
+        //============================
+        //Constructor
+        //============================
+        Carta();
+        
+        //============================
+        //Getters y Setters
+        //============================
+        std::string ObtenerTipo() const;
+        std::string ObtenerPais() const;
+        std::string ObtenerTropa() const;
+
+        void FijarTipo(const std::string& ncarta);
+        void FijarPais(const std::string& ntarjeta);
+        void FijarTropa(const std::string& ntropa);
 };
 
 //*****************************************************************
