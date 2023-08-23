@@ -33,18 +33,15 @@ class Pais{
 
         std::string ObtenerNombre() const;
         int ObtenerCantidadTropas() const;
-        std::vector<Pais> ObtenerPaisesVecinos() const;
         std::string ObtenerColor() const;
 
         void FijarNombre(const std::string& nnombre);
         void FijarCantidadTropas(int ncantidadtropas);
-        void FijarPaisesVecinos(const std::vector<Pais>& npaisesvecinos);
         void FijarColor(const std::string& ncolor);
 
     private:
         std::string nombre;
         int cantidadTropas;
-        std::vector<Pais> paisesVecinos;
         std::string color;
 
 };

@@ -35,10 +35,6 @@ int Pais::ObtenerCantidadTropas() const {
     return cantidadTropas;
 }
 
-std::vector<Pais> Pais::ObtenerPaisesVecinos() const {
-    return paisesVecinos;
-}
-
 std::string Pais::ObtenerColor() const {
     return color;
 }
@@ -49,10 +45,6 @@ void Pais::FijarNombre(const std::string& nnombre){
 
 void Pais::FijarCantidadTropas(int ncantidadtropas) {
     cantidadTropas = ncantidadtropas;
-}
-
-void Pais::FijarPaisesVecinos(const std::vector<Pais>& npaisesvecinos) {
-    paisesVecinos = npaisesvecinos;
 }
 
 void Pais::FijarColor(const std::string& ncolor) {
