@@ -25,30 +25,40 @@
 // INICIO - FUNCIONES
 //************************************************************************
 
-Pais::Pais(){}
-
-std::string Pais::ObtenerNombre() const{
-    return nombre;
+Pais::Pais(){
+    this->nombre="";
+    this->cantidadTropas=0;
+    this->color="";
 }
 
-int Pais::ObtenerCantidadTropas() const {
-    return cantidadTropas;
+Pais::Pais(std::string nombre, int cantidadTropas, std::string color){
+    this->nombre = nombre;
+    this->cantidadTropas = cantidadTropas;
+    this->color = color;
 }
 
-std::string Pais::ObtenerColor() const {
-    return color;
+std::string Pais::ObtenerNombre(){
+    return this->nombre;
 }
 
-void Pais::FijarNombre(const std::string& nnombre){
-    nombre = nnombre;
+int Pais::ObtenerCantidadTropas(){
+    return this->cantidadTropas;
+}
+
+std::string Pais::ObtenerColor(){
+    return this->color;
+}
+
+void Pais::FijarNombre(std::string nnombre){
+    this->nombre = nnombre;
 }
 
 void Pais::FijarCantidadTropas(int ncantidadtropas) {
-    cantidadTropas = ncantidadtropas;
+    this->cantidadTropas = ncantidadtropas;
 }
 
-void Pais::FijarColor(const std::string& ncolor) {
-    color = ncolor;
+void Pais::FijarColor(std::string ncolor) {
+    this->color = ncolor;
 }
 
 

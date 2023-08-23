@@ -39,16 +39,18 @@ class Pais{
         //============================
         Pais();
 
+        Pais(std::string nombre, int cantidadTropas, std::string color);
+
         //============================
         //Getters y Setters
         //============================
-        std::string ObtenerNombre() const;
-        int ObtenerCantidadTropas() const;
-        std::string ObtenerColor() const;
+        std::string ObtenerNombre();
+        int ObtenerCantidadTropas();
+        std::string ObtenerColor();
 
-        void FijarNombre(const std::string& nnombre);
+        void FijarNombre(std::string nnombre);
         void FijarCantidadTropas(int ncantidadtropas);
-        void FijarColor(const std::string& ncolor);
+        void FijarColor(std::string ncolor);
 };
 
 //*****************************************************************
