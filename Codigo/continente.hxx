@@ -14,7 +14,8 @@
 //************************************************************************
 // INICIO - LIBRERIAS
 //************************************************************************
-#include "dado.h"
+#include "continente.h"
+#include "pais.h"
 #include <iostream>
 //************************************************************************
 // FIN - LIBRERIAS
@@ -25,28 +26,35 @@
 // INICIO - FUNCIONES
 //************************************************************************
 
-Dado::Dado() : color("negro"), valor(0) {}
+Continente::Continente(){}
 
-Dado::Dado(const std::string& color, int valor) : color(color), valor(valor) {}
+std::string Continente::ObtenerNombre() const {
+    return nombre;
+}
 
-std::string Dado::ObtenerColor() const {
+std::vector<Pais> Continente::ObtenerPaises() const {
+    return paises;
+}
+
+std::string Continente::ObtenerColor() const {
     return color;
 }
 
-int Dado::ObtenerValor() const {
-    return valor;
+void Continente::FijarNombre(const std::string& nnombre) {
+    nombre = nnombre;
 }
 
-void Dado::FijarColor(const std::string& ncolor){
+void Continente::FijarPaises(const std::vector<Pais>& npaises) {
+    paises = npaises;
+}
+
+void Continente::FijarColor(const std::string& ncolor) {
     color = ncolor;
 }
 
-void Dado::FijarValor(const int nvalor){
-    valor = nvalor;
-}
 
 //************************************************************************
 // FIN - FUNCIONES
 //************************************************************************
 
-// eof - dado.hxx
+// eof - continente.hxx

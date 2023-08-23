@@ -14,7 +14,8 @@
 //************************************************************************
 // INICIO - LIBRERIAS
 //************************************************************************
-#include "dado.h"
+#include "pais.h"
+#include "tropa.h"
 #include <iostream>
 //************************************************************************
 // FIN - LIBRERIAS
@@ -25,28 +26,52 @@
 // INICIO - FUNCIONES
 //************************************************************************
 
-Dado::Dado() : color("negro"), valor(0) {}
+Pais::Pais(){}
 
-Dado::Dado(const std::string& color, int valor) : color(color), valor(valor) {}
+std::string Pais::ObtenerNombre() const{
+    return nombre;
+}
 
-std::string Dado::ObtenerColor() const {
+std::vector<Tropa> Pais::ObtenerTropas() const{
+    return tropas;
+}
+
+int Pais::ObtenerCantidadTropas() const {
+    return cantidadTropas;
+}
+
+std::vector<Pais> Pais::ObtenerPaisesVecinos() const {
+    return paisesVecinos;
+}
+
+std::string Pais::ObtenerColor() const {
     return color;
 }
 
-int Dado::ObtenerValor() const {
-    return valor;
+void Pais::FijarNombre(const std::string& nnombre){
+    nombre = nnombre;
 }
 
-void Dado::FijarColor(const std::string& ncolor){
+void Pais::FijarTropas(const std::vector<Tropa>& ntropas) {
+    tropas = ntropas;
+}
+
+void Pais::FijarCantidadTropas(int ncantidadtropas) {
+    cantidadTropas = ncantidadtropas;
+}
+
+void Pais::FijarPaisesVecinos(const std::vector<Pais>& npaisesvecinos) {
+    paisesVecinos = npaisesvecinos;
+}
+
+void Pais::FijarColor(const std::string& ncolor) {
     color = ncolor;
 }
 
-void Dado::FijarValor(const int nvalor){
-    valor = nvalor;
-}
+
 
 //************************************************************************
 // FIN - FUNCIONES
 //************************************************************************
 
-// eof - dado.hxx
+// eof - pais.hxx
