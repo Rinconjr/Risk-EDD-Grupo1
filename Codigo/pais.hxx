@@ -15,7 +15,6 @@
 // INICIO - LIBRERIAS
 //************************************************************************
 #include "pais.h"
-#include "tropa.h"
 #include <iostream>
 //************************************************************************
 // FIN - LIBRERIAS
@@ -32,10 +31,6 @@ std::string Pais::ObtenerNombre() const{
     return nombre;
 }
 
-std::vector<Tropa> Pais::ObtenerTropas() const{
-    return tropas;
-}
-
 int Pais::ObtenerCantidadTropas() const {
     return cantidadTropas;
 }
@@ -50,10 +45,6 @@ std::string Pais::ObtenerColor() const {
 
 void Pais::FijarNombre(const std::string& nnombre){
     nombre = nnombre;
-}
-
-void Pais::FijarTropas(const std::vector<Tropa>& ntropas) {
-    tropas = ntropas;
 }
 
 void Pais::FijarCantidadTropas(int ncantidadtropas) {

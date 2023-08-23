@@ -18,7 +18,6 @@
 //*****************************************************************
 #include <string>
 #include <vector>
-#include "tropa.h"
 //*****************************************************************
 // FIN - LIBRERIAS INCLUIDAS
 //*****************************************************************
@@ -33,20 +32,17 @@ class Pais{
         Pais();
 
         std::string ObtenerNombre() const;
-        std::vector<Tropa> ObtenerTropas() const;
         int ObtenerCantidadTropas() const;
         std::vector<Pais> ObtenerPaisesVecinos() const;
         std::string ObtenerColor() const;
 
         void FijarNombre(const std::string& nnombre);
-        void FijarTropas(const std::vector<Tropa>& ntropas);
         void FijarCantidadTropas(int ncantidadtropas);
         void FijarPaisesVecinos(const std::vector<Pais>& npaisesvecinos);
         void FijarColor(const std::string& ncolor);
 
     private:
         std::string nombre;
-        std::vector<Tropa> tropas;
         int cantidadTropas;
         std::vector<Pais> paisesVecinos;
         std::string color;
