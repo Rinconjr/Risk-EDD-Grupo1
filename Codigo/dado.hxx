@@ -27,7 +27,7 @@
 
 Dado::Dado() : color("negro"), valor(0) {}
 
-Dado::Dado(std::string& color, int valor) : color(color), valor(valor) {}
+Dado::Dado(std::string color, int valor) : color(color), valor(valor) {}
 
 std::string Dado::ObtenerColor(){
     return color;
@@ -37,7 +37,7 @@ int Dado::ObtenerValor(){
     return valor;
 }
 
-void Dado::FijarColor(std::string& ncolor){
+void Dado::FijarColor(std::string ncolor){
     color = ncolor;
 }
 

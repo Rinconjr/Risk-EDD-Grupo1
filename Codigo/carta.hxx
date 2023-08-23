@@ -37,15 +37,15 @@ std::string Carta::ObtenerTropa() const {
     return tropa;
 }
 
-void Carta::FijarTipo(const std::string& ncarta) {
+void Carta::FijarTipo(const std::string ncarta) {
     tipo = ncarta;
 }
 
-void Carta::FijarPais(const std::string& ntarjeta) {
+void Carta::FijarPais(const std::string ntarjeta) {
     pais = ntarjeta;
 }
 
-void Carta::FijarTropa(const std::string& ntropa) {
+void Carta::FijarTropa(const std::string ntropa) {
     tropa = ntropa;
 }
 

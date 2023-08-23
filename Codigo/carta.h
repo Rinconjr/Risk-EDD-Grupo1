@@ -31,7 +31,7 @@ class Carta {
         //============================
         //Constructor
         //============================
-        Carta::Carta(std::string& ncarta,std::string& ntarjeta, std::string& ntropa);
+        Carta(std::string ncarta,std::string ntarjeta, std::string ntropa);
         
         //============================
         //Getters y Setters
@@ -40,9 +40,9 @@ class Carta {
         std::string ObtenerPais();
         std::string ObtenerTropa();
 
-        void FijarTipo(std::string& ncarta);
-        void FijarPais(std::string& ntarjeta);
-        void FijarTropa(std::string& ntropa);
+        void FijarTipo(std::string ncarta);
+        void FijarPais(std::string ntarjeta);
+        void FijarTropa(std::string ntropa);
 };
 
 //*****************************************************************
