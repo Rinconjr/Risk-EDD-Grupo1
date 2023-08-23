@@ -28,20 +28,23 @@
 //*****************************************************************
 
 class Dado{
-    public:
-        Dado();
-        Dado(const std::string& color, int valor);
-
-        std::string ObtenerColor() const;
-        int ObtenerValor() const;
-
-        void FijarColor(const std::string& ncolor);
-        void FijarValor(int nvalor);
-
     private:
         std::string color;
         int valor;
 
+    public:
+        //============================
+        //Constructor
+        //============================
+        Dado(const std::string& color, int valor);
+
+        //============================
+        //Getters y Setters
+        //============================
+        std::string ObtenerColor() const;
+        int ObtenerValor() const;
+        void FijarColor(const std::string& ncolor);
+        void FijarValor(int nvalor);
 };
 
 //*****************************************************************
