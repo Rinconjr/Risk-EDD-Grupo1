@@ -28,9 +28,20 @@
 //*****************************************************************
 
 class Pais{
+    private:
+        std::string nombre;
+        int cantidadTropas;
+        std::string color;
+
     public:
+        //============================
+        //Constructor
+        //============================
         Pais();
 
+        //============================
+        //Getters y Setters
+        //============================
         std::string ObtenerNombre() const;
         int ObtenerCantidadTropas() const;
         std::string ObtenerColor() const;
@@ -38,12 +49,6 @@ class Pais{
         void FijarNombre(const std::string& nnombre);
         void FijarCantidadTropas(int ncantidadtropas);
         void FijarColor(const std::string& ncolor);
-
-    private:
-        std::string nombre;
-        int cantidadTropas;
-        std::string color;
-
 };
 
 //*****************************************************************
