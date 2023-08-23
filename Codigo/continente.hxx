@@ -26,32 +26,32 @@
 // INICIO - FUNCIONES
 //************************************************************************
 
-Continente::Continente(){}
-
-std::string Continente::ObtenerNombre() const {
-    return nombre;
+Continente::Continente(){
+    this->nombre = "";
+    this->paises = std::vector<Pais>();
 }
 
-std::vector<Pais> Continente::ObtenerPaises() const {
+Continente::Continente(std::string nombre, std::vector<Pais> paises){
+    this->nombre = nombre;
+    this->paises = paises;
+}
+
+std::string Continente::ObtenerNombre() {
+    return this->nombre;
+}
+
+std::vector<Pais> Continente::ObtenerPaises() {
     return paises;
 }
 
-std::string Continente::ObtenerColor() const {
-    return color;
+
+void Continente::FijarNombre(std::string nnombre) {
+    this->nombre = nnombre;
 }
 
-void Continente::FijarNombre(const std::string& nnombre) {
-    nombre = nnombre;
+void Continente::FijarPaises(std::vector<Pais> npaises) {
+    this->paises = npaises;
 }
-
-void Continente::FijarPaises(const std::vector<Pais>& npaises) {
-    paises = npaises;
-}
-
-void Continente::FijarColor(const std::string& ncolor) {
-    color = ncolor;
-}
-
 
 //************************************************************************
 // FIN - FUNCIONES

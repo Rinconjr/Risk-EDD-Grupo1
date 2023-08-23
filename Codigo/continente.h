@@ -31,7 +31,6 @@
 class Continente{
     private:
         std::string nombre;
-        std::string color;
         std::vector<Pais> paises;
         
     public:
@@ -40,17 +39,16 @@ class Continente{
         //============================
         Continente();
 
+        Continente(std::string nombre, std::vector<Pais> paises);
+
         //============================
         //Getters y Setters
         //============================
-        std::string ObtenerNombre() const;
-        std::string ObtenerColor() const;
-        std::vector<Pais> ObtenerPaises() const;
+        std::string ObtenerNombre();
+        std::vector<Pais> ObtenerPaises();
 
-        void FijarNombre(const std::string& nnombre);
-        void FijarColor(const std::string& ncolor);
-        void FijarPaises(const std::vector<Pais>& npaises);
-
+        void FijarNombre(std::string nnombre);
+        void FijarPaises(std::vector<Pais> npaises);
 };
 
 //*****************************************************************

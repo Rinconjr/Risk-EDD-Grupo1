@@ -28,13 +28,11 @@
 Pais::Pais(){
     this->nombre="";
     this->cantidadTropas=0;
-    this->color="";
 }
 
-Pais::Pais(std::string nombre, int cantidadTropas, std::string color){
+Pais::Pais(std::string nombre, int cantidadTropas){
     this->nombre = nombre;
     this->cantidadTropas = cantidadTropas;
-    this->color = color;
 }
 
 std::string Pais::ObtenerNombre(){
@@ -45,20 +43,12 @@ int Pais::ObtenerCantidadTropas(){
     return this->cantidadTropas;
 }
 
-std::string Pais::ObtenerColor(){
-    return this->color;
-}
-
 void Pais::FijarNombre(std::string nnombre){
     this->nombre = nnombre;
 }
 
 void Pais::FijarCantidadTropas(int ncantidadtropas) {
     this->cantidadTropas = ncantidadtropas;
-}
-
-void Pais::FijarColor(std::string ncolor) {
-    this->color = ncolor;
 }
 
 
