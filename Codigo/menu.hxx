@@ -128,7 +128,7 @@ void Menu::comando_inicializar_nueva_partida() {
 
   do {
     //std::cout << "$ ";
-    std::cout << "Cuantos jugadores tendra la partida "<< nombre_partida <<" (Min 2, Max 6): ";
+    std::cout << "Cuantos jugadores tendra la partida '"<< nombre_partida <<"' (Min 2, Max 6): ";
     std::getline(std::cin, input);
     std::stringstream stream(input);
     std::vector<std::string> argumentos;
@@ -168,15 +168,80 @@ void Menu::comando_inicializar_nueva_partida() {
   }
   while(!continuar);
 
-  //Crear vector jugadores
+
+  //Crear vector jugadores e iterador
   std::vector<Jugador> jugadoresPartida;
   std::vector<Jugador>::iterator itJugadores;
 
-  for(int i=0; i<cantidad_jugadores; i++){
+  //Crear vector colores e iterador
+  std::vector<std::string> colores;
+  std::vector<std::string>::iterator coloresIt;
+
+  //Agregar colores de la partida
+  colores.push_back("Gris");
+  colores.push_back("Amarillo");
+  colores.push_back("Rojo");
+  colores.push_back("Negro");
+  colores.push_back("Verde");
+  colores.push_back("Azul");
+
+  std::vector<std::string> argumentos;
+
+  int i = 0;
+  
+
+  do {
     Jugador auxJugador;
     auxJugador.FijarId(i+1);
+
+    //Mostrar colores disponibles
+    std::cout << "Los siguientes son los colores disponibles: " << std::endl;
+
+    for(coloresIt = colores.begin(); coloresIt != colores.end(); coloresIt++){
+      std::cout << "   - " << *coloresIt << std::endl;
+    }
     
+
+    std::cout << "Para el jugador con Id '" << i+1 << "' porfavor ingrese el color que desee: ";
+    std::getline(std::cin, input);
+    std::stringstream stream(input);
+    std::vector<std::string> argumentos;
+
+    // while para ir guardando los argumentos en el vector
+    while (getline(stream, palabra, delimitador)) {
+      argumentos.push_back(palabra);    
+    }
+    // Si no ingreso nada, simplemente continua.
+    if (argumentos.empty()) {
+      continue;
+    }
+    else if(argumentos.size() > 1) {
+      std::cout << "Ingrese solamente el color que desea.\n";
+      continue;
+    }
+    else {
+      //Revisar si el color ingresado existe
+      bool encontrado = false;
+
+      for(coloresIt = colores.begin(); coloresIt != colores.end(); coloresIt++){
+        if(argumentos[0].compare(*coloresIt) == 0){
+          encontrado = true;
+          colores.erase(coloresIt);
+        }
+      }
+      if(encontrado == false){
+        std::cout << "Color: '" << argumentos[0] << "' no encontrado o ya fue seleccionado. Porfavor ingrese un color valido. \n";
+        continue;
+      }
+      else{
+        auxJugador.FijarColor(argumentos[0]);
+        jugadoresPartida.push_back(auxJugador);
+        itJugadores++;
+        i++;
+      }
+    }
   }
+  while(i!=cantidad_jugadores);
 
 
   std::cout << " Inicializar partida nueva (En construccion).\n";
