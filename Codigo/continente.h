@@ -40,7 +40,7 @@ class Continente{
         //============================
         Continente();
 
-        Continente(std::string nombre, std::vector<Pais> paises);
+        Continente(std::string nombre, std::vector<Pais> paises, int nTropasAdicionales);
 
         //============================
         //Getters y Setters
