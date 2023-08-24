@@ -27,14 +27,14 @@
 // INICIO - FUNCIONES
 //************************************************************************
 Jugador::Jugador() {
-    this->id = "";
+    this->id = 0;
     this->estado = false;
     this->color = "";
     this->paises = std::vector<std::string>();
     this->cartas = std::vector<Carta>();
 }
 
-Jugador::Jugador(std::string nid, bool nbool,std::string ncolor, std::vector<std::string> npaises, std::vector<Carta> ncartas){
+Jugador::Jugador(int nid, bool nbool,std::string ncolor, std::vector<std::string> npaises, std::vector<Carta> ncartas){
     this->id = nid;
     this->estado = nbool;
     this->color = ncolor;
@@ -42,7 +42,7 @@ Jugador::Jugador(std::string nid, bool nbool,std::string ncolor, std::vector<std
     this->cartas = ncartas;
 }
 
-std::string Jugador::ObtenerId() {
+int Jugador::ObtenerId() {
     return this->id;
 }
 
@@ -62,7 +62,7 @@ std::vector<Carta> Jugador::ObtenerCartas() {
     return this->cartas;
 }
 
-void Jugador::FijarId(const std::string nid) {
+void Jugador::FijarId(int nid) {
     this->id = nid;
 }
 
@@ -70,15 +70,15 @@ void Jugador::FijarEstado(bool nbool) {
     this->estado = nbool;
 }
 
-void Jugador::FijarColor(const std::string ncolor) {
+void Jugador::FijarColor( std::string ncolor) {
     this->color = ncolor;
 }
 
-void Jugador::FijarPaises(const std::vector<std::string> npaises) {
+void Jugador::FijarPaises( std::vector<std::string> npaises) {
     this->paises = npaises;
 }
 
-void Jugador::FijarCartas(const std::vector<Carta> ncartas) {
+void Jugador::FijarCartas( std::vector<Carta> ncartas) {
     this->cartas = ncartas;
 }
 
