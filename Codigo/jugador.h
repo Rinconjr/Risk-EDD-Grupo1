@@ -38,13 +38,7 @@ class Jugador {
     //============================
     Jugador();
 
-    Jugador(std::string nid, bool nbool,std::string ncolor, std::vector<std::string> npaises, std::vector<Carta> ncartas) :
-        id(nid), 
-        estado(nbool), 
-        color(ncolor), 
-        paises(npaises), 
-        cartas(ncartas) 
-    {}
+    Jugador(std::string nid, bool nbool,std::string ncolor, std::vector<std::string> npaises, std::vector<Carta> ncartas);
 
     //============================
     //Getters y Setters

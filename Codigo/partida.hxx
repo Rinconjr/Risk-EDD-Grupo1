@@ -43,9 +43,9 @@
     }
 
     Partida::Partida(std::string nnombre,std::string ntipo, int ntradeos, std::vector<Continente> ncontinentes, std::queue<Jugador> njugadores, std::vector<Carta> ncartas, std::vector<Dado> ndados) {
-        this->nombre =nnombre;
-        this->tipo =ntipo;
-        this->setsTradeados =ntradeos;
+        this->nombre = nnombre;
+        this->tipo = ntipo;
+        this->setsTradeados = ntradeos;
         this->continentes = ncontinentes;
         this->jugadores = njugadores;
         this->cartas = ncartas;
