@@ -340,223 +340,42 @@ void Menu::comando_inicializar_nueva_partida() {
   mipartida.FijarsetsTradeados(0);
   mipartida.FijarJugadores(jugadoresPartida); //Se agregan jugadores a la partida
 
-  //Se crean los paises
-
-  //America del Norte
-  std::vector<Pais> paisesAmericaDelNorte;
-  Pais paisAux;
-
-  paisAux.FijarNombre("Alaska");
-  paisesAmericaDelNorte.push_back(paisAux);
-
-  paisAux.FijarNombre("Alberta");
-  paisesAmericaDelNorte.push_back(paisAux);
-
-  paisAux.FijarNombre("America Central");
-  paisesAmericaDelNorte.push_back(paisAux);
-
-  paisAux.FijarNombre("Estados Unidos Orientales");
-  paisesAmericaDelNorte.push_back(paisAux);
-
-  paisAux.FijarNombre("Groenlandia");
-  paisesAmericaDelNorte.push_back(paisAux);
-
-  paisAux.FijarNombre("Territorio Noroccidental");
-  paisesAmericaDelNorte.push_back(paisAux);
-
-  paisAux.FijarNombre("Ontario");
-  paisesAmericaDelNorte.push_back(paisAux);
-
-  paisAux.FijarNombre("Quebec");
-  paisesAmericaDelNorte.push_back(paisAux);
-
-  paisAux.FijarNombre("Estados Unidos Occidentales");
-  paisesAmericaDelNorte.push_back(paisAux);
-
-  std::cout<< "Paises de Amerrica del Norte creados\n";
-
-  //America del Sur
-  std::vector<Pais> paisesAmericaDelSur;
-
-  paisAux.FijarNombre("Argentina");
-  paisesAmericaDelSur.push_back(paisAux);
-
-  paisAux.FijarNombre("Brasil");
-  paisesAmericaDelSur.push_back(paisAux);
-
-  paisAux.FijarNombre("Peru");
-  paisesAmericaDelSur.push_back(paisAux);
-
-  paisAux.FijarNombre("Venezuela");
-  paisesAmericaDelSur.push_back(paisAux);
-
-  std::cout<< "Paises de America del Sur\n";
-
-  //Europa
-  std::vector<Pais> paisesEuropa;
-
-  paisAux.FijarNombre("Gran Bretana");
-  paisesEuropa.push_back(paisAux);
-
-  paisAux.FijarNombre("Islandia");
-  paisesEuropa.push_back(paisAux);
-
-  paisAux.FijarNombre("Europa del Norte");
-  paisesEuropa.push_back(paisAux);
-
-  paisAux.FijarNombre("Escandinavia");
-  paisesEuropa.push_back(paisAux);
-
-  paisAux.FijarNombre("Europa del Sur");
-  paisesEuropa.push_back(paisAux);
-
-  paisAux.FijarNombre("Ucrania");
-  paisesEuropa.push_back(paisAux);
-
-  paisAux.FijarNombre("Europa Occidental");
-  paisesEuropa.push_back(paisAux);
-
-  std::cout<< "Paises de Europa\n";
-
-  //Africa
-  std::vector<Pais> paisesAfrica;
-
-  paisAux.FijarNombre("Congo");
-  paisesAfrica.push_back(paisAux);
-
-  paisAux.FijarNombre("Africa Oriental");
-  paisesAfrica.push_back(paisAux);
-
-  paisAux.FijarNombre("Egipto");
-  paisesAfrica.push_back(paisAux);
-
-  paisAux.FijarNombre("Madagascar");
-  paisesAfrica.push_back(paisAux);
-
-  paisAux.FijarNombre("Africa del Norte");
-  paisesAfrica.push_back(paisAux);
-
-  paisAux.FijarNombre("Africa del Sur");
-  paisesAfrica.push_back(paisAux);
-
-  std::cout<< "Paises de Africa\n";
-
-  //Asia
-  std::vector<Pais> paisesAsia;
-
-  paisAux.FijarNombre("Afghanistan");
-  paisesAsia.push_back(paisAux);
-
-  paisAux.FijarNombre("China");
-  paisesAsia.push_back(paisAux);
-
-  paisAux.FijarNombre("India");
-  paisesAsia.push_back(paisAux);
-
-  paisAux.FijarNombre("Irkutsk");
-  paisesAsia.push_back(paisAux);
-
-  paisAux.FijarNombre("Japon");
-  paisesAsia.push_back(paisAux);
-
-  paisAux.FijarNombre("Kamchatka");
-  paisesAsia.push_back(paisAux);
-
-  paisAux.FijarNombre("Medio Oriente");
-  paisesAsia.push_back(paisAux);
-
-  paisAux.FijarNombre("Mongolia");
-  paisesAsia.push_back(paisAux);
-
-  paisAux.FijarNombre("Siam");
-  paisesAsia.push_back(paisAux);
-
-  paisAux.FijarNombre("Siberia");
-  paisesAsia.push_back(paisAux);
-
-  paisAux.FijarNombre("Ural");
-  paisesAsia.push_back(paisAux);
-
-  paisAux.FijarNombre("Yakutsk");
-  paisesAsia.push_back(paisAux);
-
-  std::cout<< "Paises de Asia\n";
-
-  //Australia
-  std::vector<Pais> paisesAustralia;
-
-  paisAux.FijarNombre("Australia Oriental");
-  paisesAustralia.push_back(paisAux);
-
-  paisAux.FijarNombre("Indonesia");
-  paisesAustralia.push_back(paisAux);
-
-  paisAux.FijarNombre("Nueva Guinea");
-  paisesAustralia.push_back(paisAux);
-
-  paisAux.FijarNombre("Australia Occidental");
-  paisesAustralia.push_back(paisAux);
-
-  std::cout<< "Paises de Australia\n";
-
-  //Se crean los continentes
-  Continente auxContinente;
-
-  std::vector<Continente> continentes;
-
-  auxContinente.FijarNombre("America del Norte");
-  auxContinente.FijarPaises(paisesAmericaDelNorte);
-  continentes.push_back(auxContinente);
-
-  auxContinente.FijarNombre("America del Sur");
-  auxContinente.FijarPaises(paisesAmericaDelSur);
-  continentes.push_back(auxContinente);
-
-  auxContinente.FijarNombre("Europa");
-  auxContinente.FijarPaises(paisesEuropa);
-  continentes.push_back(auxContinente);
-
-  auxContinente.FijarNombre("Africa");
-  auxContinente.FijarPaises(paisesAfrica);
-  continentes.push_back(auxContinente);
-
-  auxContinente.FijarNombre("Asia");
-  auxContinente.FijarPaises(paisesAsia);
-  continentes.push_back(auxContinente);
-
-  auxContinente.FijarNombre("Australia");
-  auxContinente.FijarPaises(paisesAustralia);
-  continentes.push_back(auxContinente);
-
-  mipartida.FijarContinentes(continentes);
-
-  //DIEGO
-  std::vector<Continente> partidaContinentes = mipartida.ObtenerContinentes();
-  std::vector<Continente>::iterator continentIt = partidaContinentes.begin();
-
-
-  SetConsoleTextAttribute(hConsole, FOREGROUND_RED | FOREGROUND_INTENSITY); //Pone la consola con letras en rojo
-  std::cout <<std::endl<<std::setw(20) <<"Continente" <<std::setw(30) <<"Pais" <<std::setw(30) <<"Cantidad de tropas"<< std::endl << std::endl;
-
-  SetConsoleTextAttribute(hConsole, FOREGROUND_BLUE | FOREGROUND_INTENSITY); //Pone la consola con letras en azul
-  for(continentIt = partidaContinentes.begin(); continentIt != partidaContinentes.end(); continentIt++){
-    std::vector<Pais> partidaPais = continentIt->ObtenerPaises();
-    std::vector<Pais>::iterator partidaPaisIt = partidaPais.begin();
-
-    for(partidaPaisIt = partidaPais.begin(); partidaPaisIt != partidaPais.end(); partidaPaisIt++){
-      std::cout <<std::setw(20) <<continentIt->ObtenerNombre() <<std::setw(30) <<partidaPaisIt->ObtenerNombre() <<std::setw(30) << partidaPaisIt->ObtenerCantidadTropas() << std::endl;
-    }
-  }
-  SetConsoleTextAttribute(hConsole, FOREGROUND_BLUE | FOREGROUND_GREEN | FOREGROUND_RED); //Pone el color de la consola normal, (la combinacion de rojo verde y azul es blanco)
-
   Carta auxCarta;
+  std::vector<Pais> paisesContinente;
+  std::vector<Continente> continentes;
   std::vector<Carta> cartas;
+  std::string temp = "";
 
   std::vector<std::string> nombrePaises = {"Alaska","Alberta","America Central","Estados Unidos Orientales","Groenlandia","Territorio Noroccidental","Ontario","Quebec","Estados Unidos Occidentales","Argentina","Brasil","Peru","Venezuela","Gran Bretana","Islandia","Europa del Norte","Escandinavia","Europa del Sur","Ucrania","Europa Occidental","Congo","Africa Oriental","Egipto","Madagascar","Africa del Norte","Africa del Sur","Afghanistan","China","India","Irkutsk","Japon","Kamchatka","Medio Oriente","Mongolia","Siam","Siberia","Ural","Yakutsk","Australia Oriental","Indonesia","Nueva Guinea","Australia Occidental"};
+  std::vector<std::string> paisContinente = {"America del Norte","America del Norte","America del Norte","America del Norte","America del Norte","America del Norte","America del Norte","America del Norte","America del Norte","America del Sur","America del Sur","America del Sur","America del Sur","Europa","Europa","Europa","Europa","Europa","Europa","Europa","Africa","Africa","Africa","Africa","Africa","Africa","Asia","Asia","Asia","Asia","Asia","Asia","Asia","Asia","Asia","Asia","Asia","Asia","Australia","Australia","Australia","Australia"};
   std::vector<std::string> tropa =        {"Tropa","Tropa","Caballeria","Artilleria","Caballeria","Artilleria","Artilleria","Artilleria","Tropa","Caballeria","Artilleria","Caballeria","Artilleria","Caballeria","Tropa","Caballeria","Artilleria","Caballeria","Artilleria","Tropa","Caballeria","Artilleria","Tropa","Tropa","Tropa","Artilleria","Tropa","Caballeria","Tropa","Tropa","Tropa","Caballeria","Artilleria","Artilleria","Artilleria","Artilleria","Caballeria","Caballeria","Tropa","Caballeria","Caballeria","Artilleria"};
 
   std::vector<std::string>::iterator nombreIt = nombrePaises.begin();
+  std::vector<std::string>::iterator paisIt = paisContinente.begin();
   std::vector<std::string>::iterator tropaIt = tropa.begin();
+
+  //Paises
+  for(nombreIt = nombrePaises.begin(); nombreIt != nombrePaises.end(); nombreIt++,paisIt++){
+    Pais paisAux;
+    if(temp != *paisIt || nombreIt == nombrePaises.end() - 1) {
+      if(nombreIt == nombrePaises.end() -1){
+        paisAux.FijarNombre(*nombreIt);
+        paisesContinente.push_back(paisAux);
+      }
+      Continente auxContinente;
+      auxContinente.FijarNombre(temp);
+      auxContinente.FijarPaises(paisesContinente);
+      continentes.push_back(auxContinente);
+      paisesContinente.clear();
+      temp = *paisIt;
+    }
+    paisAux.FijarNombre(*nombreIt);
+    paisesContinente.push_back(paisAux);
+  }
+
+  mipartida.FijarContinentes(continentes);
+
+  nombreIt = nombrePaises.begin();
 
   //Cartas normales
   for(nombreIt = nombrePaises.begin(); nombreIt != nombrePaises.end(); nombreIt++,tropaIt++){
@@ -581,16 +400,6 @@ void Menu::comando_inicializar_nueva_partida() {
 
   mipartida.FijarCartas(cartas);
 
-  std::vector<Carta> partidaCartas = mipartida.ObtenerCartas();
-  std::vector<Carta>::iterator cardsIt = partidaCartas.begin();
-
-  std::cout<<std::endl;
-  std::cout <<std::setw(20) <<"Tipo carta" <<std::setw(30) <<"Pais" <<std::setw(30) << "Tipo tropa" << std::endl<<std::endl;
-
-  for(cardsIt = partidaCartas.begin(); cardsIt != partidaCartas.end(); cardsIt++){
-    std::cout <<std::setw(20) <<cardsIt->ObtenerTipo() <<std::setw(30) <<cardsIt->ObtenerPais() <<std::setw(30) << cardsIt->ObtenerTropa() << std::endl;
-  }
-
   Dado auxDado;
   std::vector<Dado> dados;
 
@@ -606,15 +415,54 @@ void Menu::comando_inicializar_nueva_partida() {
 
   mipartida.FijarDados(dados);
 
+  std::vector<Continente> partidaContinentes = mipartida.ObtenerContinentes();
+  std::vector<Continente>::iterator continentIt = partidaContinentes.begin();
+
+  int inventario = 1;
+
+  SetConsoleTextAttribute(hConsole, FOREGROUND_RED | FOREGROUND_INTENSITY); //Pone la consola con letras en rojo
+  std::cout <<std::endl<<std::setw(20) <<"Continentesda" <<std::setw(30) <<"Pais" <<std::setw(30) <<"Cantidad de tropas"<< std::endl << std::endl;
+
+  SetConsoleTextAttribute(hConsole, FOREGROUND_BLUE | FOREGROUND_INTENSITY); //Pone la consola con letras en azul
+  for(continentIt = partidaContinentes.begin(); continentIt != partidaContinentes.end(); continentIt++){
+    std::vector<Pais> partidaPais = continentIt->ObtenerPaises();
+    std::vector<Pais>::iterator partidaPaisIt = partidaPais.begin();
+
+    for(partidaPaisIt = partidaPais.begin(); partidaPaisIt != partidaPais.end(); partidaPaisIt++){
+      std::cout <<std::setw(2)<<inventario<<std::setw(20) <<continentIt->ObtenerNombre() <<std::setw(30) <<partidaPaisIt->ObtenerNombre() <<std::setw(30) << partidaPaisIt->ObtenerCantidadTropas() << std::endl;
+      inventario++;
+    }
+  }
+  SetConsoleTextAttribute(hConsole, FOREGROUND_BLUE | FOREGROUND_GREEN | FOREGROUND_RED); //Pone el color de la consola normal, (la combinacion de rojo verde y azul es blanco)
+
+  std::vector<Carta> partidaCartas = mipartida.ObtenerCartas();
+  std::vector<Carta>::iterator cardsIt = partidaCartas.begin();
+
+  std::cout<<std::endl;
+  SetConsoleTextAttribute(hConsole, FOREGROUND_RED | FOREGROUND_INTENSITY); //Pone la consola con letras en rojo
+  std::cout <<std::setw(20) <<"Tipo carta" <<std::setw(30) <<"Pais" <<std::setw(30) << "Tipo tropa" << std::endl<<std::endl;
+
+  inventario = 1;
+  SetConsoleTextAttribute(hConsole, FOREGROUND_BLUE | FOREGROUND_INTENSITY); //Pone la consola con letras en azul
+  for(cardsIt = partidaCartas.begin(); cardsIt != partidaCartas.end(); cardsIt++){
+    std::cout <<std::setw(2)<<inventario<<std::setw(20) <<cardsIt->ObtenerTipo() <<std::setw(30) <<cardsIt->ObtenerPais() <<std::setw(30) << cardsIt->ObtenerTropa() << std::endl;
+    inventario++;
+  }
+
   std::vector<Dado> partidaDados = mipartida.ObtenerDados();
   std::vector<Dado>::iterator dadosIt = partidaDados.begin();
 
   std::cout<<std::endl;
+  SetConsoleTextAttribute(hConsole, FOREGROUND_RED | FOREGROUND_INTENSITY); //Pone la consola con letras en rojo
   std::cout <<std::setw(20) <<"Tipo dado" <<std::setw(30) <<"Valor" << std::endl<<std::endl;
 
+  inventario = 1;
+  SetConsoleTextAttribute(hConsole, FOREGROUND_BLUE | FOREGROUND_INTENSITY); //Pone la consola con letras en azul
   for(dadosIt = partidaDados.begin(); dadosIt != partidaDados.end(); dadosIt++){
-    std::cout <<std::setw(20) <<dadosIt->ObtenerColor() <<std::setw(30) <<dadosIt->ObtenerValor() << std::endl;
+    std::cout <<std::setw(2)<<inventario<<std::setw(20) <<dadosIt->ObtenerColor() <<std::setw(30) <<dadosIt->ObtenerValor() << std::endl;
+    inventario++;
   }
+  SetConsoleTextAttribute(hConsole, FOREGROUND_BLUE | FOREGROUND_GREEN | FOREGROUND_RED); //Pone el color de la consola normal, (la combinacion de rojo verde y azul es blanco)
 
 
   //TODO 1: Mostrar el nombre del continente y los paises que tiene desde la clase partida. (HECHO)
