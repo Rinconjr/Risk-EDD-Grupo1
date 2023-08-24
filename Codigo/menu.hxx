@@ -25,6 +25,8 @@
 #include <sstream>
 #include <cstdlib>
 #include <iomanip>
+#include <algorithm> // Necesario para std::shuffle
+#include <random> 
 
 #include <windows.h> //Esto es para windows
 
@@ -238,7 +240,6 @@ void Menu::comando_inicializar_nueva_partida() {
     }
   }
   while(!continuar);
-
 
   //Crear queue jugadores e iterador
   std::queue<Jugador> jugadoresPartida;
@@ -536,6 +537,133 @@ void Menu::comando_inicializar_nueva_partida() {
   //TODO 1: Mostrar el nombre del continente y los paises que tiene desde la clase partida. (HECHO)
   //TODO 2: Crear cartas, dados. 
   //TODO 3: Asignar paises (aleatoriamente), cartas (aleatoriamente) y tropas a jugadores.
+  std::vector<std::string> auxPaises;
+  std::vector<std::string> paisesAsignados; 
+  int paisesTotal=42;
+  int s=0;
+  int dividirPaises=paisesTotal%cantidad_jugadores;
+  if(dividirPaises==0){
+    std::cout<<"Se dara la misma cantidad de paises a cada jugador\n";
+  }else{
+    std::cout<<"Al tener "<<cantidad_jugadores<<" jugadores, dos de los jugadores tendran un pais extra\n";
+  }
+  if(cantidad_jugadores==2){
+    s=21;
+  }else if(cantidad_jugadores==3){
+    s=14;
+  }else if(cantidad_jugadores==4){
+    s=10;
+  }else if(cantidad_jugadores==5){
+    s=8;
+  }else if(cantidad_jugadores==6){
+    s=7;
+  }  
+
+  std::vector<std::string> paisesMapa;
+
+  paisesMapa.push_back("Alaska");
+  paisesMapa.push_back("Alberta");
+  paisesMapa.push_back("America Central");
+  paisesMapa.push_back("Estados Unidos Orientales");
+  paisesMapa.push_back("Groenlandia");
+  paisesMapa.push_back("Territorio Noroccidental");
+  paisesMapa.push_back("Ontario");
+  paisesMapa.push_back("Quebec");
+  paisesMapa.push_back("Estados Unidos Occidentales");
+  paisesMapa.push_back("Argentina");
+  paisesMapa.push_back("Brasil");
+  paisesMapa.push_back("Peru");
+  paisesMapa.push_back("Venezuela");
+  paisesMapa.push_back("Gran Bretana");
+  paisesMapa.push_back("Islandia");
+  paisesMapa.push_back("Europa del Norte");
+  paisesMapa.push_back("Escandinavia");
+  paisesMapa.push_back("Europa del Sur");
+  paisesMapa.push_back("Ucrania");
+  paisesMapa.push_back("Europa Occidental");
+  paisesMapa.push_back("Congo");
+  paisesMapa.push_back("Africa Oriental");
+  paisesMapa.push_back("Egipto");
+  paisesMapa.push_back("Madagascar");
+  paisesMapa.push_back("Africa del Norte");
+  paisesMapa.push_back("Africa del Sur");
+  paisesMapa.push_back("Afghanistan");
+  paisesMapa.push_back("China");
+  paisesMapa.push_back("India");
+  paisesMapa.push_back("Irkutsk");
+  paisesMapa.push_back("Japon");
+  paisesMapa.push_back("Kamchatka");
+  paisesMapa.push_back("Medio Oriente");
+  paisesMapa.push_back("Mongolia");
+  paisesMapa.push_back("Siam");
+  paisesMapa.push_back("Siberia");
+  paisesMapa.push_back("Ural");
+  paisesMapa.push_back("Yakutsk");
+  paisesMapa.push_back("Australia Oriental");
+  paisesMapa.push_back("Indonesia");
+  paisesMapa.push_back("Nueva Guinea");
+  paisesMapa.push_back("Australia Occidental");
+
+  srand(time(0));
+  for (int i = 0; i < 42; i++) {
+    int numeroAleatorio = (rand() % paisesMapa.size()); // Genera un número aleatorio entre 0 y el tamaño del vector paisesMapa - 1
+    //std::cout << "Numero aleatorio: " << numeroAleatorio << "\n";
+    
+    // Agrega el país aleatorio al vector auxPaises
+    auxPaises.push_back(paisesMapa[numeroAleatorio]);
+    
+    // Elimina el país aleatorio del vector paisesMapa
+    paisesMapa.erase(paisesMapa.begin() + numeroAleatorio);
+  }
+
+  //Esto es solo para probar que si se este haciendo de forma aleatorio
+  /*
+  std::cout<<"Tiene el siguiente vector:\n";
+  for(int i=0;i<auxPaises.size();i++){
+    std::cout << auxPaises[i]<<"\n";
+  }*/
+  
+
+  Jugador auxJugador;
+  std::queue<Jugador> jugadores = mipartida.ObtenerJugadores();
+  int asignados = 0;
+  //While para asignar paises a los jugadores
+  while (asignados < cantidad_jugadores) {
+    auxJugador = jugadores.front();
+    jugadores.pop();
+    
+    std::vector<std::string> paisesAsignados;
+    // Asignar países al cada jugador
+    for (int i = 0; i < s; i++) {
+        if (auxPaises.empty()) {
+            break;
+        }
+        paisesAsignados.push_back(auxPaises.front());
+        auxPaises.erase(auxPaises.begin());
+    }
+    auxJugador.FijarPaises(paisesAsignados);
+    jugadores.push(auxJugador);
+    asignados++;
+  }
+  std::cout<<"--------------------------------\n";
+  for (int i = 0; i < cantidad_jugadores; i++) {
+
+    Jugador jugador = jugadores.front();
+    jugadores.pop();
+      
+    std::cout << "Paises del Jugador " << i + 1 << ": ";
+    std::vector<std::string> paisesDelJugador = jugador.ObtenerPaises();
+      
+    for (int j = 0; j < paisesDelJugador.size(); j++) {
+      std::cout << paisesDelJugador[j];
+      if (j < paisesDelJugador.size() - 1) {
+        std::cout << ", ";
+      }
+    }
+    std::cout<<"\n--------------------------------\n";
+    jugadores.push(jugador);
+  }
+
   //TODO 4: Arreglar espacio al poner nombre de partida.
   //TODO 5: Clases implementadas con el main (HECHO)
 
