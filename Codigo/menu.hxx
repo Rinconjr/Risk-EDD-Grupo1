@@ -547,10 +547,10 @@ void Menu::comando_inicializar_nueva_partida() {
     std::vector<std::string> paisesDelJugador = jugador.ObtenerPaises();
       
     for (int j = 0; j < paisesDelJugador.size(); j++) {
-      std::cout << paisesDelJugador[j];
-      if (j < paisesDelJugador.size() - 1) {
-        std::cout << ", ";
+      if(j % 2 == 0) {
+        std::cout<<std::endl;
       }
+      std::cout<<std::left <<std::setw(30) << paisesDelJugador[j];
     }
     std::cout<<"\n--------------------------------\n";
     jugadores.push(jugador);
@@ -558,6 +558,23 @@ void Menu::comando_inicializar_nueva_partida() {
   //TODO 4: Arreglar espacio al poner nombre de partida.
   //TODO 5: Clases implementadas con el main (HECHO)
 
+
+  //Asignacion de tropas a territorios:
+  int tropasPorJugador;
+
+  if(cantidad_jugadores == 3) {
+    tropasPorJugador = 35;
+  }
+  else if(cantidad_jugadores == 4) {
+    tropasPorJugador = 30;
+  }
+  else if(cantidad_jugadores == 5) {
+    tropasPorJugador = 25;
+  }
+  else {
+    tropasPorJugador = 20;
+  }
+  
   std::cout << " Inicializar partida nueva (En construccion).\n";
   std::cout << " Presione enter para continuar.";
   std::cin.ignore();
