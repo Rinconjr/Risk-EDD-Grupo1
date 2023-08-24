@@ -491,49 +491,10 @@ void Menu::comando_inicializar_nueva_partida() {
   }  
 
   std::vector<std::string> paisesMapa;
-
-  paisesMapa.push_back("Alaska");
-  paisesMapa.push_back("Alberta");
-  paisesMapa.push_back("America Central");
-  paisesMapa.push_back("Estados Unidos Orientales");
-  paisesMapa.push_back("Groenlandia");
-  paisesMapa.push_back("Territorio Noroccidental");
-  paisesMapa.push_back("Ontario");
-  paisesMapa.push_back("Quebec");
-  paisesMapa.push_back("Estados Unidos Occidentales");
-  paisesMapa.push_back("Argentina");
-  paisesMapa.push_back("Brasil");
-  paisesMapa.push_back("Peru");
-  paisesMapa.push_back("Venezuela");
-  paisesMapa.push_back("Gran Bretana");
-  paisesMapa.push_back("Islandia");
-  paisesMapa.push_back("Europa del Norte");
-  paisesMapa.push_back("Escandinavia");
-  paisesMapa.push_back("Europa del Sur");
-  paisesMapa.push_back("Ucrania");
-  paisesMapa.push_back("Europa Occidental");
-  paisesMapa.push_back("Congo");
-  paisesMapa.push_back("Africa Oriental");
-  paisesMapa.push_back("Egipto");
-  paisesMapa.push_back("Madagascar");
-  paisesMapa.push_back("Africa del Norte");
-  paisesMapa.push_back("Africa del Sur");
-  paisesMapa.push_back("Afghanistan");
-  paisesMapa.push_back("China");
-  paisesMapa.push_back("India");
-  paisesMapa.push_back("Irkutsk");
-  paisesMapa.push_back("Japon");
-  paisesMapa.push_back("Kamchatka");
-  paisesMapa.push_back("Medio Oriente");
-  paisesMapa.push_back("Mongolia");
-  paisesMapa.push_back("Siam");
-  paisesMapa.push_back("Siberia");
-  paisesMapa.push_back("Ural");
-  paisesMapa.push_back("Yakutsk");
-  paisesMapa.push_back("Australia Oriental");
-  paisesMapa.push_back("Indonesia");
-  paisesMapa.push_back("Nueva Guinea");
-  paisesMapa.push_back("Australia Occidental");
+  nombreIt = nombrePaises.begin();
+  for(nombreIt = nombrePaises.begin(); nombreIt != nombrePaises.end(); nombreIt++){
+    paisesMapa.push_back(*nombreIt);
+  }
 
   srand(time(0));
   for (int i = 0; i < 42; i++) {
