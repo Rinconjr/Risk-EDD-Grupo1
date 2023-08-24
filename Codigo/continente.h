@@ -31,6 +31,7 @@
 class Continente{
     private:
         std::string nombre;
+        int tropasAdicionales;
         std::vector<Pais> paises;
         
     public:
@@ -45,9 +46,11 @@ class Continente{
         //Getters y Setters
         //============================
         std::string ObtenerNombre();
+        int ObtenerTropasAdicionales();
         std::vector<Pais> ObtenerPaises();
 
         void FijarNombre(std::string nnombre);
+        void FijarTropasAdicionales();
         void FijarPaises(std::vector<Pais> npaises);
 };
 
