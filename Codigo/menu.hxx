@@ -549,6 +549,74 @@ void Menu::comando_inicializar_nueva_partida() {
   }
   SetConsoleTextAttribute(hConsole, FOREGROUND_BLUE | FOREGROUND_GREEN | FOREGROUND_RED); //Pone el color de la consola normal, (la combinacion de rojo verde y azul es blanco)
 
+  Carta auxCarta;
+  std::vector<Carta> cartas;
+
+  std::vector<std::string> nombrePaises = {"Alaska","Alberta","America Central","Estados Unidos Orientales","Groenlandia","Territorio Noroccidental","Ontario","Quebec","Estados Unidos Occidentales","Argentina","Brasil","Peru","Venezuela","Gran Bretana","Islandia","Europa del Norte","Escandinavia","Europa del Sur","Ucrania","Europa Occidental","Congo","Africa Oriental","Egipto","Madagascar","Africa del Norte","Africa del Sur","Afghanistan","China","India","Irkutsk","Japon","Kamchatka","Medio Oriente","Mongolia","Siam","Siberia","Ural","Yakutsk","Australia Oriental","Indonesia","Nueva Guinea","Australia Occidental"};
+  std::vector<std::string> tropa =        {"Tropa","Tropa","Caballeria","Artilleria","Caballeria","Artilleria","Artilleria","Artilleria","Tropa","Caballeria","Artilleria","Caballeria","Artilleria","Caballeria","Tropa","Caballeria","Artilleria","Caballeria","Artilleria","Tropa","Caballeria","Artilleria","Tropa","Tropa","Tropa","Artilleria","Tropa","Caballeria","Tropa","Tropa","Tropa","Caballeria","Artilleria","Artilleria","Artilleria","Artilleria","Caballeria","Caballeria","Tropa","Caballeria","Caballeria","Artilleria"};
+
+  std::vector<std::string>::iterator nombreIt = nombrePaises.begin();
+  std::vector<std::string>::iterator tropaIt = tropa.begin();
+
+  //Cartas normales
+  for(nombreIt = nombrePaises.begin(); nombreIt != nombrePaises.end(); nombreIt++,tropaIt++){
+    auxCarta.FijarTipo("Normal");
+    auxCarta.FijarPais(*nombreIt);
+    auxCarta.FijarTropa(*tropaIt);
+    cartas.push_back(auxCarta);
+  }
+
+  //Cartas comodin
+  for(int i = 0; i < 3; i++) {
+    auxCarta.FijarTipo("Comodin");
+    auxCarta.FijarPais("");
+    auxCarta.FijarTropa("");
+    cartas.push_back(auxCarta);
+  }
+
+  //Cartas mision secreta
+  //for(int i = 0; i < 12; i++) {
+  //
+  //}
+
+  mipartida.FijarCartas(cartas);
+
+  std::vector<Carta> partidaCartas = mipartida.ObtenerCartas();
+  std::vector<Carta>::iterator cardsIt = partidaCartas.begin();
+
+  std::cout<<std::endl;
+  std::cout <<std::setw(20) <<"Tipo carta" <<std::setw(30) <<"Pais" <<std::setw(30) << "Tipo tropa" << std::endl<<std::endl;
+
+  for(cardsIt = partidaCartas.begin(); cardsIt != partidaCartas.end(); cardsIt++){
+    std::cout <<std::setw(20) <<cardsIt->ObtenerTipo() <<std::setw(30) <<cardsIt->ObtenerPais() <<std::setw(30) << cardsIt->ObtenerTropa() << std::endl;
+  }
+
+  Dado auxDado;
+  std::vector<Dado> dados;
+
+  for(int i = 0; i < 3; i++) {
+    auxDado.FijarColor("Ataque");
+    dados.push_back(auxDado);
+  }
+
+  for(int i = 0; i < 2; i++) {
+    auxDado.FijarColor("Defensa");
+    dados.push_back(auxDado);
+  }
+
+  mipartida.FijarDados(dados);
+
+  std::vector<Dado> partidaDados = mipartida.ObtenerDados();
+  std::vector<Dado>::iterator dadosIt = partidaDados.begin();
+
+  std::cout<<std::endl;
+  std::cout <<std::setw(20) <<"Tipo dado" <<std::setw(30) <<"Valor" << std::endl<<std::endl;
+
+  for(dadosIt = partidaDados.begin(); dadosIt != partidaDados.end(); dadosIt++){
+    std::cout <<std::setw(20) <<dadosIt->ObtenerColor() <<std::setw(30) <<dadosIt->ObtenerValor() << std::endl;
+  }
+
+
   //TODO 1: Mostrar el nombre del continente y los paises que tiene desde la clase partida. (HECHO)
   //TODO 2: Crear cartas, dados. 
   //TODO 3: Asignar paises (aleatoriamente), cartas (aleatoriamente) y tropas a jugadores.
