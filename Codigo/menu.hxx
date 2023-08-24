@@ -27,8 +27,8 @@
 #include <iomanip>
 #include <algorithm> // Necesario para std::shuffle
 #include <random> 
-
 #include <windows.h> //Esto es para windows
+
 
 HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE); //Esto es para cambiar los colores de forma global
 //************************************************************************
@@ -93,6 +93,16 @@ void Menu::comando_ayuda_comandos(const std::string& comando){
   }
 }
 
+//Función que verifica si un string contiene solo espacios en blanco
+bool Menu::contieneSoloEspacios(std::string str) {
+  for (int i = 0; i < str.length(); i++) {
+    if (str[i] != ' ') {
+      return false;
+    }
+  }
+  return true;
+}
+
 //Es la función con la que se inicializa el juego
 void Menu::comando_inicializar_nueva_partida() {
   std::string input, palabra, comando, nombre_partida;
@@ -122,6 +132,11 @@ void Menu::comando_inicializar_nueva_partida() {
     //Regresa al menu principal
     else if (argumentos[0].compare("salir") == 0) {
       return;
+    }
+    // Verificamos si el nombre de la partida contiene solo espacios en blanco
+    else if (contieneSoloEspacios(argumentos[0])) {
+      std::cout << "El nombre de la partida no puede contener solo espacios en blanco. \n";
+      continue;
     }
     else {
       nombre_partida = argumentos[0];
@@ -663,7 +678,6 @@ void Menu::comando_inicializar_nueva_partida() {
     std::cout<<"\n--------------------------------\n";
     jugadores.push(jugador);
   }
-
   //TODO 4: Arreglar espacio al poner nombre de partida.
   //TODO 5: Clases implementadas con el main (HECHO)
 
