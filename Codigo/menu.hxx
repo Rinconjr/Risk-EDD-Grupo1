@@ -464,6 +464,10 @@ void Menu::comando_inicializar_nueva_partida() {
   }
   SetConsoleTextAttribute(hConsole, FOREGROUND_BLUE | FOREGROUND_GREEN | FOREGROUND_RED); //Pone el color de la consola normal, (la combinacion de rojo verde y azul es blanco)
 
+
+  //TODO 1: Mostrar el nombre del continente y los paises que tiene desde la clase partida. (HECHO)
+  //TODO 2: Crear cartas, dados. (HECHO)
+  //TODO 3: Asignar tropas a jugadores.
   std::vector<std::string> auxPaises;
   std::vector<std::string> paisesAsignados; 
   int paisesTotal=42;
