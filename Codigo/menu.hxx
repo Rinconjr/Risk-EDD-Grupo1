@@ -358,11 +358,6 @@ void Menu::comando_inicializar_nueva_partida() {
   paisesAmericaDelNorte.push_back(paisAux);
 
   std::cout<< "Paises de Amerrica del Norte creados\n";
-  //Recorre los paises de America del Norte y muestra el nombre de cada uno
-  //std::vector<Pais>::iterator paisesIt;
-  //for (paisesIt = paisesAmericaDelNorte.begin(); paisesIt != paisesAmericaDelNorte.end(); paisesIt++) {
-  //  std::cout << "   - " << paisesIt->ObtenerNombre() << std::endl;
-  //}
 
   //America del Sur
   std::vector<Pais> paisesAmericaDelSur;
@@ -380,10 +375,6 @@ void Menu::comando_inicializar_nueva_partida() {
   paisesAmericaDelSur.push_back(paisAux);
 
   std::cout<< "Paises de America del Sur\n";
-  //Recorre los paises de America del Sur y muestra el nombre de cada uno
-  //for (paisesIt = paisesAmericaDelSur.begin(); paisesIt != paisesAmericaDelSur.end(); paisesIt++) {
-  //  std::cout << "   - " << paisesIt->ObtenerNombre() << std::endl;
-  //}
 
   //Europa
   std::vector<Pais> paisesEuropa;
@@ -410,10 +401,6 @@ void Menu::comando_inicializar_nueva_partida() {
   paisesEuropa.push_back(paisAux);
 
   std::cout<< "Paises de Europa\n";
-  //Recorre los paises de Europa y muestra el nombre de cada uno
-  //for (paisesIt = paisesEuropa.begin(); paisesIt != paisesEuropa.end(); paisesIt++) {
-  //  std::cout << "   - " << paisesIt->ObtenerNombre() << std::endl;
-  //}
 
   //Africa
   std::vector<Pais> paisesAfrica;
@@ -437,10 +424,6 @@ void Menu::comando_inicializar_nueva_partida() {
   paisesAfrica.push_back(paisAux);
 
   std::cout<< "Paises de Africa\n";
-  //Recorre los paises de Africa y muestra el nombre de cada uno
-  //for (paisesIt = paisesAfrica.begin(); paisesIt != paisesAfrica.end(); paisesIt++) {
-  //  std::cout << "   - " << paisesIt->ObtenerNombre() << std::endl;
-  //}
 
   //Asia
   std::vector<Pais> paisesAsia;
@@ -482,10 +465,6 @@ void Menu::comando_inicializar_nueva_partida() {
   paisesAsia.push_back(paisAux);
 
   std::cout<< "Paises de Asia\n";
-  //Recorre los paises de Asia y muestra el nombre de cada uno
-  //for (paisesIt = paisesAsia.begin(); paisesIt != paisesAsia.end(); paisesIt++) {
-  //  std::cout << "   - " << paisesIt->ObtenerNombre() << std::endl;
-  //}
 
   //Australia
   std::vector<Pais> paisesAustralia;
@@ -503,10 +482,6 @@ void Menu::comando_inicializar_nueva_partida() {
   paisesAustralia.push_back(paisAux);
 
   std::cout<< "Paises de Australia\n";
-  //Recorre los paises de Australia y muestra el nombre de cada uno
-  //for (paisesIt = paisesAustralia.begin(); paisesIt != paisesAustralia.end(); paisesIt++) {
-  //  std::cout << "   - " << paisesIt->ObtenerNombre() << std::endl;
-  //}
 
   //Se crean los continentes
   Continente auxContinente;
@@ -537,13 +512,6 @@ void Menu::comando_inicializar_nueva_partida() {
   auxContinente.FijarPaises(paisesAustralia);
   continentes.push_back(auxContinente);
 
-
-  //Esto de aca solo muestra el nombre del continente, cuando se intenta imprimir el pais empieza a dar error,
-  //std::vector<Continente>::iterator continentesIt = continentes.begin();
-  //for(continentesIt = continentes.begin(); continentesIt != continentes.end(); continentesIt++){
-  //    std::cout << "Continente: " << continentesIt->ObtenerNombre() << std::endl;
-  //  }
-
   mipartida.FijarContinentes(continentes);
 
   //DIEGO
@@ -569,7 +537,7 @@ void Menu::comando_inicializar_nueva_partida() {
   //TODO 2: Crear cartas, dados. 
   //TODO 3: Asignar paises (aleatoriamente), cartas (aleatoriamente) y tropas a jugadores.
   //TODO 4: Arreglar espacio al poner nombre de partida.
-  //TODO 5: Clases implementadas con el main 
+  //TODO 5: Clases implementadas con el main (HECHO)
 
   std::cout << " Inicializar partida nueva (En construccion).\n";
   std::cout << " Presione enter para continuar.";
