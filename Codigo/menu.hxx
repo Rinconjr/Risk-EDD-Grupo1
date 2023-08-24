@@ -552,8 +552,8 @@ void Menu::comando_inicializar_nueva_partida() {
   //TODO 1: Mostrar el nombre del continente y los paises que tiene desde la clase partida. (HECHO)
   //TODO 2: Crear cartas, dados. 
   //TODO 3: Asignar paises (aleatoriamente), cartas (aleatoriamente) y tropas a jugadores.
-  //TODO 4: Arreglar espacio al poner nombre de partida.
-  //TODO 5: Clases implementadas con el main (HECHO)
+  //TODO 4: Arreglar espacio al poner nombre de partida. (HECHO)
+  //TODO 5: Clases implementadas con el main. (HECHO)
 
   std::cout << " Inicializar partida nueva (En construccion).\n";
   std::cout << " Presione enter para continuar.";
