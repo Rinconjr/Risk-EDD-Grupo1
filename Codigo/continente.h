@@ -50,7 +50,7 @@ class Continente{
         std::vector<Pais> ObtenerPaises();
 
         void FijarNombre(std::string nnombre);
-        void FijarTropasAdicionales();
+        void FijarTropasAdicionales(int nTropasAdicionales);
         void FijarPaises(std::vector<Pais> npaises);
 };
 
