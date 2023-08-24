@@ -15,6 +15,7 @@
 // INICIO - LIBRERIAS
 //************************************************************************
 #include "menu.h"
+#include "partida.h"
 #include <iostream>
 #include <sstream>
 #include <cstdlib>
@@ -89,7 +90,6 @@ void Menu::comando_inicializar_nueva_partida() {
   std::cout << "Se creara una partida nueva. \nSi desea cargar una partida existente, regrese al menu principal escribiendo 'salir' y luego escriba 'inicializar <nombre_archivo>' \n";
 
   do {
-    //std::cout << "$ ";
     std::cout << "Ingrese el nombre para la partida: ";
     std::getline(std::cin, input);
     std::stringstream stream(input);
@@ -117,6 +117,12 @@ void Menu::comando_inicializar_nueva_partida() {
     }
   }
   while(!continuar);
+
+  //Crear la partida
+  Partida mipartida;
+
+  //Guardar el nombre de la partida
+  mipartida.FijarNombre(nombre_partida);
 
   continuar = false;
 
@@ -161,6 +167,17 @@ void Menu::comando_inicializar_nueva_partida() {
     }
   }
   while(!continuar);
+
+  //Crear vector jugadores
+  std::vector<Jugador> jugadoresPartida;
+  std::vector<Jugador>::iterator itJugadores;
+
+  for(int i=0; i<cantidad_jugadores; i++){
+    Jugador auxJugador;
+    auxJugador.FijarId(i+1);
+    
+  }
+
 
   std::cout << " Inicializar partida nueva (En construccion).\n";
   std::cout << " Presione enter para continuar.";
