@@ -28,7 +28,7 @@ class Jugador {
     std::string id;
     bool estado;
     std::string color;
-    std::vector<Pais> paises;
+    std::vector<std::string> paises;
     std::vector<Carta> cartas;
 
   public:
@@ -38,20 +38,28 @@ class Jugador {
     //============================
     Jugador();
 
+    Jugador(std::string nid, bool nbool,std::string ncolor, std::vector<std::string> npaises, std::vector<Carta> ncartas) :
+        id(nid), 
+        estado(nbool), 
+        color(ncolor), 
+        paises(npaises), 
+        cartas(ncartas) 
+    {}
+
     //============================
     //Getters y Setters
     //============================
-    std::string ObtenerId() const;
-    bool ObtenerEstado() const;
-    std::string ObtenerColor() const;
-    std::vector<Pais> ObtenerPaises() const;
-    std::vector<Carta> ObtenerCartas() const;
+    std::string ObtenerId();
+    bool ObtenerEstado();
+    std::string ObtenerColor();
+    std::vector<std::string> ObtenerPaises();
+    std::vector<Carta> ObtenerCartas();
 
-    void FijarId(const std::string& nid);
+    void FijarId(const std::string nid);
     void FijarEstado(bool nbool);
-    void FijarColor(const std::string& ncolor);
-    void FijarPaises(const std::vector<Pais>& npaises);
-    void FijarCartas(const std::vector<Carta>& ncartas);
+    void FijarColor(const std::string ncolor);
+    void FijarPaises(const std::vector<std::string> npaises);
+    void FijarCartas(const std::vector<Carta> ncartas);
 };
 
 //*****************************************************************

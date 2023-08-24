@@ -26,46 +26,60 @@
 //************************************************************************
 // INICIO - FUNCIONES
 //************************************************************************
-Jugador::Jugador(){}
-
-std::string Jugador::ObtenerId() const {
-    return id;
+Jugador::Jugador() {
+    this->id = "";
+    this->estado = false;
+    this->color = "";
+    this->paises = std::vector<std::string>();
+    this->cartas = std::vector<Carta>();
 }
 
-bool Jugador::ObtenerEstado() const {
-    return estado;
+Jugador::Jugador(std::string nid, bool nbool,std::string ncolor, std::vector<std::string> npaises, std::vector<Carta> ncartas){
+    this->id = nid;
+    this->estado = nbool;
+    this->color = ncolor;
+    this->paises = npaises;
+    this->cartas = ncartas;
 }
 
-std::string Jugador::ObtenerColor() const {
-    return color;
+std::string Jugador::ObtenerId() {
+    return this->id;
 }
 
-std::vector<Pais> Jugador::ObtenerPaises() const {
-    return paises;
+bool Jugador::ObtenerEstado() {
+    return this->estado;
 }
 
-std::vector<Carta> Jugador::ObtenerCartas() const {
-    return cartas;
+std::string Jugador::ObtenerColor() {
+    return this->color;
 }
 
-void Jugador::FijarId(const std::string& nid) {
-    id = nid;
+std::vector<std::string> Jugador::ObtenerPaises() {
+    return this->paises;
+}
+
+std::vector<Carta> Jugador::ObtenerCartas() {
+    return this->cartas;
+}
+
+void Jugador::FijarId(const std::string nid) {
+    this->id = nid;
 }
 
 void Jugador::FijarEstado(bool nbool) {
-    estado = nbool;
+    this->estado = nbool;
 }
 
-void Jugador::FijarColor(const std::string& ncolor) {
-    color = ncolor;
+void Jugador::FijarColor(const std::string ncolor) {
+    this->color = ncolor;
 }
 
-void Jugador::FijarPaises(const std::vector<Pais>& npaises) {
-    paises = npaises;
+void Jugador::FijarPaises(const std::vector<std::string> npaises) {
+    this->paises = npaises;
 }
 
-void Jugador::FijarCartas(const std::vector<Carta>& ncartas) {
-    cartas = ncartas;
+void Jugador::FijarCartas(const std::vector<Carta> ncartas) {
+    this->cartas = ncartas;
 }
 
 //************************************************************************

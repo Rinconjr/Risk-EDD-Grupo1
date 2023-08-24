@@ -43,24 +43,27 @@ class Partida {
     //============================
     Partida();
 
+    Partida(std::string nnombre,std::string ntipo, int ntradeos, std::vector<Continente> ncontinentes, std::queue<Jugador> njugadores, std::vector<Carta> ncartas, std::vector<Dado> ndados);
+
+
     //============================
     //Getters y Setters
     //============================
-    std::string ObtenerNombre() const;
-    std::string ObtenerTipoPartida() const;
-    int ObtenersetsTradeados() const;
-    std::vector<Continente> ObtenerContinentes() const;
-    std::queue<Jugador> ObtenerJugadores() const;
-    std::vector<Carta> ObtenerCartas() const;
-    std::vector<Dado> ObtenerDados() const;
+    std::string ObtenerNombre();
+    std::string ObtenerTipoPartida();
+    int ObtenersetsTradeados();
+    std::vector<Continente> ObtenerContinentes();
+    std::queue<Jugador> ObtenerJugadores();
+    std::vector<Carta> ObtenerCartas();
+    std::vector<Dado> ObtenerDados();
 
-    void FijarNombre(const std::string& nnombre);
-    void FijarTipoJuego(const std::string& ntipo);
+    void FijarNombre(const std::string nnombre);
+    void FijarTipoJuego(const std::string ntipo);
     void FijarsetsTradeados(int ntradeos);
-    void FijarContinentes(const std::vector<Continente>& ncontinentes);
-    void FijarJugadores(const std::queue<Jugador>& njugadores);
-    void FijarCartas(const std::vector<Carta>& ncartas);
-    void FijarDados(const std::vector<Dado>& ndados);
+    void FijarContinentes(const std::vector<Continente> ncontinentes);
+    void FijarJugadores(const std::queue<Jugador> njugadores);
+    void FijarCartas(const std::vector<Carta> ncartas);
+    void FijarDados(const std::vector<Dado> ndados);
 };
 
 //*****************************************************************
