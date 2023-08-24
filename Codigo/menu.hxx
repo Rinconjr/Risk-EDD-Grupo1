@@ -15,10 +15,20 @@
 // INICIO - LIBRERIAS
 //************************************************************************
 #include "menu.h"
+#include "continente.h"
+#include "carta.h"
+#include "dado.h"
+#include "pais.h"
+#include "jugador.h"
 #include "partida.h"
 #include <iostream>
 #include <sstream>
 #include <cstdlib>
+#include <iomanip>
+
+#include <windows.h> //Esto es para windows
+
+HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE); //Esto es para cambiar los colores de forma global
 //************************************************************************
 // FIN - LIBRERIAS
 //************************************************************************
@@ -87,7 +97,7 @@ void Menu::comando_inicializar_nueva_partida() {
   int cantidad_jugadores;
   char delimitador = ' ';
   bool continuar = false;
-  std::cout << "Se creara una partida nueva. \nSi desea cargar una partida existente, regrese al menu principal escribiendo 'salir' y luego escriba 'inicializar <nombre_archivo>' \n";
+  std::cout << "Se creara una partida nueva. \nSi desea cargar una partida existente, regrese al menu principal escribiendo 'salir' y luego escriba 'inicializar <nombre_archivo>' sad\n";
 
   do {
     std::cout << "Ingrese el nombre para la partida: ";
@@ -349,10 +359,10 @@ void Menu::comando_inicializar_nueva_partida() {
 
   std::cout<< "Paises de Amerrica del Norte creados\n";
   //Recorre los paises de America del Norte y muestra el nombre de cada uno
-  std::vector<Pais>::iterator paisesIt;
-  for (paisesIt = paisesAmericaDelNorte.begin(); paisesIt != paisesAmericaDelNorte.end(); paisesIt++) {
-    std::cout << "   - " << paisesIt->ObtenerNombre() << std::endl;
-  }
+  //std::vector<Pais>::iterator paisesIt;
+  //for (paisesIt = paisesAmericaDelNorte.begin(); paisesIt != paisesAmericaDelNorte.end(); paisesIt++) {
+  //  std::cout << "   - " << paisesIt->ObtenerNombre() << std::endl;
+  //}
 
   //America del Sur
   std::vector<Pais> paisesAmericaDelSur;
@@ -371,9 +381,9 @@ void Menu::comando_inicializar_nueva_partida() {
 
   std::cout<< "Paises de America del Sur\n";
   //Recorre los paises de America del Sur y muestra el nombre de cada uno
-  for (paisesIt = paisesAmericaDelSur.begin(); paisesIt != paisesAmericaDelSur.end(); paisesIt++) {
-    std::cout << "   - " << paisesIt->ObtenerNombre() << std::endl;
-  }
+  //for (paisesIt = paisesAmericaDelSur.begin(); paisesIt != paisesAmericaDelSur.end(); paisesIt++) {
+  //  std::cout << "   - " << paisesIt->ObtenerNombre() << std::endl;
+  //}
 
   //Europa
   std::vector<Pais> paisesEuropa;
@@ -401,9 +411,9 @@ void Menu::comando_inicializar_nueva_partida() {
 
   std::cout<< "Paises de Europa\n";
   //Recorre los paises de Europa y muestra el nombre de cada uno
-  for (paisesIt = paisesEuropa.begin(); paisesIt != paisesEuropa.end(); paisesIt++) {
-    std::cout << "   - " << paisesIt->ObtenerNombre() << std::endl;
-  }
+  //for (paisesIt = paisesEuropa.begin(); paisesIt != paisesEuropa.end(); paisesIt++) {
+  //  std::cout << "   - " << paisesIt->ObtenerNombre() << std::endl;
+  //}
 
   //Africa
   std::vector<Pais> paisesAfrica;
@@ -428,9 +438,9 @@ void Menu::comando_inicializar_nueva_partida() {
 
   std::cout<< "Paises de Africa\n";
   //Recorre los paises de Africa y muestra el nombre de cada uno
-  for (paisesIt = paisesAfrica.begin(); paisesIt != paisesAfrica.end(); paisesIt++) {
-    std::cout << "   - " << paisesIt->ObtenerNombre() << std::endl;
-  }
+  //for (paisesIt = paisesAfrica.begin(); paisesIt != paisesAfrica.end(); paisesIt++) {
+  //  std::cout << "   - " << paisesIt->ObtenerNombre() << std::endl;
+  //}
 
   //Asia
   std::vector<Pais> paisesAsia;
@@ -473,9 +483,9 @@ void Menu::comando_inicializar_nueva_partida() {
 
   std::cout<< "Paises de Asia\n";
   //Recorre los paises de Asia y muestra el nombre de cada uno
-  for (paisesIt = paisesAsia.begin(); paisesIt != paisesAsia.end(); paisesIt++) {
-    std::cout << "   - " << paisesIt->ObtenerNombre() << std::endl;
-  }
+  //for (paisesIt = paisesAsia.begin(); paisesIt != paisesAsia.end(); paisesIt++) {
+  //  std::cout << "   - " << paisesIt->ObtenerNombre() << std::endl;
+  //}
 
   //Australia
   std::vector<Pais> paisesAustralia;
@@ -494,9 +504,9 @@ void Menu::comando_inicializar_nueva_partida() {
 
   std::cout<< "Paises de Australia\n";
   //Recorre los paises de Australia y muestra el nombre de cada uno
-  for (paisesIt = paisesAustralia.begin(); paisesIt != paisesAustralia.end(); paisesIt++) {
-    std::cout << "   - " << paisesIt->ObtenerNombre() << std::endl;
-  }
+  //for (paisesIt = paisesAustralia.begin(); paisesIt != paisesAustralia.end(); paisesIt++) {
+  //  std::cout << "   - " << paisesIt->ObtenerNombre() << std::endl;
+  //}
 
   //Se crean los continentes
   Continente auxContinente;
@@ -529,51 +539,37 @@ void Menu::comando_inicializar_nueva_partida() {
 
 
   //Esto de aca solo muestra el nombre del continente, cuando se intenta imprimir el pais empieza a dar error,
-  //los tres codigos que hay abajo comentados fueron pruebas fallidas.
-  std::vector<Continente>::iterator continentesIt = continentes.begin();
-  for(continentesIt = continentes.begin(); continentesIt != continentes.end(); continentesIt++){
-    std::cout << "Continente: " << continentesIt->ObtenerNombre() << std::endl;
-  }
+  //std::vector<Continente>::iterator continentesIt = continentes.begin();
+  //for(continentesIt = continentes.begin(); continentesIt != continentes.end(); continentesIt++){
+  //    std::cout << "Continente: " << continentesIt->ObtenerNombre() << std::endl;
+  //  }
 
   mipartida.FijarContinentes(continentes);
 
-  /*
-  std::vector<Continente>::iterator continentesIt = continentes.begin();
-  std::cout << "Continente: " << continentesIt->ObtenerNombre() << std::endl;
-  for (paisesIt = continentesIt->ObtenerPaises().begin(); paisesIt != continentesIt->ObtenerPaises().end(); paisesIt++) {
-    std::cout << "   - " << paisesIt->ObtenerNombre() << std::endl;
-  }
-  
+  //DIEGO
+  std::vector<Continente> partidaContinentes = mipartida.ObtenerContinentes();
+  std::vector<Continente>::iterator continentIt = partidaContinentes.begin();
 
-  /*
-  //Recorre el vector de continentes mostrando su nombre y cada uno de los paises que tiene
-  std::vector<Continente>::iterator continentesIt;
-  for (continentesIt = continentes.begin(); continentesIt != continentes.end(); continentesIt++) {
-    std::cout << "Continente: " << continentesIt->ObtenerNombre() << std::endl;
-    for (paisesIt = continentesIt->ObtenerPaises().begin(); paisesIt != continentesIt->ObtenerPaises().end(); paisesIt++) {
-      std::cout << "   - " << paisesIt->ObtenerNombre() << std::endl;
+
+  SetConsoleTextAttribute(hConsole, FOREGROUND_RED | FOREGROUND_INTENSITY); //Pone la consola en rojo
+  std::cout <<std::endl<<std::setw(20) <<"Continente" <<std::setw(30) <<"Pais" <<std::setw(30) <<"Cantidad de tropas"<< std::endl << std::endl;
+
+  SetConsoleTextAttribute(hConsole, FOREGROUND_BLUE | FOREGROUND_INTENSITY); //Pone la consola en azul
+  for(continentIt = partidaContinentes.begin(); continentIt != partidaContinentes.end(); continentIt++){
+    std::vector<Pais> partidaPais = continentIt->ObtenerPaises();
+    std::vector<Pais>::iterator partidaPaisIt = partidaPais.begin();
+
+    for(partidaPaisIt = partidaPais.begin(); partidaPaisIt != partidaPais.end(); partidaPaisIt++){
+      std::cout <<std::setw(20) <<continentIt->ObtenerNombre() <<std::setw(30) <<partidaPaisIt->ObtenerNombre() <<std::setw(30) << partidaPaisIt->ObtenerCantidadTropas() << std::endl;
     }
   }
-  */
+  SetConsoleTextAttribute(hConsole, FOREGROUND_BLUE | FOREGROUND_GREEN | FOREGROUND_RED); //Pone el color de la consola normal, (la combinacion de rojo verde y azul es blanco)
 
-  /*
-  //Crea un iterador para recorrer los continentes con sus paises y mostrar el nombre de cada uno
-  std::vector<Continente>::iterator continentesIt;
-  std::vector<Pais>::iterator paisesIt;
-  //Recorre los continentes desde mi partida, muestra el nombre de cada uno y sus paises
-  for (continentesIt = mipartida.ObtenerContinentes().begin(); continentesIt != mipartida.ObtenerContinentes().end(); continentesIt++) {
-    std::cout << "Continente: " << continentesIt->ObtenerNombre() << std::endl;
-    for (paisesIt = continentesIt->ObtenerPaises().begin(); paisesIt != continentesIt->ObtenerPaises().end(); paisesIt++) {
-      std::cout << "   - " << paisesIt->ObtenerNombre() << std::endl;
-    }
-  }
-  */
-
-  //TODO 1: Mostrar el nombre del continente y los paises que tiene desde la clase partida.
+  //TODO 1: Mostrar el nombre del continente y los paises que tiene desde la clase partida. (HECHO)
   //TODO 2: Crear cartas, dados. 
   //TODO 3: Asignar paises (aleatoriamente), cartas (aleatoriamente) y tropas a jugadores.
   //TODO 4: Arreglar espacio al poner nombre de partida.
-  //TODO 5: Clases implementadas con el main
+  //TODO 5: Clases implementadas con el main 
 
   std::cout << " Inicializar partida nueva (En construccion).\n";
   std::cout << " Presione enter para continuar.";
@@ -1185,7 +1181,8 @@ void Menu::limpiar_consola() {
 
 //Simplemente es la imagen de inicio del juego
 void Menu::imagen_risk(){
-    std::cout << "---------------------------------------------------------------------BIENVENIDO!----------------------------------------------------------------------\n";
+  SetConsoleTextAttribute(hConsole, FOREGROUND_GREEN | FOREGROUND_INTENSITY);
+  std::cout << "---------------------------------------------------------------------BIENVENIDO!----------------------------------------------------------------------\n";
   std::cout << "                                             ,&&@&@@@@@@@@@@@@@&                                                                                      \n";
   std::cout << "                                                &@&@&@@@&@@@&@&&                                                                                      \n";
   std::cout << "                    *@@@@@@@@@@@&@@@@@@@@@@&      &@@@@@@@@&&*                                     %@@@@@@@@@@@@@@@@@@@@@@@&&&&&&&&&&&&%              \n";
@@ -1216,6 +1213,7 @@ void Menu::imagen_risk(){
   std::cout << "                                                                                                                                                      \n";
   std::cout << "                                                              Version 0.1.4                                                                           \n";
   std::cout << "------------------------------------------------------------------------------------------------------------------------------------------------------\n";
+  SetConsoleTextAttribute(hConsole, FOREGROUND_BLUE | FOREGROUND_GREEN | FOREGROUND_RED);
 }
 
 //Es el inicio del programa y se redirreciona dependiendo de la opcion que quiera hacer el usuario
