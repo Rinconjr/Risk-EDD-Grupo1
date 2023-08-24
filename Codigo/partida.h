@@ -45,7 +45,6 @@ class Partida {
 
     Partida(std::string nnombre,std::string ntipo, int ntradeos, std::vector<Continente> ncontinentes, std::queue<Jugador> njugadores, std::vector<Carta> ncartas, std::vector<Dado> ndados);
 
-
     //============================
     //Getters y Setters
     //============================
