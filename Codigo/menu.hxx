@@ -124,11 +124,72 @@ void Menu::comando_inicializar_nueva_partida() {
   //Guardar el nombre de la partida
   mipartida.FijarNombre(nombre_partida);
 
+  std::cout << "Recuerde que si desea volver al menu principal en cualquier momento escribiendo: 'salir'. \n";
+
+  //Crear vector tipo partidas e iterador
+  std::vector<std::string> tipopartidas;
+  std::vector<std::string>::iterator tipopartidasIt;
+
+  //Agregar colores de la partida
+  tipopartidas.push_back("MisionSecreta");
+  tipopartidas.push_back("Normal");
+
+  continuar = false;
+
+  //Mostrar tipos de partida disponibles
+  std::cout << "Los siguientes son los tipos de partida disponibles: " << std::endl;
+
+  for(tipopartidasIt = tipopartidas.begin(); tipopartidasIt != tipopartidas.end(); tipopartidasIt++){
+    std::cout << "   - " << *tipopartidasIt << std::endl;
+  }
+
+  //Preguntar el tipo de la partida
+  do {
+    std::cout << "Que tipo de partida desea crear para '"<< nombre_partida <<"': ";
+    std::getline(std::cin, input);
+    std::stringstream stream(input);
+    std::vector<std::string> argumentos;
+
+    // while para ir guardando los argumentos en el vector
+    while (getline(stream, palabra, delimitador)) {
+      argumentos.push_back(palabra);    
+    }
+    // Si no ingreso nada, simplemente continua.
+    if (argumentos.empty()) {
+      continue;
+    }
+    else if(argumentos.size() > 1) {
+      std::cout << "Ingrese solamente el tipo de la partida\n";
+      continue;
+    }
+    //Regresa al menu principal
+    else if (argumentos[0].compare("salir") == 0) {
+      return;
+    }
+    else {
+      //Revisar si el tipo de partida ingresada existe
+      bool encontrado = false;
+
+      for(tipopartidasIt = tipopartidas.begin(); tipopartidasIt != tipopartidas.end(); tipopartidasIt++){
+        if(argumentos[0].compare(*tipopartidasIt) == 0){
+          encontrado = true;
+        }
+      }
+      if(encontrado == false){
+        std::cout << "Tipo partida: '" << argumentos[0] << "' no encontrado. Porfavor ingrese un tipo de partida valido. \n";
+      } else{
+        mipartida.FijarTipoJuego(argumentos[0]); //Asignar tipo partida a partida
+        continuar = true;
+      }
+    }
+  }
+  while(!continuar);
+
+  //Preguntar el numero de jugadores
   continuar = false;
 
   do {
-    //std::cout << "$ ";
-    std::cout << "Cuantos jugadores tendra la partida '"<< nombre_partida <<"' (Min 2, Max 6): ";
+    std::cout << "Cuantos jugadores tendra la partida '" << nombre_partida << "' (Min 2, Max 6): ";
     std::getline(std::cin, input);
     std::stringstream stream(input);
     std::vector<std::string> argumentos;
@@ -169,9 +230,8 @@ void Menu::comando_inicializar_nueva_partida() {
   while(!continuar);
 
 
-  //Crear vector jugadores e iterador
-  std::vector<Jugador> jugadoresPartida;
-  std::vector<Jugador>::iterator itJugadores;
+  //Crear queue jugadores e iterador
+  std::queue<Jugador> jugadoresPartida;
 
   //Crear vector colores e iterador
   std::vector<std::string> colores;
@@ -219,30 +279,39 @@ void Menu::comando_inicializar_nueva_partida() {
       std::cout << "Ingrese solamente el color que desea.\n";
       continue;
     }
+    else if (argumentos[0].compare("salir") == 0) {
+      return;
+    }
     else {
       //Revisar si el color ingresado existe
       bool encontrado = false;
 
-      for(coloresIt = colores.begin(); coloresIt != colores.end(); coloresIt++){
-        if(argumentos[0].compare(*coloresIt) == 0){
+      for (coloresIt = colores.begin(); coloresIt != colores.end(); ) {
+        if (argumentos[0].compare(*coloresIt) == 0) {
           encontrado = true;
-          colores.erase(coloresIt);
+          coloresIt = colores.erase(coloresIt);
+        } else {
+          coloresIt++;
         }
-      }
+    }
+
       if(encontrado == false){
         std::cout << "Color: '" << argumentos[0] << "' no encontrado o ya fue seleccionado. Porfavor ingrese un color valido. \n";
         continue;
       }
       else{
         auxJugador.FijarColor(argumentos[0]);
-        jugadoresPartida.push_back(auxJugador);
-        itJugadores++;
+        jugadoresPartida.push(auxJugador);
         i++;
       }
     }
   }
   while(i!=cantidad_jugadores);
 
+  //Se empieza con la creacion de todo relacionado con la partida
+  //Previamente se agrego el nombre
+  //Previamente se agrego tipo partida
+  mipartida.FijarJugadores(jugadoresPartida); //Se agregan jugadores a la partida
 
   std::cout << " Inicializar partida nueva (En construccion).\n";
   std::cout << " Presione enter para continuar.";
