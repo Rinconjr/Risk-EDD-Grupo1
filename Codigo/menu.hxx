@@ -535,10 +535,10 @@ void Menu::comando_inicializar_nueva_partida() {
   std::vector<Continente>::iterator continentIt = partidaContinentes.begin();
 
 
-  SetConsoleTextAttribute(hConsole, FOREGROUND_RED | FOREGROUND_INTENSITY); //Pone la consola en rojo
+  SetConsoleTextAttribute(hConsole, FOREGROUND_RED | FOREGROUND_INTENSITY); //Pone la consola con letras en rojo
   std::cout <<std::endl<<std::setw(20) <<"Continente" <<std::setw(30) <<"Pais" <<std::setw(30) <<"Cantidad de tropas"<< std::endl << std::endl;
 
-  SetConsoleTextAttribute(hConsole, FOREGROUND_BLUE | FOREGROUND_INTENSITY); //Pone la consola en azul
+  SetConsoleTextAttribute(hConsole, FOREGROUND_BLUE | FOREGROUND_INTENSITY); //Pone la consola con letras en azul
   for(continentIt = partidaContinentes.begin(); continentIt != partidaContinentes.end(); continentIt++){
     std::vector<Pais> partidaPais = continentIt->ObtenerPaises();
     std::vector<Pais>::iterator partidaPaisIt = partidaPais.begin();
