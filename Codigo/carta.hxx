@@ -29,33 +29,33 @@ Carta::Carta(){
     this->tropa="";
 }
 
-Carta::Carta(std::string tipo,std::string pais, std::string tropa):tipo(tipo),pais(pais),tropa(tropa){
+Carta::Carta(std::string tipo, std::string pais, std::string tropa){
     this->tipo=tipo;
     this->pais=pais;
     this->tropa=tropa;
 }
 
-std::string Carta::ObtenerTipo() const {
-    return this-> tipo;
+std::string Carta::ObtenerTipo() {
+    return this->tipo;
 }
 
-std::string Carta::ObtenerPais() const {
+std::string Carta::ObtenerPais() {
     return this->pais;
 }
 
-std::string Carta::ObtenerTropa() const {
+std::string Carta::ObtenerTropa() {
     return this->tropa;
 }
 
-void Carta::FijarTipo(const std::string ncarta) {
+void Carta::FijarTipo(std::string ncarta) {
     this->tipo = ncarta;
 }
 
-void Carta::FijarPais(const std::string ntarjeta) {
+void Carta::FijarPais(std::string ntarjeta) {
     this->pais = ntarjeta;
 }
 
-void Carta::FijarTropa(const std::string ntropa) {
+void Carta::FijarTropa(std::string ntropa) {
     this->tropa = ntropa;
 }
 

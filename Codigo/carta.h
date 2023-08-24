@@ -31,7 +31,9 @@ class Carta {
         //============================
         //Constructor
         //============================
-        Carta(std::string ncarta,std::string ntarjeta, std::string ntropa);
+        Carta();
+
+        Carta(std::string tipo, std::string pais, std::string tropa);
         
         //============================
         //Getters y Setters
