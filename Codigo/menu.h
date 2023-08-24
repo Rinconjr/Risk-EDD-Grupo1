@@ -41,7 +41,7 @@ class Menu{
     static void limpiar_consola();
     static void interaccion_usuario();
     static void imagen_risk();
-    static bool contieneSoloEspacios(std::string str);
+    static bool contieneSoloEspacios(std::string str);//
 
 };
 
