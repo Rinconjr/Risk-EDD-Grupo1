@@ -30,15 +30,13 @@ Jugador::Jugador() {
     this->id = 0;
     this->estado = false;
     this->color = "";
-    this->paises = std::vector<std::string>();
     this->cartas = std::vector<Carta>();
 }
 
-Jugador::Jugador(int nid, bool nbool,std::string ncolor, std::vector<std::string> npaises, std::vector<Carta> ncartas){
+Jugador::Jugador(int nid, bool nbool,std::string ncolor, std::vector<Carta> ncartas){
     this->id = nid;
     this->estado = nbool;
     this->color = ncolor;
-    this->paises = npaises;
     this->cartas = ncartas;
 }
 
@@ -52,10 +50,6 @@ bool Jugador::ObtenerEstado() {
 
 std::string Jugador::ObtenerColor() {
     return this->color;
-}
-
-std::vector<std::string> Jugador::ObtenerPaises() {
-    return this->paises;
 }
 
 std::vector<Carta> Jugador::ObtenerCartas() {
@@ -72,10 +66,6 @@ void Jugador::FijarEstado(bool nbool) {
 
 void Jugador::FijarColor( std::string ncolor) {
     this->color = ncolor;
-}
-
-void Jugador::FijarPaises( std::vector<std::string> npaises) {
-    this->paises = npaises;
 }
 
 void Jugador::FijarCartas( std::vector<Carta> ncartas) {

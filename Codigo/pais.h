@@ -31,6 +31,7 @@ class Pais{
     private:
         std::string nombre;
         int cantidadTropas;
+        int dueno;
 
     public:
         //============================

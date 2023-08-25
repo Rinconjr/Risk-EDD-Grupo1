@@ -449,8 +449,10 @@ void Menu::comando_inicializar_nueva_partida() {
 
 
   std::queue<Jugador> jugadores = mipartida.ObtenerJugadores();
-  
-  //TODO #1 Poner que los paises adicionales queden para un jugador aleatorio
+
+  /*
+  //TODO: Arreglar la asignacion de paises aleatorios porque cambio estructura
+  //TODO: Poner que los paises adicionales queden para un jugador aleatorio
   while(!auxPaises.empty()) {
 
     //Asigna paises
@@ -463,6 +465,7 @@ void Menu::comando_inicializar_nueva_partida() {
     auxJugador.FijarPaises(paisesAsignados);
     jugadores.push(auxJugador);
   }
+  */
 
   bool jugadoresOrdenado = false;
 
@@ -481,6 +484,8 @@ void Menu::comando_inicializar_nueva_partida() {
 
 //-------------------
 
+  /* 
+  TODO: Arreglar este print de paises de cada jugador
   //--------------------------------------
   //Imprime los paises de cada uno 
   std::cout<<"--------------------------------\n";
@@ -561,6 +566,8 @@ void Menu::comando_inicializar_nueva_partida() {
       tmpTropasJugador--;
     }
   }
+
+  */
 
   partidaContinentes = mipartida.ObtenerContinentes();
   continentIt = partidaContinentes.begin();
