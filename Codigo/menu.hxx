@@ -598,16 +598,16 @@ if (!auxPaises.empty()) {
   int tropasPorJugador;
 
   if(cantidad_jugadores == 3) {
-    tropasPorJugador = 35;
+    tropasPorJugador = (35 - tropas_pais);
   }
   else if(cantidad_jugadores == 4) {
-    tropasPorJugador = 30;
+    tropasPorJugador = (30 - tropas_pais);
   }
   else if(cantidad_jugadores == 5) {
-    tropasPorJugador = 25;
+    tropasPorJugador = (25 - tropas_pais);
   }
   else {
-    tropasPorJugador = 20;
+    tropasPorJugador = (20 - tropas_pais);
   }
 
   std::vector<Continente> continentesAleatorio = mipartida.ObtenerContinentes();
