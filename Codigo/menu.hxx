@@ -356,20 +356,60 @@ void Menu::comando_inicializar_nueva_partida() {
 
   //Crear Paises
   srand(time(0));
-  std::vector<int> idJugador;
+  int idJugador[cantidad_jugadores];
   for(int i = 0; i < cantidad_jugadores; i++) {
-    idJugador.push_back(0);
+    idJugador[i] = 0;
+  }
+
+  int paisesTotal = 42;
+  int tropas_pais = paisesTotal / cantidad_jugadores;
+  int dividirPaises = paisesTotal % cantidad_jugadores;
+
+  if (dividirPaises == 0) {
+    std::cout << "Se dara la misma cantidad de paises a cada jugador\n";
+  } else {
+    std::cout << "Al tener " << cantidad_jugadores << " jugadores, dos de los jugadores tendran un pais extra\n";
+  }
+
+   if (cantidad_jugadores == 3) {
+    tropas_pais = 14;
+  } else if (cantidad_jugadores == 4) {
+    tropas_pais = 10;
+  } else if (cantidad_jugadores == 5) {
+    tropas_pais = 8;
+  } else if (cantidad_jugadores == 6) {
+    tropas_pais = 7;
   }
 
   for(nombreIt = nombrePaises.begin(); nombreIt != nombrePaises.end(); nombreIt++,paisIt++){
-    int numeroAleatorio = (rand() % cantidad_jugadores)+1;
+    bool t = true;
+    int numeroAleatorio;
+    while(t) {
+      numeroAleatorio = (rand() % cantidad_jugadores);
+      if(idJugador[numeroAleatorio] < tropas_pais) {
+        t = false;
+        idJugador[numeroAleatorio] = idJugador[numeroAleatorio] + 1;
+      }
+      else if(dividirPaises != 0) {
+        int menor = -1;
+        int idt;
+        for(int i = 0; i < cantidad_jugadores; i++) {
+          if(idJugador[i] < menor || menor == -1) {
+            menor = idJugador[i];
+            idt = i;
+          }
+        }
+        t = false;
+        idJugador[idt] = idJugador[idt] + 1;
+      }
+    }
+    numeroAleatorio += 1;
     Pais paisAux;
     if(temp != *paisIt || nombreIt == nombrePaises.end() - 1) {
       if(nombreIt == nombrePaises.end() -1){
         paisAux.FijarNombre(*nombreIt);
         paisAux.FijarDueno(numeroAleatorio);
         paisesContinente.push_back(paisAux);
-
         std::cout << paisAux.ObtenerNombre() << " : " << paisAux.ObtenerDueno()<< std::endl;
       }
       Continente auxContinente;
@@ -385,6 +425,9 @@ void Menu::comando_inicializar_nueva_partida() {
     std::cout << paisAux.ObtenerNombre() << " : " << paisAux.ObtenerDueno()<< std::endl;
   }
 
+  for(int i = 0; i < cantidad_jugadores; i++) {
+    std::cout << idJugador[i] << " : ";
+  }
   mipartida.FijarContinentes(continentes);
 
   nombreIt = nombrePaises.begin();
@@ -422,25 +465,6 @@ void Menu::comando_inicializar_nueva_partida() {
 
   std::vector<Continente> partidaContinentes = mipartida.ObtenerContinentes();
   std::vector<Continente>::iterator continentIt = partidaContinentes.begin(); 
-  int paisesTotal = 42;
-  int tropas_pais = paisesTotal / cantidad_jugadores;
-  int dividirPaises = paisesTotal % cantidad_jugadores;
-
-  if (dividirPaises == 0) {
-    std::cout << "Se dara la misma cantidad de paises a cada jugador\n";
-  } else {
-    std::cout << "Al tener " << cantidad_jugadores << " jugadores, dos de los jugadores tendran un pais extra\n";
-  }
-
-  if (cantidad_jugadores == 3) {
-    tropas_pais = 14;
-  } else if (cantidad_jugadores == 4) {
-    tropas_pais = 10;
-  } else if (cantidad_jugadores == 5) {
-    tropas_pais = 8;
-  } else if (cantidad_jugadores == 6) {
-    tropas_pais = 7;
-  }
 
   //std::queue<Jugador> jugadores = mipartida.ObtenerJugadores();
 
