@@ -410,51 +410,58 @@ void Menu::comando_inicializar_nueva_partida() {
 
   std::vector<Continente> partidaContinentes = mipartida.ObtenerContinentes();
   std::vector<Continente>::iterator continentIt = partidaContinentes.begin(); 
+  int paisesTotal = 42;
+  int tropas_pais = paisesTotal / cantidad_jugadores;
+  int dividirPaises = paisesTotal % cantidad_jugadores;
 
-  int paisesTotal=42;
-  int tropas_pais=paisesTotal/cantidad_jugadores;
-  int dividirPaises=paisesTotal%cantidad_jugadores;
-  if(dividirPaises==0){
-    std::cout<<"Se dara la misma cantidad de paises a cada jugador\n";
-  }else{
-    std::cout<<"Al tener "<<cantidad_jugadores<<" jugadores, dos de los jugadores tendran un pais extra\n";
-  }
-  if(cantidad_jugadores==3){
-    tropas_pais=14;
-  }else if(cantidad_jugadores==4){
-    tropas_pais=10;
-  }else if(cantidad_jugadores==5){
-    tropas_pais=8;
-  }else if(cantidad_jugadores==6){
-    tropas_pais=7;
+  if (dividirPaises == 0) {
+    std::cout << "Se dara la misma cantidad de paises a cada jugador\n";
+  } else {
+    std::cout << "Al tener " << cantidad_jugadores << " jugadores, dos de los jugadores tendran un pais extra\n";
   }
 
-  nombreIt = nombrePaises.begin();
-  vectorString.clear();
-  for(nombreIt = nombrePaises.begin(); nombreIt != nombrePaises.end(); nombreIt++){
-    vectorString.push_back(*nombreIt);
+  if (cantidad_jugadores == 3) {
+    tropas_pais = 14;
+  } else if (cantidad_jugadores == 4) {
+    tropas_pais = 10;
+  } else if (cantidad_jugadores == 5) {
+    tropas_pais = 8;
+  } else if (cantidad_jugadores == 6) {
+    tropas_pais = 7;
   }
 
-  //Mezclar paises
-  srand(time(0));
-  for (int i = 0; i < 42; i++) {
-    int numeroAleatorio = (rand() % vectorString.size()); // Genera un número aleatorio entre 0 y el tamaño del vector vectorString - 1
-    
-    // Agrega el país aleatorio al vector auxPaises
-    auxPaises.push_back(vectorString[numeroAleatorio]);
-    
-    // Elimina el país aleatorio del vector vectorString
-    vectorString.erase(vectorString.begin() + numeroAleatorio);
-  }
+    // Mezclar paises
+    srand(time(0));
+    for (int i = 0; i < paisesTotal; i++) {
+        int numeroAleatorio = (rand() % nombrePaises.size());
+        
+        // Agrega el país aleatorio al vector auxPaises
+        auxPaises.push_back(nombrePaises[numeroAleatorio]);
+        
+        // Elimina el país aleatorio del vector nombrePaises
+        nombrePaises.erase(nombrePaises.begin() + numeroAleatorio);
+    }
+
+    // Asignar ID de jugador a cada país
+    std::vector<int> idJugador;
+
+    for (int i = 0; i < paisesTotal; i++) {
+        int jugadorActual = (i / tropas_pais) + 1;
+        idJugador.push_back(jugadorActual);
+    }
+
+    // Ahora idJugador contiene la ID del jugador para cada país
+    for (int i = 0; i < paisesTotal; i++) {
+        std::cout << "Pais: " << auxPaises[i] << " ID Jugador: " << idJugador[i] << std::endl;
+    }
+
+  //std::queue<Jugador> jugadores = mipartida.ObtenerJugadores();
 
 
-  std::queue<Jugador> jugadores = mipartida.ObtenerJugadores();
-
-  /*
+    /*
   //TODO: Arreglar la asignacion de paises aleatorios porque cambio estructura
   //TODO: Poner que los paises adicionales queden para un jugador aleatorio
   while(!auxPaises.empty()) {
-
     //Asigna paises
     Jugador auxJugador;
     auxJugador = jugadores.front();
@@ -467,6 +474,7 @@ void Menu::comando_inicializar_nueva_partida() {
   }
   */
 
+/*
   bool jugadoresOrdenado = false;
 
   //Reordena la cola de jugadores
@@ -480,7 +488,7 @@ void Menu::comando_inicializar_nueva_partida() {
       jugadores.pop();
       jugadores.push(auxJugador);
     }
-  }
+  }*/
 
 //-------------------
 
@@ -505,8 +513,12 @@ void Menu::comando_inicializar_nueva_partida() {
     }
     std::cout<<"\n--------------------------------\n";
     jugadores.push(jugador);
-  }
+  }*/
 
+
+
+
+/*
   //Asignacion de tropas a territorios:
   int tropasPorJugador;
 
