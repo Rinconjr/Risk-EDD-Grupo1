@@ -216,7 +216,7 @@ void Menu::comando_inicializar_nueva_partida() {
   continuar = false;
 
   do {
-    std::cout << "Cuantos jugadores tendra la partida '" << nombre_partida << "' (Min 2, Max 6): ";
+    std::cout << "Cuantos jugadores tendra la partida '" << nombre_partida << "' (Min 3, Max 6): ";
     std::getline(std::cin, input);
     std::stringstream stream(input);
     std::vector<std::string> argumentos;
@@ -242,11 +242,11 @@ void Menu::comando_inicializar_nueva_partida() {
       try {
         cantidad_jugadores = std::stoi(argumentos[0]);
         
-        if (cantidad_jugadores >= 2 && cantidad_jugadores <= 6) {
+        if (cantidad_jugadores >= 3 && cantidad_jugadores <= 6) {
           continuar = true;
         } 
         else {
-          std::cout << "Error. Debe ingresar entre 2 a 6 jugadores. \n";
+          std::cout << "Error. Debe ingresar entre 3 a 6 jugadores. \n";
         }
       } 
       catch (const std::invalid_argument&) {
@@ -478,9 +478,7 @@ void Menu::comando_inicializar_nueva_partida() {
   }else{
     std::cout<<"Al tener "<<cantidad_jugadores<<" jugadores, dos de los jugadores tendran un pais extra\n";
   }
-  if(cantidad_jugadores==2){
-    tropas_pais=21;
-  }else if(cantidad_jugadores==3){
+  if(cantidad_jugadores==3){
     tropas_pais=14;
   }else if(cantidad_jugadores==4){
     tropas_pais=10;
@@ -488,7 +486,7 @@ void Menu::comando_inicializar_nueva_partida() {
     tropas_pais=8;
   }else if(cantidad_jugadores==6){
     tropas_pais=7;
-  }  
+  }
 
   std::vector<std::string> paisesMapa;
   nombreIt = nombrePaises.begin();
