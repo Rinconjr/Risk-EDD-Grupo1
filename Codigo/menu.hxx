@@ -465,6 +465,19 @@ void Menu::comando_inicializar_nueva_partida() {
     jugadores.push(auxJugador);
   }
 
+  bool jugadoresOrdenado = false;
+  while(!jugadoresOrdenado) {
+    Jugador auxJugador;
+    auxJugador = jugadores.front();
+    if(auxJugador.ObtenerId() == 1) {
+      jugadoresOrdenado = true;
+    }
+    else {
+      jugadores.pop();
+      jugadores.push(auxJugador);
+    }
+  }
+
 //-------------------
 
   //--------------------------------------
