@@ -56,13 +56,13 @@ class Partida {
     std::vector<Carta> ObtenerCartas();
     std::vector<Dado> ObtenerDados();
 
-    void FijarNombre(const std::string nnombre);
-    void FijarTipoJuego(const std::string ntipo);
+    void FijarNombre(std::string nnombre);
+    void FijarTipoJuego(std::string ntipo);
     void FijarsetsTradeados(int ntradeos);
-    void FijarContinentes(const std::vector<Continente> ncontinentes);
-    void FijarJugadores(const std::queue<Jugador> njugadores);
-    void FijarCartas(const std::vector<Carta> ncartas);
-    void FijarDados(const std::vector<Dado> ndados);
+    void FijarContinentes(std::vector<Continente> ncontinentes);
+    void FijarJugadores(std::queue<Jugador> njugadores);
+    void FijarCartas(std::vector<Carta> ncartas);
+    void FijarDados(std::vector<Dado> ndados);
 };
 
 //*****************************************************************

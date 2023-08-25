@@ -74,25 +74,25 @@
         return this->dados;
     }
 
-    void Partida::FijarNombre(const std::string nnombre) {
+    void Partida::FijarNombre(std::string nnombre) {
         this->nombre = nnombre;
     }
-    void Partida::FijarTipoJuego(const std::string ntipo) {
+    void Partida::FijarTipoJuego(std::string ntipo) {
         this->tipo = ntipo;
     }
     void Partida::FijarsetsTradeados(int ntradeos) {
         this->setsTradeados = ntradeos;
     }
-    void Partida::FijarContinentes(const std::vector<Continente> ncontinentes) {
+    void Partida::FijarContinentes(std::vector<Continente> ncontinentes) {
         this->continentes = ncontinentes;
     }
-    void Partida::FijarJugadores(const std::queue<Jugador> njugadores) {
+    void Partida::FijarJugadores(std::queue<Jugador> njugadores) {
         this->jugadores = njugadores;
     }
-    void Partida::FijarCartas(const std::vector<Carta> ncartas) {
+    void Partida::FijarCartas(std::vector<Carta> ncartas) {
         this->cartas = ncartas;
     }
-    void Partida::FijarDados(const std::vector<Dado> ndados) {
+    void Partida::FijarDados(std::vector<Dado> ndados) {
         this->dados = ndados;
     }
 
