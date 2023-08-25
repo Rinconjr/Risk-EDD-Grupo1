@@ -8,7 +8,7 @@
     Descripcion: El estado actual del juego es guardado en un archivo de texto plano, se guarda la cantidad de jugadores, nombre de cada jugador, color de cada jugador, paises que ocupa, etc.
 - **Guardar_comprimido:** Comando: *guardar nombre_archivo*  
     Descripción: el estado del juego actual es guardado en un archivo binario. Se guarda la cantidad de jugadores, nombre de cada jugador, color de cada jugador, paises que ocupa, etc.
-- **costo_conquista:** Comando: *costo_consquista <territorio>*
+- **costo_conquista:** Comando: *costo_conquista <territorio>*
     Descripción: Se calcula el costo y secuencia de territorios a ser conquistados para lograr controlarlo. El territorio donde debe atacar debe ser aquel que el jugador tenga controlado más cerca al dado por el usuario. 
 - **conquista_mas_barata:** Comando: *conquista_mas_barata*  
     Descripcion: Calcula la conquista mas barata para el jugador actual de todos los territorios posibles. Es decir, aquel territorio que pueda implicar un menor numero de unidades perdidas.
