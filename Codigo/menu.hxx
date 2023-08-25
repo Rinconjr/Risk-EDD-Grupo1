@@ -30,7 +30,7 @@
 //#include <windows.h> //Esto es para windows
 
 
-HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE); //Esto es para cambiar los colores de forma global
+//HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE); //Esto es para cambiar los colores de forma global
 //************************************************************************
 // FIN - LIBRERIAS
 //************************************************************************
@@ -612,10 +612,10 @@ if (!auxPaises.empty()) {
 
   inventario = 1;
 
-  SetConsoleTextAttribute(hConsole, FOREGROUND_RED | FOREGROUND_INTENSITY); //Pone la consola con letras en rojo
+  //SetConsoleTextAttribute(hConsole, FOREGROUND_RED | FOREGROUND_INTENSITY); //Pone la consola con letras en rojo
   std::cout <<std::endl<<std::setw(20) <<"Continentesda" <<std::setw(30) <<"Pais" <<std::setw(30) <<"Cantidad de tropas"<< std::endl << std::endl;
 
-  SetConsoleTextAttribute(hConsole, FOREGROUND_BLUE | FOREGROUND_INTENSITY); //Pone la consola con letras en azul
+  //SetConsoleTextAttribute(hConsole, FOREGROUND_BLUE | FOREGROUND_INTENSITY); //Pone la consola con letras en azul
   for(continentIt = partidaContinentes.begin(); continentIt != partidaContinentes.end(); continentIt++){
     std::vector<Pais> partidaPais = continentIt->ObtenerPaises();
     std::vector<Pais>::iterator partidaPaisIt = partidaPais.begin();
@@ -625,7 +625,7 @@ if (!auxPaises.empty()) {
       inventario++;
     }
   }
-  SetConsoleTextAttribute(hConsole, FOREGROUND_BLUE | FOREGROUND_GREEN | FOREGROUND_RED); //Pone el color de la consola normal, (la combinacion de rojo verde y azul es blanco)
+  //SetConsoleTextAttribute(hConsole, FOREGROUND_BLUE | FOREGROUND_GREEN | FOREGROUND_RED); //Pone el color de la consola normal, (la combinacion de rojo verde y azul es blanco)
 
   std::cout << " Inicializar partida nueva (En construccion).\n";
   std::cout << " Presione enter para continuar.";
@@ -1237,7 +1237,7 @@ void Menu::limpiar_consola() {
 
 //Simplemente es la imagen de inicio del juego
 void Menu::imagen_risk(){
-  SetConsoleTextAttribute(hConsole, FOREGROUND_GREEN | FOREGROUND_INTENSITY);
+  //SetConsoleTextAttribute(hConsole, FOREGROUND_GREEN | FOREGROUND_INTENSITY);
   std::cout << "---------------------------------------------------------------------BIENVENIDO!----------------------------------------------------------------------\n";
   std::cout << "                                             ,&&@&@@@@@@@@@@@@@&                                                                                      \n";
   std::cout << "                                                &@&@&@@@&@@@&@&&                                                                                      \n";
@@ -1269,7 +1269,7 @@ void Menu::imagen_risk(){
   std::cout << "                                                                                                                                                      \n";
   std::cout << "                                                              Version 0.1.4                                                                           \n";
   std::cout << "------------------------------------------------------------------------------------------------------------------------------------------------------\n";
-  SetConsoleTextAttribute(hConsole, FOREGROUND_BLUE | FOREGROUND_GREEN | FOREGROUND_RED);
+  //SetConsoleTextAttribute(hConsole, FOREGROUND_BLUE | FOREGROUND_GREEN | FOREGROUND_RED);
 }
 
 //Es el inicio del programa y se redirreciona dependiendo de la opcion que quiera hacer el usuario
