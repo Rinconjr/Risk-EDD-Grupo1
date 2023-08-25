@@ -27,7 +27,7 @@
 
 Pais::Pais(){
     this->nombre="";
-    this->cantidadTropas=0;
+    this->cantidadTropas= 1 ;
 }
 
 Pais::Pais(std::string nombre, int cantidadTropas){
