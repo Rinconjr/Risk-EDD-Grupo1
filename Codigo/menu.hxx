@@ -355,12 +355,22 @@ void Menu::comando_inicializar_nueva_partida() {
   mipartida.FijarJugadores(jugadoresPartida); //Se agregan jugadores a la partida
 
   //Crear Paises
+  srand(time(0));
+  std::vector<int> idJugador;
+  for(int i = 0; i < cantidad_jugadores; i++) {
+    idJugador.push_back(0);
+  }
+
   for(nombreIt = nombrePaises.begin(); nombreIt != nombrePaises.end(); nombreIt++,paisIt++){
+    int numeroAleatorio = (rand() % cantidad_jugadores)+1;
     Pais paisAux;
     if(temp != *paisIt || nombreIt == nombrePaises.end() - 1) {
       if(nombreIt == nombrePaises.end() -1){
         paisAux.FijarNombre(*nombreIt);
+        paisAux.FijarDueno(numeroAleatorio);
         paisesContinente.push_back(paisAux);
+
+        std::cout << paisAux.ObtenerNombre() << " : " << paisAux.ObtenerDueno()<< std::endl;
       }
       Continente auxContinente;
       auxContinente.FijarNombre(temp);
@@ -370,7 +380,9 @@ void Menu::comando_inicializar_nueva_partida() {
       temp = *paisIt;
     }
     paisAux.FijarNombre(*nombreIt);
+    paisAux.FijarDueno(numeroAleatorio);
     paisesContinente.push_back(paisAux);
+    std::cout << paisAux.ObtenerNombre() << " : " << paisAux.ObtenerDueno()<< std::endl;
   }
 
   mipartida.FijarContinentes(continentes);
@@ -429,31 +441,6 @@ void Menu::comando_inicializar_nueva_partida() {
   } else if (cantidad_jugadores == 6) {
     tropas_pais = 7;
   }
-
-    // Mezclar paises
-    srand(time(0));
-    for (int i = 0; i < paisesTotal; i++) {
-        int numeroAleatorio = (rand() % nombrePaises.size());
-        
-        // Agrega el país aleatorio al vector auxPaises
-        auxPaises.push_back(nombrePaises[numeroAleatorio]);
-        
-        // Elimina el país aleatorio del vector nombrePaises
-        nombrePaises.erase(nombrePaises.begin() + numeroAleatorio);
-    }
-
-    // Asignar ID de jugador a cada país
-    std::vector<int> idJugador;
-
-    for (int i = 0; i < paisesTotal; i++) {
-        int jugadorActual = (i / tropas_pais) + 1;
-        idJugador.push_back(jugadorActual);
-    }
-
-    // Ahora idJugador contiene la ID del jugador para cada país
-    for (int i = 0; i < paisesTotal; i++) {
-        std::cout << "Pais: " << auxPaises[i] << " ID Jugador: " << idJugador[i] << std::endl;
-    }
 
   //std::queue<Jugador> jugadores = mipartida.ObtenerJugadores();
 
