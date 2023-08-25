@@ -419,52 +419,6 @@ void Menu::comando_inicializar_nueva_partida() {
   std::vector<Continente>::iterator continentIt = partidaContinentes.begin();
 
   int inventario = 1;
-
-  SetConsoleTextAttribute(hConsole, FOREGROUND_RED | FOREGROUND_INTENSITY); //Pone la consola con letras en rojo
-  std::cout <<std::endl<<std::setw(20) <<"Continente" <<std::setw(30) <<"Pais" <<std::setw(30) <<"Cantidad de tropas"<< std::endl << std::endl;
-
-  SetConsoleTextAttribute(hConsole, FOREGROUND_BLUE | FOREGROUND_INTENSITY); //Pone la consola con letras en azul
-  for(continentIt = partidaContinentes.begin(); continentIt != partidaContinentes.end(); continentIt++){
-    std::vector<Pais> partidaPais = continentIt->ObtenerPaises();
-    std::vector<Pais>::iterator partidaPaisIt = partidaPais.begin();
-
-    for(partidaPaisIt = partidaPais.begin(); partidaPaisIt != partidaPais.end(); partidaPaisIt++){
-      std::cout <<std::setw(2)<<inventario<<std::setw(20) <<continentIt->ObtenerNombre() <<std::setw(30) <<partidaPaisIt->ObtenerNombre() <<std::setw(30) << partidaPaisIt->ObtenerCantidadTropas() << std::endl;
-      inventario++;
-    }
-  }
-  SetConsoleTextAttribute(hConsole, FOREGROUND_BLUE | FOREGROUND_GREEN | FOREGROUND_RED); //Pone el color de la consola normal, (la combinacion de rojo verde y azul es blanco)
-
-  std::vector<Carta> partidaCartas = mipartida.ObtenerCartas();
-  std::vector<Carta>::iterator cardsIt = partidaCartas.begin();
-
-  std::cout<<std::endl;
-  SetConsoleTextAttribute(hConsole, FOREGROUND_RED | FOREGROUND_INTENSITY); //Pone la consola con letras en rojo
-  std::cout <<std::setw(20) <<"Tipo carta" <<std::setw(30) <<"Pais" <<std::setw(30) << "Tipo tropa" << std::endl<<std::endl;
-
-  inventario = 1;
-  SetConsoleTextAttribute(hConsole, FOREGROUND_BLUE | FOREGROUND_INTENSITY); //Pone la consola con letras en azul
-  for(cardsIt = partidaCartas.begin(); cardsIt != partidaCartas.end(); cardsIt++){
-    std::cout <<std::setw(2)<<inventario<<std::setw(20) <<cardsIt->ObtenerTipo() <<std::setw(30) <<cardsIt->ObtenerPais() <<std::setw(30) << cardsIt->ObtenerTropa() << std::endl;
-    inventario++;
-  }
-
-  std::vector<Dado> partidaDados = mipartida.ObtenerDados();
-  std::vector<Dado>::iterator dadosIt = partidaDados.begin();
-
-  std::cout<<std::endl;
-  SetConsoleTextAttribute(hConsole, FOREGROUND_RED | FOREGROUND_INTENSITY); //Pone la consola con letras en rojo
-  std::cout <<std::setw(20) <<"Tipo dado" <<std::setw(30) <<"Valor" << std::endl<<std::endl;
-
-  inventario = 1;
-  SetConsoleTextAttribute(hConsole, FOREGROUND_BLUE | FOREGROUND_INTENSITY); //Pone la consola con letras en azul
-  for(dadosIt = partidaDados.begin(); dadosIt != partidaDados.end(); dadosIt++){
-    std::cout <<std::setw(2)<<inventario<<std::setw(20) <<dadosIt->ObtenerColor() <<std::setw(30) <<dadosIt->ObtenerValor() << std::endl;
-    inventario++;
-  }
-  SetConsoleTextAttribute(hConsole, FOREGROUND_BLUE | FOREGROUND_GREEN | FOREGROUND_RED); //Pone el color de la consola normal, (la combinacion de rojo verde y azul es blanco)
-
-
   //TODO 1: Mostrar el nombre del continente y los paises que tiene desde la clase partida. (HECHO)
   //TODO 2: Crear cartas, dados. (HECHO)
   //TODO 3: Asignar tropas a jugadores.
