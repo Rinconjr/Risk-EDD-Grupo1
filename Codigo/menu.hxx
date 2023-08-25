@@ -421,7 +421,7 @@ void Menu::comando_inicializar_nueva_partida() {
   int inventario = 1;
 
   SetConsoleTextAttribute(hConsole, FOREGROUND_RED | FOREGROUND_INTENSITY); //Pone la consola con letras en rojo
-  std::cout <<std::endl<<std::setw(20) <<"Continentesda" <<std::setw(30) <<"Pais" <<std::setw(30) <<"Cantidad de tropas"<< std::endl << std::endl;
+  std::cout <<std::endl<<std::setw(20) <<"Continente" <<std::setw(30) <<"Pais" <<std::setw(30) <<"Cantidad de tropas"<< std::endl << std::endl;
 
   SetConsoleTextAttribute(hConsole, FOREGROUND_BLUE | FOREGROUND_INTENSITY); //Pone la consola con letras en azul
   for(continentIt = partidaContinentes.begin(); continentIt != partidaContinentes.end(); continentIt++){
@@ -471,7 +471,7 @@ void Menu::comando_inicializar_nueva_partida() {
   std::vector<std::string> auxPaises;
   std::vector<std::string> paisesAsignados; 
   int paisesTotal=42;
-  int s=0;
+  int tropas_pais=paisesTotal/cantidad_jugadores;
   int dividirPaises=paisesTotal%cantidad_jugadores;
   if(dividirPaises==0){
     std::cout<<"Se dara la misma cantidad de paises a cada jugador\n";
@@ -479,15 +479,15 @@ void Menu::comando_inicializar_nueva_partida() {
     std::cout<<"Al tener "<<cantidad_jugadores<<" jugadores, dos de los jugadores tendran un pais extra\n";
   }
   if(cantidad_jugadores==2){
-    s=21;
+    tropas_pais=21;
   }else if(cantidad_jugadores==3){
-    s=14;
+    tropas_pais=14;
   }else if(cantidad_jugadores==4){
-    s=10;
+    tropas_pais=10;
   }else if(cantidad_jugadores==5){
-    s=8;
+    tropas_pais=8;
   }else if(cantidad_jugadores==6){
-    s=7;
+    tropas_pais=7;
   }  
 
   std::vector<std::string> paisesMapa;
@@ -523,13 +523,9 @@ void Menu::comando_inicializar_nueva_partida() {
   while (asignados < cantidad_jugadores) {
     auxJugador = jugadores.front();
     jugadores.pop();
-    
     std::vector<std::string> paisesAsignados;
     // Asignar países al cada jugador
-    for (int i = 0; i < s; i++) {
-        if (auxPaises.empty()) {
-            break;
-        }
+    for (int i = 0; i < tropas_pais && !auxPaises.empty(); i++) {
         paisesAsignados.push_back(auxPaises.front());
         auxPaises.erase(auxPaises.begin());
     }
@@ -537,6 +533,47 @@ void Menu::comando_inicializar_nueva_partida() {
     jugadores.push(auxJugador);
     asignados++;
   }
+
+//-------------------
+//este if mira cuales son los paises que quedan sin asignar
+if (!auxPaises.empty()) {
+    std::cout << "Los siguientes países quedaron sin asignar, por lo tanto se asignarán a los jugadores de forma aleatoria:\n";
+    for (size_t i = 0; i < auxPaises.size(); i++) {
+        std::cout << "- " << auxPaises[i] << "\n";
+    }
+
+    std::vector<Jugador> jugadoresDisponibles;
+    for (size_t i = 0; i < jugadores.size(); i++) {
+        jugadoresDisponibles.push_back(jugadores.front());
+        jugadores.pop();
+    }
+
+    while (!auxPaises.empty()) {
+        // Recoge un jugador aleatorio de los jugadores disponibles
+        int indiceAleatorio = rand() % jugadoresDisponibles.size();
+        auxJugador = jugadoresDisponibles[indiceAleatorio];
+        jugadoresDisponibles.erase(jugadoresDisponibles.begin() + indiceAleatorio);
+
+        std::vector<std::string> paisesAsignados;
+
+        // Asigna un país aleatorio
+        int paisAleatorio = rand() % auxPaises.size();
+        paisesAsignados.push_back(auxPaises[paisAleatorio]);
+        auxPaises.erase(auxPaises.begin() + paisAleatorio);
+
+        // Agrega el país aleatorio al vector de países asignados del jugador
+        for (const std::string& pais : auxJugador.ObtenerPaises()) {
+            paisesAsignados.push_back(pais);
+        }
+
+        auxJugador.FijarPaises(paisesAsignados);
+        jugadores.push(auxJugador);
+    }
+}
+
+  //--------------------------------------
+  
+  //Imprime los paises de cada uno 
   std::cout<<"--------------------------------\n";
   for (int i = 0; i < cantidad_jugadores; i++) {
 
