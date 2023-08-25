@@ -27,7 +27,7 @@
 #include <iomanip>
 #include <algorithm> // Necesario para std::shuffle
 #include <random> 
-#include <windows.h> //Esto es para windows
+//#include <windows.h> //Esto es para windows
 
 
 HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE); //Esto es para cambiar los colores de forma global
