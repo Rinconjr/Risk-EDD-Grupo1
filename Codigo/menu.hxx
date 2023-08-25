@@ -450,60 +450,22 @@ void Menu::comando_inicializar_nueva_partida() {
     paisesMapa.erase(paisesMapa.begin() + numeroAleatorio);
   }
 
-  Jugador auxJugador;
+
   std::queue<Jugador> jugadores = mipartida.ObtenerJugadores();
-  int asignados = 0;
-  //While para asignar paises a los jugadores
-  while (asignados < cantidad_jugadores) {
+  
+  //TODO #1 Poner que los paises adicionales queden para un jugador aleatorio
+  while(!auxPaises.empty()) {
+    Jugador auxJugador;
     auxJugador = jugadores.front();
     jugadores.pop();
-    std::vector<std::string> paisesAsignados;
-    // Asignar países al cada jugador
-    for (int i = 0; i < tropas_pais && !auxPaises.empty(); i++) {
-        paisesAsignados.push_back(auxPaises.front());
-        auxPaises.erase(auxPaises.begin());
-    }
+    std::vector<std::string> paisesAsignados = auxJugador.ObtenerPaises();
+    paisesAsignados.push_back(auxPaises.front());
+    auxPaises.erase(auxPaises.begin());
     auxJugador.FijarPaises(paisesAsignados);
     jugadores.push(auxJugador);
-    asignados++;
   }
 
 //-------------------
-//este if mira cuales son los paises que quedan sin asignar
-if (!auxPaises.empty()) {
-    std::cout << "Los siguientes países quedaron sin asignar, por lo tanto se asignarán a los jugadores de forma aleatoria:\n";
-    for (size_t i = 0; i < auxPaises.size(); i++) {
-        std::cout << "- " << auxPaises[i] << "\n";
-    }
-
-    std::vector<Jugador> jugadoresDisponibles;
-    for (size_t i = 0; i < jugadores.size(); i++) {
-        jugadoresDisponibles.push_back(jugadores.front());
-        jugadores.pop();
-    }
-
-    while (!auxPaises.empty()) {
-        // Recoge un jugador aleatorio de los jugadores disponibles
-        int indiceAleatorio = rand() % jugadoresDisponibles.size();
-        auxJugador = jugadoresDisponibles[indiceAleatorio];
-        jugadoresDisponibles.erase(jugadoresDisponibles.begin() + indiceAleatorio);
-
-        std::vector<std::string> paisesAsignados;
-
-        // Asigna un país aleatorio
-        int paisAleatorio = rand() % auxPaises.size();
-        paisesAsignados.push_back(auxPaises[paisAleatorio]);
-        auxPaises.erase(auxPaises.begin() + paisAleatorio);
-
-        // Agrega el país aleatorio al vector de países asignados del jugador
-        for (const std::string& pais : auxJugador.ObtenerPaises()) {
-            paisesAsignados.push_back(pais);
-        }
-
-        auxJugador.FijarPaises(paisesAsignados);
-        jugadores.push(auxJugador);
-    }
-}
 
   //--------------------------------------
   //Imprime los paises de cada uno 
