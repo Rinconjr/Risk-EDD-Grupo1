@@ -10,7 +10,6 @@
 //  Fecha de finalización: ---
 //*****************************************************************
 
-
 //************************************************************************
 // INICIO - LIBRERIAS
 //************************************************************************
@@ -27,14 +26,18 @@
 #include <iomanip>
 #include <algorithm> // Necesario para std::shuffle
 #include <random> 
-//#include <windows.h> //Esto es para windows
 
-
-//HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE); //Esto es para cambiar los colores de forma global
 //************************************************************************
 // FIN - LIBRERIAS
 //************************************************************************
 
+//************************************************************************
+// INICIO - VARIABLES GLOBALES
+//************************************************************************
+Partida mipartida;
+//************************************************************************
+// FIN - VARIABLES GLOBALES
+//************************************************************************
 
 //************************************************************************
 // INICIO - FUNCIONES
@@ -144,9 +147,6 @@ void Menu::comando_inicializar_nueva_partida() {
     }
   }
   while(!continuar);
-
-  //Crear la partida
-  Partida mipartida;
 
   //Guardar el nombre de la partida
   mipartida.FijarNombre(nombre_partida);
@@ -275,7 +275,6 @@ void Menu::comando_inicializar_nueva_partida() {
 
   int i = 0;
   
-
   do {
     Jugador auxJugador;
     auxJugador.FijarId(i+1);
@@ -286,7 +285,6 @@ void Menu::comando_inicializar_nueva_partida() {
     for(coloresIt = colores.begin(); coloresIt != colores.end(); coloresIt++){
       std::cout << "   - " << *coloresIt << std::endl;
     }
-    
 
     std::cout << "Para el jugador con Id '" << i+1 << "' porfavor ingrese el color que desee: ";
     std::getline(std::cin, input);
@@ -393,11 +391,6 @@ void Menu::comando_inicializar_nueva_partida() {
     cartas.push_back(auxCarta);
   }
 
-  //Cartas mision secreta
-  //for(int i = 0; i < 12; i++) {
-  //
-  //}
-
   mipartida.FijarCartas(cartas);
 
   Dado auxDado;
@@ -419,9 +412,7 @@ void Menu::comando_inicializar_nueva_partida() {
   std::vector<Continente>::iterator continentIt = partidaContinentes.begin();
 
   int inventario = 1;
-  //TODO 1: Mostrar el nombre del continente y los paises que tiene desde la clase partida. (HECHO)
-  //TODO 2: Crear cartas, dados. (HECHO)
-  //TODO 3: Asignar tropas a jugadores.
+
   std::vector<std::string> auxPaises;
   std::vector<std::string> paisesAsignados; 
   int paisesTotal=42;
@@ -451,7 +442,6 @@ void Menu::comando_inicializar_nueva_partida() {
   srand(time(0));
   for (int i = 0; i < 42; i++) {
     int numeroAleatorio = (rand() % paisesMapa.size()); // Genera un número aleatorio entre 0 y el tamaño del vector paisesMapa - 1
-    //std::cout << "Numero aleatorio: " << numeroAleatorio << "\n";
     
     // Agrega el país aleatorio al vector auxPaises
     auxPaises.push_back(paisesMapa[numeroAleatorio]);
@@ -459,14 +449,6 @@ void Menu::comando_inicializar_nueva_partida() {
     // Elimina el país aleatorio del vector paisesMapa
     paisesMapa.erase(paisesMapa.begin() + numeroAleatorio);
   }
-
-  //Esto es solo para probar que si se este haciendo de forma aleatorio
-  /*
-  std::cout<<"Tiene el siguiente vector:\n";
-  for(int i=0;i<auxPaises.size();i++){
-    std::cout << auxPaises[i]<<"\n";
-  }*/
-  
 
   Jugador auxJugador;
   std::queue<Jugador> jugadores = mipartida.ObtenerJugadores();
@@ -524,7 +506,6 @@ if (!auxPaises.empty()) {
 }
 
   //--------------------------------------
-  
   //Imprime los paises de cada uno 
   std::cout<<"--------------------------------\n";
   for (int i = 0; i < cantidad_jugadores; i++) {
@@ -544,9 +525,6 @@ if (!auxPaises.empty()) {
     std::cout<<"\n--------------------------------\n";
     jugadores.push(jugador);
   }
-  //TODO 4: Arreglar espacio al poner nombre de partida.
-  //TODO 5: Clases implementadas con el main (HECHO)
-
 
   //Asignacion de tropas a territorios:
   int tropasPorJugador;
@@ -612,22 +590,19 @@ if (!auxPaises.empty()) {
 
   inventario = 1;
 
-  //SetConsoleTextAttribute(hConsole, FOREGROUND_RED | FOREGROUND_INTENSITY); //Pone la consola con letras en rojo
-  std::cout <<std::endl<<std::setw(20) <<"Continentesda" <<std::setw(30) <<"Pais" <<std::setw(30) <<"Cantidad de tropas"<< std::endl << std::endl;
+  std::cout << std::endl << std::setw(20) << "Continentes" << std::setw(30) << "Pais" << std::setw(30) << "Cantidad de tropas" << std::endl << std::endl;
 
-  //SetConsoleTextAttribute(hConsole, FOREGROUND_BLUE | FOREGROUND_INTENSITY); //Pone la consola con letras en azul
   for(continentIt = partidaContinentes.begin(); continentIt != partidaContinentes.end(); continentIt++){
     std::vector<Pais> partidaPais = continentIt->ObtenerPaises();
     std::vector<Pais>::iterator partidaPaisIt = partidaPais.begin();
 
     for(partidaPaisIt = partidaPais.begin(); partidaPaisIt != partidaPais.end(); partidaPaisIt++){
-      std::cout <<std::setw(2)<<inventario<<std::setw(20) <<continentIt->ObtenerNombre() <<std::setw(30) <<partidaPaisIt->ObtenerNombre() <<std::setw(30) << partidaPaisIt->ObtenerCantidadTropas() << std::endl;
+      std::cout << std::setw(2) << inventario << ") " << std::setw(20) << continentIt->ObtenerNombre() << std::setw(30) << partidaPaisIt->ObtenerNombre() << std::setw(30) << partidaPaisIt->ObtenerCantidadTropas() << std::endl;
       inventario++;
     }
   }
-  //SetConsoleTextAttribute(hConsole, FOREGROUND_BLUE | FOREGROUND_GREEN | FOREGROUND_RED); //Pone el color de la consola normal, (la combinacion de rojo verde y azul es blanco)
 
-  std::cout << " Inicializar partida nueva (En construccion).\n";
+  std::cout << " Partida creada exitosamente.\n";
   std::cout << " Presione enter para continuar.";
   std::cin.ignore();
 }
