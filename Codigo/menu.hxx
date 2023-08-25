@@ -574,7 +574,70 @@ void Menu::comando_inicializar_nueva_partida() {
   else {
     tropasPorJugador = 20;
   }
-  
+
+  std::vector<Continente> continentesAleatorio = mipartida.ObtenerContinentes();
+  for (int i = 0; i < cantidad_jugadores; i++) {
+    int tmpTropasJugador = tropasPorJugador;
+
+    Jugador jugador = jugadores.front();
+    jugadores.pop();
+    std::vector<std::string> paisesDelJugador = jugador.ObtenerPaises();
+
+    while(tmpTropasJugador != 0) {
+      //Elige aleatoriamente un pais del jugador
+      int indiceAleatorio = std::rand() % paisesDelJugador.size();
+      
+      bool encontrado = false;
+      std::vector<Continente> partidaContinentes = mipartida.ObtenerContinentes();
+      std::vector<Continente>::iterator continentIt = partidaContinentes.begin();
+
+      //Busca el pais del jugador
+      while(!encontrado) {
+        for(continentIt = partidaContinentes.begin(); continentIt != partidaContinentes.end(); continentIt++){
+          
+          std::vector<Pais> partidaPais = continentIt->ObtenerPaises();
+          std::vector<Pais>::iterator partidaPaisIt = partidaPais.begin();
+
+          for(partidaPaisIt = partidaPais.begin(); partidaPaisIt != partidaPais.end(); partidaPaisIt++){
+            
+            //Si encuentra el pais
+            if(paisesDelJugador[indiceAleatorio] == partidaPaisIt->ObtenerNombre()) {
+
+              //Añade la tropa al pais y lo guarda en la estructura
+              partidaPaisIt->FijarCantidadTropas(partidaPaisIt->ObtenerCantidadTropas() +1);
+              continentIt->FijarPaises(partidaPais);
+              mipartida.FijarContinentes(partidaContinentes);
+              
+              //Establece que lo ha encontrado y sale del bucle
+              encontrado = true;
+            }
+          }
+        }
+      }
+      tmpTropasJugador--;
+    }
+  }
+
+  partidaContinentes = mipartida.ObtenerContinentes();
+  continentIt = partidaContinentes.begin();
+
+  inventario = 1;
+
+  SetConsoleTextAttribute(hConsole, FOREGROUND_RED | FOREGROUND_INTENSITY); //Pone la consola con letras en rojo
+  std::cout <<std::endl<<std::setw(20) <<"Continentesda" <<std::setw(30) <<"Pais" <<std::setw(30) <<"Cantidad de tropas"<< std::endl << std::endl;
+
+  SetConsoleTextAttribute(hConsole, FOREGROUND_BLUE | FOREGROUND_INTENSITY); //Pone la consola con letras en azul
+  for(continentIt = partidaContinentes.begin(); continentIt != partidaContinentes.end(); continentIt++){
+    std::vector<Pais> partidaPais = continentIt->ObtenerPaises();
+    std::vector<Pais>::iterator partidaPaisIt = partidaPais.begin();
+
+    for(partidaPaisIt = partidaPais.begin(); partidaPaisIt != partidaPais.end(); partidaPaisIt++){
+      std::cout <<std::setw(2)<<inventario<<std::setw(20) <<continentIt->ObtenerNombre() <<std::setw(30) <<partidaPaisIt->ObtenerNombre() <<std::setw(30) << partidaPaisIt->ObtenerCantidadTropas() << std::endl;
+      inventario++;
+    }
+  }
+  SetConsoleTextAttribute(hConsole, FOREGROUND_BLUE | FOREGROUND_GREEN | FOREGROUND_RED); //Pone el color de la consola normal, (la combinacion de rojo verde y azul es blanco)
+
   std::cout << " Inicializar partida nueva (En construccion).\n";
   std::cout << " Presione enter para continuar.";
   std::cin.ignore();
