@@ -108,21 +108,58 @@ bool Menu::contieneSoloEspacios(std::string str) {
 
 //Es la función con la que se inicializa el juego
 void Menu::comando_inicializar_nueva_partida() {
-  std::string input, palabra, comando, nombre_partida;
-  int cantidad_jugadores;
-  char delimitador = ' ';
-  bool continuar = false;
-  std::cout << "Se creara una partida nueva. \nSi desea cargar una partida existente, regrese al menu principal escribiendo 'salir' y luego escriba 'inicializar <nombre_archivo>' sad\n";
 
+  //Variables para almacenar argumentos del usuario
+  bool continuar = false;
+  char delimitador = ' ';
+  std::string cinUsuario, nombre_partida;
+  std::vector<std::string> argumentos;
+
+  //Variables para crear vector tipo de tipo string
+  std::vector<std::string> vectorString;
+  std::vector<std::string>::iterator vectorStringIt;
+
+  //Variables para crear queue jugadores
+  int cantidad_jugadores;
+  std::queue<Jugador> jugadoresPartida;
+
+  //Variables para crear colores
+  std::vector<std::string> colores = {"Gris","Amarillo","Rojo","Negro","Verde","Azul"};
+  std::vector<std::string>::iterator coloresIt;
+
+  //Variables para crear paises y cartas
+  Carta auxCarta;
+  std::vector<Pais> paisesContinente;
+  std::vector<Continente> continentes;
+  std::vector<Carta> cartas;
+  std::string temp = "";
+
+  std::vector<std::string> nombrePaises = {"Alaska","Alberta","America Central","Estados Unidos Orientales","Groenlandia","Territorio Noroccidental","Ontario","Quebec","Estados Unidos Occidentales","Argentina","Brasil","Peru","Venezuela","Gran Bretana","Islandia","Europa del Norte","Escandinavia","Europa del Sur","Ucrania","Europa Occidental","Congo","Africa Oriental","Egipto","Madagascar","Africa del Norte","Africa del Sur","Afghanistan","China","India","Irkutsk","Japon","Kamchatka","Medio Oriente","Mongolia","Siam","Siberia","Ural","Yakutsk","Australia Oriental","Indonesia","Nueva Guinea","Australia Occidental"};
+  std::vector<std::string> paisContinente = {"America del Norte","America del Norte","America del Norte","America del Norte","America del Norte","America del Norte","America del Norte","America del Norte","America del Norte","America del Sur","America del Sur","America del Sur","America del Sur","Europa","Europa","Europa","Europa","Europa","Europa","Europa","Africa","Africa","Africa","Africa","Africa","Africa","Asia","Asia","Asia","Asia","Asia","Asia","Asia","Asia","Asia","Asia","Asia","Asia","Australia","Australia","Australia","Australia"};
+  std::vector<std::string> tropa =        {"Tropa","Tropa","Caballeria","Artilleria","Caballeria","Artilleria","Artilleria","Artilleria","Tropa","Caballeria","Artilleria","Caballeria","Artilleria","Caballeria","Tropa","Caballeria","Artilleria","Caballeria","Artilleria","Tropa","Caballeria","Artilleria","Tropa","Tropa","Tropa","Artilleria","Tropa","Caballeria","Tropa","Tropa","Tropa","Caballeria","Artilleria","Artilleria","Artilleria","Artilleria","Caballeria","Caballeria","Tropa","Caballeria","Caballeria","Artilleria"};
+
+  std::vector<std::string>::iterator nombreIt = nombrePaises.begin();
+  std::vector<std::string>::iterator paisIt = paisContinente.begin();
+  std::vector<std::string>::iterator tropaIt = tropa.begin();
+
+  //Variables para crear dados
+  Dado auxDado;
+  std::vector<Dado> dados;
+
+  //Aleatorizar paises
+  std::vector<std::string> auxPaises;
+  std::vector<std::string> paisesAsignados;
+
+  std::cout << "Se creara una partida nueva.\nSi desea cargar una partida existente, regrese al menu principal escribiendo 'salir' y luego escriba 'inicializar <nombre_archivo>' sad\n";
   do {
     std::cout << "Ingrese el nombre para la partida: ";
-    std::getline(std::cin, input);
-    std::stringstream stream(input);
-    std::vector<std::string> argumentos;
+    std::getline(std::cin, cinUsuario);
+    std::stringstream stream(cinUsuario);
+    argumentos.clear();
 
     // while para ir guardando los argumentos en el vector
-    while (getline(stream, palabra, delimitador)) {
-      argumentos.push_back(palabra);    
+    while (getline(stream, cinUsuario, delimitador)) {
+      argumentos.push_back(cinUsuario);    
     }
     // Si no ingreso nada, simplemente continua.
     if (argumentos.empty()) {
@@ -153,33 +190,29 @@ void Menu::comando_inicializar_nueva_partida() {
 
   std::cout << "Recuerde que si desea volver al menu principal en cualquier momento escribiendo: 'salir'. \n";
 
-  //Crear vector tipo partidas e iterador
-  std::vector<std::string> tipopartidas;
-  std::vector<std::string>::iterator tipopartidasIt;
-
   //Agregar colores de la partida
-  tipopartidas.push_back("MisionSecreta");
-  tipopartidas.push_back("Normal");
+  vectorString.push_back("MisionSecreta");
+  vectorString.push_back("Normal");
 
   continuar = false;
 
   //Mostrar tipos de partida disponibles
   std::cout << "Los siguientes son los tipos de partida disponibles: " << std::endl;
 
-  for(tipopartidasIt = tipopartidas.begin(); tipopartidasIt != tipopartidas.end(); tipopartidasIt++){
-    std::cout << "   - " << *tipopartidasIt << std::endl;
+  for(vectorStringIt = vectorString.begin(); vectorStringIt != vectorString.end(); vectorStringIt++){
+    std::cout << "   - " << *vectorStringIt << std::endl;
   }
 
   //Preguntar el tipo de la partida
   do {
     std::cout << "Que tipo de partida desea crear para '"<< nombre_partida <<"': ";
-    std::getline(std::cin, input);
-    std::stringstream stream(input);
-    std::vector<std::string> argumentos;
+    std::getline(std::cin, cinUsuario);
+    std::stringstream stream(cinUsuario);
+    argumentos.clear();
 
     // while para ir guardando los argumentos en el vector
-    while (getline(stream, palabra, delimitador)) {
-      argumentos.push_back(palabra);    
+    while (getline(stream, cinUsuario, delimitador)) {
+      argumentos.push_back(cinUsuario);    
     }
     // Si no ingreso nada, simplemente continua.
     if (argumentos.empty()) {
@@ -197,8 +230,8 @@ void Menu::comando_inicializar_nueva_partida() {
       //Revisar si el tipo de partida ingresada existe
       bool encontrado = false;
 
-      for(tipopartidasIt = tipopartidas.begin(); tipopartidasIt != tipopartidas.end(); tipopartidasIt++){
-        if(argumentos[0].compare(*tipopartidasIt) == 0){
+      for(vectorStringIt = vectorString.begin(); vectorStringIt != vectorString.end(); vectorStringIt++){
+        if(argumentos[0].compare(*vectorStringIt) == 0){
           encontrado = true;
         }
       }
@@ -214,16 +247,15 @@ void Menu::comando_inicializar_nueva_partida() {
 
   //Preguntar el numero de jugadores
   continuar = false;
-
   do {
     std::cout << "Cuantos jugadores tendra la partida '" << nombre_partida << "' (Min 3, Max 6): ";
-    std::getline(std::cin, input);
-    std::stringstream stream(input);
-    std::vector<std::string> argumentos;
+    std::getline(std::cin, cinUsuario);
+    std::stringstream stream(cinUsuario);
+    argumentos.clear();
 
     // while para ir guardando los argumentos en el vector
-    while (getline(stream, palabra, delimitador)) {
-      argumentos.push_back(palabra);    
+    while (getline(stream, cinUsuario, delimitador)) {
+      argumentos.push_back(cinUsuario);    
     }
     // Si no ingreso nada, simplemente continua.
     if (argumentos.empty()) {
@@ -256,25 +288,9 @@ void Menu::comando_inicializar_nueva_partida() {
   }
   while(!continuar);
 
-  //Crear queue jugadores e iterador
-  std::queue<Jugador> jugadoresPartida;
-
-  //Crear vector colores e iterador
-  std::vector<std::string> colores;
-  std::vector<std::string>::iterator coloresIt;
-
-  //Agregar colores de la partida
-  colores.push_back("Gris");
-  colores.push_back("Amarillo");
-  colores.push_back("Rojo");
-  colores.push_back("Negro");
-  colores.push_back("Verde");
-  colores.push_back("Azul");
-
-  std::vector<std::string> argumentos;
-
   int i = 0;
   
+  //Preguntar por colores de jugadores
   do {
     Jugador auxJugador;
     auxJugador.FijarId(i+1);
@@ -287,13 +303,13 @@ void Menu::comando_inicializar_nueva_partida() {
     }
 
     std::cout << "Para el jugador con Id '" << i+1 << "' porfavor ingrese el color que desee: ";
-    std::getline(std::cin, input);
-    std::stringstream stream(input);
-    std::vector<std::string> argumentos;
+    std::getline(std::cin, cinUsuario);
+    std::stringstream stream(cinUsuario);
+    argumentos.clear();
 
     // while para ir guardando los argumentos en el vector
-    while (getline(stream, palabra, delimitador)) {
-      argumentos.push_back(palabra);    
+    while (getline(stream, cinUsuario, delimitador)) {
+      argumentos.push_back(cinUsuario);    
     }
     // Si no ingreso nada, simplemente continua.
     if (argumentos.empty()) {
@@ -338,21 +354,7 @@ void Menu::comando_inicializar_nueva_partida() {
   mipartida.FijarsetsTradeados(0);
   mipartida.FijarJugadores(jugadoresPartida); //Se agregan jugadores a la partida
 
-  Carta auxCarta;
-  std::vector<Pais> paisesContinente;
-  std::vector<Continente> continentes;
-  std::vector<Carta> cartas;
-  std::string temp = "";
-
-  std::vector<std::string> nombrePaises = {"Alaska","Alberta","America Central","Estados Unidos Orientales","Groenlandia","Territorio Noroccidental","Ontario","Quebec","Estados Unidos Occidentales","Argentina","Brasil","Peru","Venezuela","Gran Bretana","Islandia","Europa del Norte","Escandinavia","Europa del Sur","Ucrania","Europa Occidental","Congo","Africa Oriental","Egipto","Madagascar","Africa del Norte","Africa del Sur","Afghanistan","China","India","Irkutsk","Japon","Kamchatka","Medio Oriente","Mongolia","Siam","Siberia","Ural","Yakutsk","Australia Oriental","Indonesia","Nueva Guinea","Australia Occidental"};
-  std::vector<std::string> paisContinente = {"America del Norte","America del Norte","America del Norte","America del Norte","America del Norte","America del Norte","America del Norte","America del Norte","America del Norte","America del Sur","America del Sur","America del Sur","America del Sur","Europa","Europa","Europa","Europa","Europa","Europa","Europa","Africa","Africa","Africa","Africa","Africa","Africa","Asia","Asia","Asia","Asia","Asia","Asia","Asia","Asia","Asia","Asia","Asia","Asia","Australia","Australia","Australia","Australia"};
-  std::vector<std::string> tropa =        {"Tropa","Tropa","Caballeria","Artilleria","Caballeria","Artilleria","Artilleria","Artilleria","Tropa","Caballeria","Artilleria","Caballeria","Artilleria","Caballeria","Tropa","Caballeria","Artilleria","Caballeria","Artilleria","Tropa","Caballeria","Artilleria","Tropa","Tropa","Tropa","Artilleria","Tropa","Caballeria","Tropa","Tropa","Tropa","Caballeria","Artilleria","Artilleria","Artilleria","Artilleria","Caballeria","Caballeria","Tropa","Caballeria","Caballeria","Artilleria"};
-
-  std::vector<std::string>::iterator nombreIt = nombrePaises.begin();
-  std::vector<std::string>::iterator paisIt = paisContinente.begin();
-  std::vector<std::string>::iterator tropaIt = tropa.begin();
-
-  //Paises
+  //Crear Paises
   for(nombreIt = nombrePaises.begin(); nombreIt != nombrePaises.end(); nombreIt++,paisIt++){
     Pais paisAux;
     if(temp != *paisIt || nombreIt == nombrePaises.end() - 1) {
@@ -393,9 +395,7 @@ void Menu::comando_inicializar_nueva_partida() {
 
   mipartida.FijarCartas(cartas);
 
-  Dado auxDado;
-  std::vector<Dado> dados;
-
+  //Dados
   for(int i = 0; i < 3; i++) {
     auxDado.FijarColor("Ataque");
     dados.push_back(auxDado);
@@ -409,12 +409,8 @@ void Menu::comando_inicializar_nueva_partida() {
   mipartida.FijarDados(dados);
 
   std::vector<Continente> partidaContinentes = mipartida.ObtenerContinentes();
-  std::vector<Continente>::iterator continentIt = partidaContinentes.begin();
+  std::vector<Continente>::iterator continentIt = partidaContinentes.begin(); 
 
-  int inventario = 1;
-
-  std::vector<std::string> auxPaises;
-  std::vector<std::string> paisesAsignados; 
   int paisesTotal=42;
   int tropas_pais=paisesTotal/cantidad_jugadores;
   int dividirPaises=paisesTotal%cantidad_jugadores;
@@ -433,21 +429,22 @@ void Menu::comando_inicializar_nueva_partida() {
     tropas_pais=7;
   }
 
-  std::vector<std::string> paisesMapa;
   nombreIt = nombrePaises.begin();
+  vectorString.clear();
   for(nombreIt = nombrePaises.begin(); nombreIt != nombrePaises.end(); nombreIt++){
-    paisesMapa.push_back(*nombreIt);
+    vectorString.push_back(*nombreIt);
   }
 
+  //Mezclar paises
   srand(time(0));
   for (int i = 0; i < 42; i++) {
-    int numeroAleatorio = (rand() % paisesMapa.size()); // Genera un número aleatorio entre 0 y el tamaño del vector paisesMapa - 1
+    int numeroAleatorio = (rand() % vectorString.size()); // Genera un número aleatorio entre 0 y el tamaño del vector vectorString - 1
     
     // Agrega el país aleatorio al vector auxPaises
-    auxPaises.push_back(paisesMapa[numeroAleatorio]);
+    auxPaises.push_back(vectorString[numeroAleatorio]);
     
-    // Elimina el país aleatorio del vector paisesMapa
-    paisesMapa.erase(paisesMapa.begin() + numeroAleatorio);
+    // Elimina el país aleatorio del vector vectorString
+    vectorString.erase(vectorString.begin() + numeroAleatorio);
   }
 
 
@@ -455,6 +452,8 @@ void Menu::comando_inicializar_nueva_partida() {
   
   //TODO #1 Poner que los paises adicionales queden para un jugador aleatorio
   while(!auxPaises.empty()) {
+
+    //Asigna paises
     Jugador auxJugador;
     auxJugador = jugadores.front();
     jugadores.pop();
@@ -466,6 +465,8 @@ void Menu::comando_inicializar_nueva_partida() {
   }
 
   bool jugadoresOrdenado = false;
+
+  //Reordena la cola de jugadores
   while(!jugadoresOrdenado) {
     Jugador auxJugador;
     auxJugador = jugadores.front();
@@ -518,6 +519,7 @@ void Menu::comando_inicializar_nueva_partida() {
   }
 
   std::vector<Continente> continentesAleatorio = mipartida.ObtenerContinentes();
+
   for (int i = 0; i < cantidad_jugadores; i++) {
     int tmpTropasJugador = tropasPorJugador;
 
@@ -563,7 +565,7 @@ void Menu::comando_inicializar_nueva_partida() {
   partidaContinentes = mipartida.ObtenerContinentes();
   continentIt = partidaContinentes.begin();
 
-  inventario = 1;
+  int inventario = 1;
 
   std::cout << std::endl << std::setw(20) << "Continentes" << std::setw(30) << "Pais" << std::setw(30) << "Cantidad de tropas" << std::endl << std::endl;
 
