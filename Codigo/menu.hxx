@@ -593,6 +593,50 @@ void Menu::comando_inicializar_existente(const std::string& comando) {
 
 //La siguiente función tiene como fin realizar el turno de cada jugador con su ataque, defensa y reorganización pertinente
 void Menu::comando_turno(const std::string& comando) {
+  bool continuar = false;
+  int turnoJugador = std::stoi(comando);
+  std::queue<Jugador> jugadores = mipartida.ObtenerJugadores();
+  Jugador jugadorTurno = jugadores.front();
+
+  //Comprobar que hay una partida cargada
+  if(mipartida.ObtenerNombre() == "") {
+    std::cout << " No se ha cargado o inicializado una partida. \n";
+    std::cout << " Presione enter para continuar.";
+    std::cin.ignore();
+    return;
+  }
+  //Comprobar que está jugando el jugador al que le toca jugar
+  else if(jugadorTurno.ObtenerId() != turnoJugador) {
+    std::cout << " No es puede continuar con el turno. El jugador "<< jugadorTurno.ObtenerId() << " es a quien le toca jugar" << std::endl;
+    std::cout << " Presione enter para continuar.";
+    std::cin.ignore();
+    return;
+  }
+
+  //Calcular tropas
+  int sumarTropas = 3;
+  std::vector<std::string> paisesJugador;
+
+  //FASE 1
+
+
+  //FASE 2
+
+
+  //FASE 3
+
+  //termina el turno, se pone al jugador en la cola de la partida y va el siguiente
+  jugadores.pop();
+  jugadores.push(jugadorTurno);
+  mipartida.FijarJugadores(jugadores);
+
+  std::cout << " Por ultimo el atacante procedera a reagrupar tropas. \n";
+  std::cout << " Para esto se deben tener en cuenta los territorios vecinos. \n";
+  std::cout << " Presione enter para continuar.";
+  std::cin.ignore();
+
+  //ESTO ES LO QUE ESTABA ANTES
+  /*
   std::string input, palabra;
   int cantidad_jugadores;
   char delimitador = ' ';
@@ -1120,6 +1164,7 @@ void Menu::comando_turno(const std::string& comando) {
   std::cout << " Para esto se deben tener en cuenta los territorios vecinos. \n";
   std::cout << " Presione enter para continuar.";
   std::cin.ignore();
+  */
 }
 
 //Con esta función se guarda la partida
