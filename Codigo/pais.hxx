@@ -43,6 +43,10 @@ int Pais::ObtenerCantidadTropas(){
     return this->cantidadTropas;
 }
 
+int Pais::ObtenerDueno(){
+    return this->dueno;
+}
+
 void Pais::FijarNombre(std::string nnombre){
     this->nombre = nnombre;
 }
@@ -51,7 +55,9 @@ void Pais::FijarCantidadTropas(int ncantidadtropas) {
     this->cantidadTropas = ncantidadtropas;
 }
 
-
+void Pais::FijarDueno(int ndueno) {
+    this->dueno = ndueno;
+}
 
 //************************************************************************
 // FIN - FUNCIONES

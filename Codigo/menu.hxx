@@ -44,7 +44,7 @@ Partida mipartida;
 //************************************************************************
 
 //La función se emplea en situaciones en las cuales el usuario requiere asistencia en relación al funcionamiento de alguno de los comandos. Se procederá a verificar cuál es el comando específico con respecto al cual necesita ayuda, y se le proporcionará la asistencia correspondiente.
-void Menu::comando_ayuda_comandos(const std::string& comando){
+void Menu::comando_ayuda_comandos(std::string comando){
   if (comando.compare("inicializar") == 0){
     std::cout << " Comando: inicializar <nombre_archivo>\n";
     std::cout << "   Descripcion: Inicializa un nuevo juego. Ingrese el nombre del archivo para reanudar.\n";
@@ -592,14 +592,14 @@ void Menu::comando_inicializar_nueva_partida() {
 }
 
 //Mediante esta función se vuelve cargar un juego que ya exista previamente
-void Menu::comando_inicializar_existente(const std::string& comando) {
+void Menu::comando_inicializar_existente(std::string comando) {
   std::cout << " Inicializar partida existente (En construccion).\n";
   std::cout << " Presione enter para continuar.";
   std::cin.ignore();
 }
 
 //La siguiente función tiene como fin realizar el turno de cada jugador con su ataque, defensa y reorganización pertinente
-void Menu::comando_turno(const std::string& comando) {
+void Menu::comando_turno(std::string comando) {
   bool continuar = false;
   int turnoJugador = std::stoi(comando);
   std::queue<Jugador> jugadores = mipartida.ObtenerJugadores();
@@ -1175,7 +1175,7 @@ void Menu::comando_turno(const std::string& comando) {
 }
 
 //Con esta función se guarda la partida
-void Menu::comando_guardar(const std::string& nombreArchivo) {
+void Menu::comando_guardar(std::string nombreArchivo) {
   std::cout << " Dentro del comando 'guardar'.\n";
   std::cout << "  Si el comando fue correcto: La partida ha sido guardada correctamente con el nombre de archivo: '" << nombreArchivo << "'.\n";
   std::cout << "  Si no hay ningun juego inicializado: Esta partida no ha sido inicializada correctamente.\n";
@@ -1185,14 +1185,14 @@ void Menu::comando_guardar(const std::string& nombreArchivo) {
 }
 
 //Mediante la función se guarda un comprimido de lo que se lleve del juego
-void Menu::comando_guardar_comprimido(const std::string& nombreArchivo) {
+void Menu::comando_guardar_comprimido(std::string nombreArchivo) {
   std::cout << " Dentro del comando 'guardar_comprimido'.\n";
   std::cout << " Presione enter para continuar.";
   std::cin.ignore();
 }
 
 //La función realiza la opcion del comando de costo conquista
-void Menu::comando_costo_conquista(const std::string& territorio) {
+void Menu::comando_costo_conquista(std::string territorio) {
   std::cout << " Dentro del comando 'costo_conquista'.\n";
   std::cout << "   Ejemplo ejecucion correcta: Para conquistar el territorio ''" << territorio << "'' debe\n";
   std::cout << "   atacar desde <territorio_1>, pasando por <territorio_2> ,<territorio_3>. Debe conquistar <n> unidades de ejercito.\n";

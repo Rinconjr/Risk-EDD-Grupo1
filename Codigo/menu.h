@@ -30,18 +30,18 @@
 class Menu{
   public:
     static void comando_inicializar_nueva_partida();
-    static void comando_inicializar_existente(const std::string& comando);
-    static void comando_turno(const std::string& comando);
-    static void comando_guardar(const std::string& nombreArchivo);
-    static void comando_guardar_comprimido(const std::string& nombreArchivo);
-    static void comando_costo_conquista(const std::string& territorio);
+    static void comando_inicializar_existente(std::string comando);
+    static void comando_turno(std::string comando);
+    static void comando_guardar(std::string nombreArchivo);
+    static void comando_guardar_comprimido(std::string nombreArchivo);
+    static void comando_costo_conquista(std::string territorio);
     static void comando_conquista_mas_barata();
     static void comando_ayuda();
-    static void comando_ayuda_comandos(const std::string& comando);
+    static void comando_ayuda_comandos(std::string comando);
     static void limpiar_consola();
     static void interaccion_usuario();
     static void imagen_risk();
-    static bool contieneSoloEspacios(std::string str);//
+    static bool contieneSoloEspacios(std::string str);
 
 };
 

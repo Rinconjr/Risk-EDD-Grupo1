@@ -46,9 +46,11 @@ class Pais{
         //============================
         std::string ObtenerNombre();
         int ObtenerCantidadTropas();
+        int ObtenerDueno();
 
         void FijarNombre(std::string nnombre);
         void FijarCantidadTropas(int ncantidadtropas);
+        void FijarDueno(int ndueno);
 };
 
 //*****************************************************************
