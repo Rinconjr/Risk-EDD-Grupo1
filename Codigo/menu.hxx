@@ -367,9 +367,9 @@ void Menu::comando_inicializar_nueva_partida() {
   int dividirPaises = paisesTotal % cantidad_jugadores;
 
   if (dividirPaises == 0) {
-    std::cout << "Se dara la misma cantidad de paises a cada jugador\n";
+    std::cout << "\n  Se dara la misma cantidad de paises a cada jugador\n";
   } else {
-    std::cout << "Al tener " << cantidad_jugadores << " jugadores, dos de los jugadores tendran un pais extra\n";
+    std::cout << "\n  Al tener " << cantidad_jugadores << " jugadores, dos de los jugadores tendran un pais extra\n";
   }
 
    if (cantidad_jugadores == 3) {
@@ -500,6 +500,8 @@ void Menu::comando_inicializar_nueva_partida() {
 
   mipartida.FijarDados(dados);
 
+  //Mostrar continentes y paises creados con su respectivo dueño y cantidad de tropas
+  std::cout << "  Se crearon los siguientes continentes y paises: \n";
   std::vector<Continente> partidaContinentes = mipartida.ObtenerContinentes();
   continentIt = partidaContinentes.begin(); 
 
@@ -519,6 +521,7 @@ void Menu::comando_inicializar_nueva_partida() {
       inventario++;
     }
   }
+
 
   std::cout << " Partida creada exitosamente.\n";
   std::cout << " Presione enter para continuar.";
