@@ -679,7 +679,7 @@ void Menu::comando_turno(std::string comando) {
         inventario++;
       }
       do {
-        int numeroPais, tropasPais;
+        int numeroPais, tropasPais, numeroTropas;
         std::string paisFortificar;
         std::cout<<"Seleccione el # del pais que va a fortificar:";
         std::getline(std::cin, cinUsuario);
@@ -691,21 +691,75 @@ void Menu::comando_turno(std::string comando) {
         }
         
         try {
-          int numeroPais = std::stoi(cinUsuario); 
-          
-          if(numeroPais > inventario) {
-            std::cout << "El pais que estas tratando de seleccionar no te pertenece" << std::endl;
-          }
-          else {
-            paisesJugadorIt = paisesJugador.begin() + (numeroPais -1);
-            paisFortificar = paisesJugadorIt->ObtenerNombre();
-            tropasPais = paisesJugadorIt->ObtenerCantidadTropas();
-          }
-          std::cout << "Cuantas tropas va a añadir a " << paisFortificar;
+          numeroPais = std::stoi(cinUsuario); 
         } 
         catch (const std::invalid_argument& e) {
           std::cout << "Argumento invalido. Debe ingresar el numero del pais" << std::endl;
+          continue;
         }
+          
+        if(numeroPais > inventario) {
+          std::cout << "El pais que estas tratando de seleccionar no te pertenece" << std::endl;
+        }
+        else {
+          paisesJugadorIt = paisesJugador.begin() + (numeroPais -1);
+          paisFortificar = paisesJugadorIt->ObtenerNombre();
+          tropasPais = paisesJugadorIt->ObtenerCantidadTropas();
+        }
+
+        std::cout << "Puedes anadir " << sumarTropas << std::endl;
+        std::cout << paisFortificar << " tiene actualmente " << tropasPais << " tropas\n";
+        do {
+            
+          std::cout<<" Seleccione el numero de tropas que anadira a " << paisFortificar <<":";
+          std::getline(std::cin, cinUsuario);
+          std::stringstream stream(cinUsuario);
+          
+          // Si no ingreso nada, simplemente continua.
+          if (argumentos.empty()) {
+            continue;
+          }
+
+          try {
+            numeroTropas = std::stoi(cinUsuario); 
+          } 
+          catch (const std::invalid_argument& e) {
+            std::cout << "Argumento invalido. Debe ingresar el numero de tropas" << std::endl;
+            continue;
+          }
+
+          if(sumarTropas < numeroTropas) {
+            std::cout << "No tienes tantas tropas, actualmente tienes "<< sumarTropas << " tropas por asignar" << std::endl;
+            continue;
+          }
+          else if (numeroTropas < 0) {
+            std::cout << "No puedes poner tropas negativas"<< sumarTropas << " tropas por asignar" << std::endl;
+            continue;
+          }
+          else {
+            partidaContinentes = mipartida.ObtenerContinentes();
+            continentIt = partidaContinentes.begin();
+
+            for(continentIt = partidaContinentes.begin(); continentIt != partidaContinentes.end(); continentIt++){
+              bool domina = true;
+              std::vector<Pais> partidaPais = continentIt->ObtenerPaises();
+              std::vector<Pais>::iterator partidaPaisIt = partidaPais.begin();
+
+              for(partidaPaisIt = partidaPais.begin(); partidaPaisIt != partidaPais.end(); partidaPaisIt++){
+                if(partidaPaisIt->ObtenerNombre() == paisFortificar) {
+                  partidaPaisIt->FijarCantidadTropas(partidaPaisIt->ObtenerCantidadTropas() + numeroTropas);
+                  continentIt->FijarPaises(partidaPais);
+                  mipartida.FijarContinentes(partidaContinentes);
+                  sumarTropas -= numeroTropas;
+                  continuar = true;
+                  continue;
+                }
+              }
+            }
+
+          }
+        }
+        while(!continuar);
       }
       while(!continuar);
       continuar = false;
