@@ -1002,8 +1002,6 @@ void Menu::comando_turno(std::string comando) {
   std::cout << " Presione enter para continuar.";
   std::cin.ignore();
   */
-}
-*/
   //FASE 3
 
   //termina el turno, se pone al jugador en la cola de la partida y va el siguiente
