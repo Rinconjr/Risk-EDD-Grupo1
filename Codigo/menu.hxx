@@ -744,7 +744,212 @@ void Menu::comando_turno(std::string comando) {
 
   //FASE 2
 
+  //hacer la monda de ataca
+  /*
+  //de aca pa abajo daditos xd
+  bool avanzar;
+  int opcion;
+  std::cout << " Momento de los dados!!!\n";
 
+  while ( > 0 &&  > 0) {//aca debemos validar que se tengan tropas para atacar y defender 
+    // Mostrar opciones al atacante
+    std::cout << "  Opciones:\n";
+    std::cout << "   1. Lanzar dados\n";
+    std::cout << "   2. Retirarse\n";
+    std::cout << "  Elija una opcion: \n";
+    do {
+      std::cout << "# ";
+      std::getline(std::cin, cinUsuario);
+      std::stringstream stream(cinUsuario);
+      std::vector<std::string> argumentos;
+
+      // while para ir guardando los argumentos en el vector
+      while (getline(stream, palabra, delimitador)) {
+        argumentos.push_back(palabra);    
+      }
+      // Si no ingreso nada, simplemente continua.
+      if (argumentos.empty()) {
+        continue;
+      }
+      else if(argumentos.size() > 1) {
+        std::cout << "Ingrese solamente la cantidad de tropas";
+        continue;
+      }
+      //Regresa al menu principal
+      else if (argumentos[0].compare("salir") == 0) {
+        std::cout << "Turno abortado. \n";
+        return;
+      }
+      else {
+        try {
+          opcion = std::stoi(argumentos[0]);
+          avanzar = true;
+        } 
+        catch (const std::invalid_argument&) {
+          std::cout << "Error. Debe ingresar la cantidad de tropas. \n";
+        }
+      }
+    }
+    while(!avanzar);
+    avanzar = false;
+    if (opcion == 1) {
+      int num_dados_atacante, num_dados_defensor;
+  
+      // Atacante elige la cantidad de dados a lanzar
+      do {
+        std::cout << "  Cuantos dados desea lanzar el atacante (1, 2 o 3)?: \n";
+        //std::cin >> num_dados_atacante;
+
+        do {
+          std::cout << "# ";
+          std::getline(std::cin, cinUsuario);
+          std::stringstream stream(cinUsuario);
+          std::vector<std::string> argumentos;
+
+          // while para ir guardando los argumentos en el vector
+          while (getline(stream, palabra, delimitador)) {
+            argumentos.push_back(palabra);    
+          }
+          // Si no ingreso nada, simplemente continua.
+          if (argumentos.empty()) {
+            continue;
+          }
+          else if(argumentos.size() > 1) {
+            std::cout << "Ingrese solamente la cantidad de tropas";
+            continue;
+          }
+          //Regresa al menu principal
+          else if (argumentos[0].compare("salir") == 0) {
+            std::cout << "Turno abortado. \n";
+            return;
+          }
+
+          else {
+            try {
+              num_dados_atacante = std::stoi(argumentos[0]);
+              continuar = true;
+            } 
+            catch (const std::invalid_argument&) {
+              std::cout << "Error. Debe ingresar la cantidad de tropas. \n";
+            }
+          }
+        }
+        while(!continuar);
+        continuar = false;
+
+      } while (num_dados_atacante < 1 || num_dados_atacante > 3);
+  
+      // Defensor elige la cantidad de dados a lanzar
+      do {
+        std::cout << "  Cuantos dados desea lanzar el defensor (1 o 2)?: \n";
+
+        do {
+          std::cout << "# ";
+          std::getline(std::cin, cinUsuario);
+          std::stringstream stream(cinUsuario);
+          std::vector<std::string> argumentos;
+
+          // while para ir guardando los argumentos en el vector
+          while (getline(stream, palabra, delimitador)) {
+            argumentos.push_back(palabra);    
+          }
+          // Si no ingreso nada, simplemente continua.
+          if (argumentos.empty()) {
+            continue;
+          }
+          else if(argumentos.size() > 1) {
+            std::cout << "Ingrese solamente la cantidad de tropas";
+            continue;
+          }
+          //Regresa al menu principal
+          else if (argumentos[0].compare("salir") == 0) {
+            std::cout << "Turno abortado. \n";
+            return;
+          }
+
+          else {
+            try {
+              num_dados_defensor = std::stoi(argumentos[0]);
+              continuar = true;
+            } 
+            catch (const std::invalid_argument&) {
+              std::cout << "Error. Debe ingresar la cantidad de tropas. \n";
+            }
+          }
+        }
+        while(!continuar);
+        continuar = false;
+
+      } while (num_dados_defensor < 1 || num_dados_defensor > 2);
+  
+      // Lanzamiento de dado aleatorio para el atacante y el defensor
+      int dados_atacante[num_dados_atacante];
+      int suma_dados_atacante = 0;
+      for (int i = 0; i < num_dados_atacante; i++) {
+        dados_atacante[i] = rand() % 6 + 1; // Número aleatorio entre 1 y 6
+        suma_dados_atacante += dados_atacante[i]; // Sumar al total de la suma del atacante
+      }
+  
+      int dados_defensor[num_dados_defensor];
+      int suma_dados_defensor = 0;
+      for (int i = 0; i < num_dados_defensor; i++) {
+        dados_defensor[i] = rand() % 6 + 1; // Número aleatorio entre 1 y 6
+        suma_dados_defensor += dados_defensor[i]; // Sumar al total de la suma del defensor
+      }
+  
+      // Mostrar resultados de los dados
+      std::cout << "  ------------------------------------\n";
+      std::cout << "  Resultados del lanzamiento de dados:\n";
+      std::cout << "   Atacante: ";
+      for (int i = 0; i < num_dados_atacante; i++) {
+        std::cout << dados_atacante[i] << " ";
+      }
+      std::cout << "\n";
+      std::cout << "   Defensor: ";
+      for (int i = 0; i < num_dados_defensor; i++) {
+        std::cout << dados_defensor[i] << " ";
+      }
+      std::cout << "\n";
+  
+      // Comparar los resultados de los dados y descontar tropas
+      for (int i = 0; i < std::min(num_dados_atacante, num_dados_defensor); i++) {
+        if (dados_atacante[i] > dados_defensor[i]) {
+          tropas_defensor--; //se le resta la tropa al defensor
+        } else {
+          tropas_atacante--; //se le resta una tropa al atacante
+        }
+      }
+  
+      // Mostrar cantidad de tropas restantes después del enfrentamiento
+      std::cout << "  Tropas restantes:\n";
+      std::cout << "   Atacante: " << tropas_atacante << "\n";
+      std::cout << "   Defensor: " << tropas_defensor << "\n";
+  
+    } else if (opcion == 2) {
+      std::cout << "  El atacante se retira. Fin del ataque.\n";
+      retiro=true;
+      break;
+    } else {
+      std::cout << "  Opcion invalida. Por favor, elija una opcion valida.\n";
+    }
+  }
+
+  // Mostrar el resultado final del ataque
+  if (tropas_atacante <= 0) {
+    std::cout << "  El atacante ha perdido todas sus tropas.\n";
+  }
+  else if(retiro=true){
+  } 
+  else {
+    std::cout << "  El defensor ha perdido todas sus tropas.\n";
+  }
+  std::cout << " Por ultimo el atacante procedera a reagrupar tropas. \n";
+  std::cout << " Para esto se deben tener en cuenta los territorios vecinos. \n";
+  std::cout << " Presione enter para continuar.";
+  std::cin.ignore();
+  */
+}
+*/
   //FASE 3
 
   //termina el turno, se pone al jugador en la cola de la partida y va el siguiente
@@ -756,6 +961,16 @@ void Menu::comando_turno(std::string comando) {
   std::cout << " Para esto se deben tener en cuenta los territorios vecinos. \n";
   std::cout << " Presione enter para continuar.";
   std::cin.ignore();
+
+
+
+
+
+
+
+
+
+
 
   //ESTO ES LO QUE ESTABA ANTES
   /*
