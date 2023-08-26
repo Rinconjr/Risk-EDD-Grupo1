@@ -592,15 +592,18 @@ void Menu::comando_turno(std::string comando) {
   }
 
   //FASE 1
+  int opcion3Seleccionada = 0;
+  char posibilidad_salir;
   while(!continuar) {
-    std::cout << "Jugador " << turnoJugador<< std::endl;
-    std::cout <<std::endl << "Fase 1" << std::endl <<"Opciones:" <<std::endl<<std::endl;
-    std::cout << "1) Ver mis paises." <<std::endl;
-    std::cout << "2) Fortificar pais."<< "!!Usted tiene " << sumarTropas << "tropas por asignar!!" <<std::endl;
-    std::cout << "3) Canjear cartas." <<std::endl;
-    std::cout << "4) siguiente fase." <<std::endl;
-    std::cout << "5) Salir." <<std::endl;
-    std::cout << std::endl << "Selecciona el numero de la opcion: ";
+    std::cout<<"---------------------MENU TURNO-------------------------\n";
+    std::cout << "Turno del jugador " << turnoJugador<<"\n";
+    std::cout << "Fase 1" << std::endl <<std::setw(30)<<"Opciones\n";
+    std::cout << "1) Ver mis paises.\n";
+    std::cout << "2) Fortificar pais."<< " Usted tiene " << sumarTropas << " tropas por asignar!!!\n";
+    std::cout << "3) Canjear cartas.\n";
+    std::cout << "4) Siguiente fase.\n";
+    std::cout << "5) Salir.\n";
+    std::cout<<"---------------------MENU TURNO-------------------------\n";
 
     do {
       continuar = false;
@@ -658,7 +661,15 @@ void Menu::comando_turno(std::string comando) {
       }
     }
     else if(cinUsuario == "5") {
-      return;
+      std::cout<<"Esta seguro que desea salir (Si=s/No=n)?\n";
+      std::getline(std::cin, cinUsuario);
+      std::stringstream stream(cinUsuario);
+      if(posibilidad_salir=='n'){
+        continuar=true;
+      }else if(posibilidad_salir=='s'){
+        return;
+      }else{
+      }
     }
     else {
       std::cout << "\n\nIngrese una opcion del menu. \n\n";
@@ -666,10 +677,6 @@ void Menu::comando_turno(std::string comando) {
   }
 
   
-
-
-  
-
 
   //FASE 2
 
