@@ -662,15 +662,33 @@ void Menu::comando_turno(std::string comando) {
       }
     }
     else if(cinUsuario == "2") {
-      std::vector<Pais>::iterator paisesJugadorIt = paisesJugador.begin();
-      std::cout << std::setw(25) << "Pais" << std::setw(10) << "Tropa" << std::endl;
-      for(paisesJugadorIt = paisesJugador.begin(); paisesJugadorIt != paisesJugador.end(); paisesJugadorIt++){
-        std::cout << std::setw(25) << paisesJugadorIt->ObtenerNombre() << std::setw(10) << paisesJugadorIt->ObtenerCantidadTropas() << std::endl;
+      partidaContinentes = mipartida.ObtenerContinentes();
+      continentIt = partidaContinentes.begin();
+
+      int inventario = 1;
+
+      std::cout << std::endl << std::setw(20) << "Continentes" << std::setw(30) << "Pais" << std::setw(30) << "Cantidad de tropas" << std::setw(30) << "Dueno" << std::endl << std::endl;
+
+      for(continentIt = partidaContinentes.begin(); continentIt != partidaContinentes.end(); continentIt++){
+        std::vector<Pais> partidaPais = continentIt->ObtenerPaises();
+        std::vector<Pais>::iterator partidaPaisIt = partidaPais.begin();
+
+        for(partidaPaisIt = partidaPais.begin(); partidaPaisIt != partidaPais.end(); partidaPaisIt++){
+          if(partidaPaisIt->ObtenerDueno() == turnoJugador ) {
+            std::cout << std::setw(2) << inventario << ") " << std::setw(20) << continentIt->ObtenerNombre() << std::setw(30) << partidaPaisIt->ObtenerNombre() << std::setw(25) << partidaPaisIt->ObtenerCantidadTropas() << std::endl;
+            inventario++;
+          }
+          
+        }
       }
 
     }
     else if(cinUsuario == "3") {
-      int inventario = 1;
+      if(sumarTropas == 0) {
+        std::cout << "No tienes mas tropas por asignar, canjea cartas o pasa a la siguiente fase." << std::endl;
+      }
+      else {
+        int inventario = 1;
       std::vector<Pais>::iterator paisesJugadorIt = paisesJugador.begin();
 
       std::cout <<std::setw(5) << "# Pais" << std::setw(30) << "Nombre del pais" << std::setw(10) << "Tropas del pais" << std::endl;
@@ -756,14 +774,13 @@ void Menu::comando_turno(std::string comando) {
                 }
               }
             }
-
           }
         }
         while(!continuar);
       }
       while(!continuar);
       continuar = false;
-
+      }
     }
     else if(cinUsuario == "4") {
 
