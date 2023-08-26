@@ -384,24 +384,14 @@ void Menu::comando_inicializar_nueva_partida() {
   for(nombreIt = nombrePaises.begin(); nombreIt != nombrePaises.end(); nombreIt++,paisIt++){
     bool t = true;
     int numeroAleatorio;
+    int test = 0;
     while(t) {
       numeroAleatorio = (rand() % cantidad_jugadores);
-      if(idJugador[numeroAleatorio] < tropas_pais) {
+      if(idJugador[numeroAleatorio] < tropas_pais || test > 200) {
         t = false;
         idJugador[numeroAleatorio] = idJugador[numeroAleatorio] + 1;
       }
-      else if(dividirPaises != 0) {
-        int menor = -1;
-        int idt;
-        for(int i = 0; i < cantidad_jugadores; i++) {
-          if(idJugador[i] < menor || menor == -1) {
-            menor = idJugador[i];
-            idt = i;
-          }
-        }
-        t = false;
-        idJugador[idt] = idJugador[idt] + 1;
-      }
+      test++;
     }
     numeroAleatorio += 1;
     Pais paisAux;
@@ -410,7 +400,6 @@ void Menu::comando_inicializar_nueva_partida() {
         paisAux.FijarNombre(*nombreIt);
         paisAux.FijarDueno(numeroAleatorio);
         paisesContinente.push_back(paisAux);
-        std::cout << paisAux.ObtenerNombre() << " : " << paisAux.ObtenerDueno()<< std::endl;
       }
       Continente auxContinente;
       auxContinente.FijarNombre(temp);
@@ -422,12 +411,49 @@ void Menu::comando_inicializar_nueva_partida() {
     paisAux.FijarNombre(*nombreIt);
     paisAux.FijarDueno(numeroAleatorio);
     paisesContinente.push_back(paisAux);
-    std::cout << paisAux.ObtenerNombre() << " : " << paisAux.ObtenerDueno()<< std::endl;
+  }
+
+  //Asignacion de tropas a territorios:
+  int tropasPorJugador;
+
+  if(cantidad_jugadores == 3) {
+    tropasPorJugador = (35 - tropas_pais);
+  }
+  else if(cantidad_jugadores == 4) {
+    tropasPorJugador = (30 - tropas_pais);
+  }
+  else if(cantidad_jugadores == 5) {
+    tropasPorJugador = (25 - tropas_pais);
+  }
+  else {
+    tropasPorJugador = (20 - tropas_pais);
   }
 
   for(int i = 0; i < cantidad_jugadores; i++) {
-    std::cout << idJugador[i] << " : ";
+    for(int e = 0; e < tropasPorJugador; e++) {
+
+      int numeroAleatorio = (rand() % tropas_pais);
+      int contador = 0;
+      std::vector<Continente>::iterator continentIt = continentes.begin();
+
+      for(continentIt = continentes.begin(); continentIt != continentes.end(); continentIt++){
+        std::vector<Pais> partidaPais = continentIt->ObtenerPaises();
+        std::vector<Pais>::iterator partidaPaisIt = partidaPais.begin();
+
+        for(partidaPaisIt = partidaPais.begin(); partidaPaisIt != partidaPais.end(); partidaPaisIt++){
+          if(partidaPaisIt->ObtenerDueno() == i+1) {
+            if(contador == numeroAleatorio) {
+              partidaPaisIt->FijarCantidadTropas(partidaPaisIt->ObtenerCantidadTropas()+1);
+              continentIt->FijarPaises(partidaPais);
+            }
+            contador++;
+          }
+          
+        }
+      }
+    }
   }
+  
   mipartida.FijarContinentes(continentes);
 
   nombreIt = nombrePaises.begin();
@@ -466,132 +492,6 @@ void Menu::comando_inicializar_nueva_partida() {
   std::vector<Continente> partidaContinentes = mipartida.ObtenerContinentes();
   std::vector<Continente>::iterator continentIt = partidaContinentes.begin(); 
 
-  //std::queue<Jugador> jugadores = mipartida.ObtenerJugadores();
-
-
-    /*
-  //TODO: Arreglar la asignacion de paises aleatorios porque cambio estructura
-  //TODO: Poner que los paises adicionales queden para un jugador aleatorio
-  while(!auxPaises.empty()) {
-    //Asigna paises
-    Jugador auxJugador;
-    auxJugador = jugadores.front();
-    jugadores.pop();
-    std::vector<std::string> paisesAsignados = auxJugador.ObtenerPaises();
-    paisesAsignados.push_back(auxPaises.front());
-    auxPaises.erase(auxPaises.begin());
-    auxJugador.FijarPaises(paisesAsignados);
-    jugadores.push(auxJugador);
-  }
-  */
-
-/*
-  bool jugadoresOrdenado = false;
-
-  //Reordena la cola de jugadores
-  while(!jugadoresOrdenado) {
-    Jugador auxJugador;
-    auxJugador = jugadores.front();
-    if(auxJugador.ObtenerId() == 1) {
-      jugadoresOrdenado = true;
-    }
-    else {
-      jugadores.pop();
-      jugadores.push(auxJugador);
-    }
-  }*/
-
-//-------------------
-
-  /* 
-  TODO: Arreglar este print de paises de cada jugador
-  //--------------------------------------
-  //Imprime los paises de cada uno 
-  std::cout<<"--------------------------------\n";
-  for (int i = 0; i < cantidad_jugadores; i++) {
-
-    Jugador jugador = jugadores.front();
-    jugadores.pop();
-      
-    std::cout << "Paises del Jugador " << i + 1 << ": ";
-    std::vector<std::string> paisesDelJugador = jugador.ObtenerPaises();
-      
-    for (int j = 0; j < paisesDelJugador.size(); j++) {
-      if(j % 2 == 0) {
-        std::cout<<std::endl;
-      }
-      std::cout<<std::left <<std::setw(30) << paisesDelJugador[j];
-    }
-    std::cout<<"\n--------------------------------\n";
-    jugadores.push(jugador);
-  }*/
-
-
-
-
-/*
-  //Asignacion de tropas a territorios:
-  int tropasPorJugador;
-
-  if(cantidad_jugadores == 3) {
-    tropasPorJugador = (35 - tropas_pais);
-  }
-  else if(cantidad_jugadores == 4) {
-    tropasPorJugador = (30 - tropas_pais);
-  }
-  else if(cantidad_jugadores == 5) {
-    tropasPorJugador = (25 - tropas_pais);
-  }
-  else {
-    tropasPorJugador = (20 - tropas_pais);
-  }
-
-  std::vector<Continente> continentesAleatorio = mipartida.ObtenerContinentes();
-
-  for (int i = 0; i < cantidad_jugadores; i++) {
-    int tmpTropasJugador = tropasPorJugador;
-
-    Jugador jugador = jugadores.front();
-    jugadores.pop();
-    std::vector<std::string> paisesDelJugador = jugador.ObtenerPaises();
-
-    while(tmpTropasJugador != 0) {
-      //Elige aleatoriamente un pais del jugador
-      int indiceAleatorio = std::rand() % paisesDelJugador.size();
-      
-      bool encontrado = false;
-      std::vector<Continente> partidaContinentes = mipartida.ObtenerContinentes();
-      std::vector<Continente>::iterator continentIt = partidaContinentes.begin();
-
-      //Busca el pais del jugador
-      while(!encontrado) {
-        for(continentIt = partidaContinentes.begin(); continentIt != partidaContinentes.end(); continentIt++){
-          
-          std::vector<Pais> partidaPais = continentIt->ObtenerPaises();
-          std::vector<Pais>::iterator partidaPaisIt = partidaPais.begin();
-
-          for(partidaPaisIt = partidaPais.begin(); partidaPaisIt != partidaPais.end(); partidaPaisIt++){
-            
-            //Si encuentra el pais
-            if(paisesDelJugador[indiceAleatorio] == partidaPaisIt->ObtenerNombre()) {
-
-              //Añade la tropa al pais y lo guarda en la estructura
-              partidaPaisIt->FijarCantidadTropas(partidaPaisIt->ObtenerCantidadTropas() +1);
-              continentIt->FijarPaises(partidaPais);
-              mipartida.FijarContinentes(partidaContinentes);
-              
-              //Establece que lo ha encontrado y sale del bucle
-              encontrado = true;
-            }
-          }
-        }
-      }
-      tmpTropasJugador--;
-    }
-  }
-
-  */
-
   partidaContinentes = mipartida.ObtenerContinentes();
   continentIt = partidaContinentes.begin();
 
@@ -604,7 +504,7 @@ void Menu::comando_inicializar_nueva_partida() {
     std::vector<Pais>::iterator partidaPaisIt = partidaPais.begin();
 
     for(partidaPaisIt = partidaPais.begin(); partidaPaisIt != partidaPais.end(); partidaPaisIt++){
-      std::cout << std::setw(2) << inventario << ") " << std::setw(20) << continentIt->ObtenerNombre() << std::setw(30) << partidaPaisIt->ObtenerNombre() << std::setw(30) << partidaPaisIt->ObtenerCantidadTropas() << std::endl;
+      std::cout << std::setw(2) << inventario << ") " << std::setw(20) << continentIt->ObtenerNombre() << std::setw(30) << partidaPaisIt->ObtenerNombre() << std::setw(30) << partidaPaisIt->ObtenerCantidadTropas() << "  :  " << partidaPaisIt->ObtenerDueno()<< std::endl;
       inventario++;
     }
   }
