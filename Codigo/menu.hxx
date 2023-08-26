@@ -534,6 +534,9 @@ void Menu::comando_inicializar_existente(std::string comando) {
 
 //La siguiente función tiene como fin realizar el turno de cada jugador con su ataque, defensa y reorganización pertinente
 void Menu::comando_turno(std::string comando) {
+  std::vector<std::string> argumentos;
+  char delimitador = ' ';
+  std::string cinUsuario;
   bool continuar = false;
   int turnoJugador = std::stoi(comando);
   std::queue<Jugador> jugadores = mipartida.ObtenerJugadores();
@@ -545,23 +548,6 @@ void Menu::comando_turno(std::string comando) {
 
   partidaContinentes = mipartida.ObtenerContinentes();
   continentIt = partidaContinentes.begin();
-
-  int inventario = 1;
-
-  std::cout << "Los siguientes son los paises del jugador "<< turnoJugador << std::endl;
-  std::cout << std::endl << std::setw(20) << "Continentes" << std::setw(30) << "Pais" << std::setw(30) << "Cantidad de tropas" << std::endl << std::endl;
-
-  for(continentIt = partidaContinentes.begin(); continentIt != partidaContinentes.end(); continentIt++){
-    std::vector<Pais> partidaPais = continentIt->ObtenerPaises();
-    std::vector<Pais>::iterator partidaPaisIt = partidaPais.begin();
-
-    for(partidaPaisIt = partidaPais.begin(); partidaPaisIt != partidaPais.end(); partidaPaisIt++){
-      if(partidaPaisIt->ObtenerDueno() == turnoJugador) {
-        std::cout << std::setw(2) << inventario << ") " << std::setw(20) << continentIt->ObtenerNombre() << std::setw(30) << partidaPaisIt->ObtenerNombre() << std::setw(25) << partidaPaisIt->ObtenerCantidadTropas()<< std::endl;
-        inventario++;
-      }
-    }
-  }
 
   //Comprobar que hay una partida cargada
   if(mipartida.ObtenerNombre() == "") {
@@ -580,7 +566,7 @@ void Menu::comando_turno(std::string comando) {
 
   //Calcular tropas
   int sumarTropas = 3;
-  std::vector<std::string> paisesJugador;
+  std::vector<Pais> paisesJugador;
 
   //Si domina un continente
   partidaContinentes = mipartida.ObtenerContinentes();
@@ -595,6 +581,9 @@ void Menu::comando_turno(std::string comando) {
       if(partidaPaisIt->ObtenerDueno() != turnoJugador) {
         domina = false;
       }
+      else {
+        paisesJugador.push_back(*partidaPaisIt);
+      }
     }
 
     if(domina) {
@@ -602,12 +591,84 @@ void Menu::comando_turno(std::string comando) {
     }
   }
 
-  std::cout << "Su bonificacion es de " << sumarTropas << std::endl;
+  //FASE 1
+  while(!continuar) {
+    std::cout << "Jugador " << turnoJugador<< std::endl;
+    std::cout <<std::endl << "Fase 1" << std::endl <<"Opciones:" <<std::endl<<std::endl;
+    std::cout << "1) Ver mis paises." <<std::endl;
+    std::cout << "2) Fortificar pais."<< "!!Usted tiene " << sumarTropas << "tropas por asignar!!" <<std::endl;
+    std::cout << "3) Canjear cartas." <<std::endl;
+    std::cout << "4) siguiente fase." <<std::endl;
+    std::cout << "5) Salir." <<std::endl;
+    std::cout << std::endl << "Selecciona el numero de la opcion: ";
+
+    do {
+      continuar = false;
+
+      std::cout << std::endl << "Selecciona el numero de la opcion: ";
+      std::getline(std::cin, cinUsuario);
+      std::stringstream stream(cinUsuario);
+      argumentos.clear();
+
+      // while para ir guardando los argumentos en el vector
+      while (getline(stream, cinUsuario, delimitador)) {
+        argumentos.push_back(cinUsuario);    
+      }
+      // Si no ingreso nada, simplemente continua.
+      if (argumentos.empty()) {
+        continue;
+      }
+      else if(argumentos.size() > 1) {
+        std::cout << "El nombre de la partida no puede estar separada por espacios. \n";
+        continue;
+      }
+      //Regresa al menu principal
+      else if (argumentos[0].compare("salir") == 0) {
+        return;
+      }
+      // Verificamos si el nombre de la partida contiene solo espacios en blanco
+      else if (contieneSoloEspacios(argumentos[0])) {
+        std::cout << "El nombre de la partida no puede contener solo espacios en blanco. \n";
+        continue;
+      }
+      else {
+        cinUsuario = argumentos[0];
+        continuar = true;
+      }
+    }
+    while(!continuar);
+    continuar = false;
+
+    if(cinUsuario == "1") {
+      std::vector<Pais>::iterator paisesJugadorIt = paisesJugador.begin();
+      for(paisesJugadorIt = paisesJugador.begin(); paisesJugadorIt != paisesJugador.end(); paisesJugadorIt++){
+        std::cout << paisesJugadorIt->ObtenerNombre() << " : " << paisesJugadorIt->ObtenerCantidadTropas() << std::endl;
+      }
+
+    }
+    else if(cinUsuario == "2") {
+
+    }
+    else if(cinUsuario == "3") {
+
+    }
+    else if(cinUsuario == "4") {
+      if(sumarTropas > 0) {
+        
+      }
+    }
+    else if(cinUsuario == "5") {
+      return;
+    }
+    else {
+      std::cout << "\n\nIngrese una opcion del menu. \n\n";
+    }
+  }
 
   
 
 
-  //FASE 1
+  
 
 
   //FASE 2
