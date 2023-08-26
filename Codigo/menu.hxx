@@ -598,17 +598,18 @@ void Menu::comando_turno(std::string comando) {
     std::cout<<"---------------------MENU TURNO-------------------------\n";
     std::cout << "Turno del jugador " << turnoJugador<<"\n";
     std::cout << "Fase 1" << std::endl <<std::setw(30)<<"Opciones\n";
-    std::cout << "1) Ver mis paises.\n";
-    std::cout << "2) Fortificar pais."<< " Usted tiene " << sumarTropas << " tropas por asignar!!!\n";
-    std::cout << "3) Canjear cartas.\n";
-    std::cout << "4) Siguiente fase.\n";
-    std::cout << "5) Salir.\n";
+    std::cout << "1) Ver todos los paises.\n";
+    std::cout << "2) Ver mis paises.\n";
+    std::cout << "3) Fortificar pais."<< " Usted tiene " << sumarTropas << " tropas por asignar!!!\n";
+    std::cout << "4) Canjear cartas.\n";
+    std::cout << "5) Siguiente fase.\n";
+    std::cout << "6) Salir.\n";
     std::cout<<"---------------------MENU TURNO-------------------------\n";
 
     do {
       continuar = false;
 
-      std::cout << std::endl << "Selecciona el numero de la opcion: ";
+      std::cout <<"Selecciona el numero de la opcion: ";
       std::getline(std::cin, cinUsuario);
       std::stringstream stream(cinUsuario);
       argumentos.clear();
@@ -643,32 +644,95 @@ void Menu::comando_turno(std::string comando) {
     continuar = false;
 
     if(cinUsuario == "1") {
-      std::vector<Pais>::iterator paisesJugadorIt = paisesJugador.begin();
-      for(paisesJugadorIt = paisesJugador.begin(); paisesJugadorIt != paisesJugador.end(); paisesJugadorIt++){
-        std::cout << paisesJugadorIt->ObtenerNombre() << " : " << paisesJugadorIt->ObtenerCantidadTropas() << std::endl;
-      }
+      partidaContinentes = mipartida.ObtenerContinentes();
+      continentIt = partidaContinentes.begin();
 
+      int inventario = 1;
+
+      std::cout << std::endl << std::setw(20) << "Continentes" << std::setw(30) << "Pais" << std::setw(30) << "Cantidad de tropas" << std::setw(30) << "Dueno" << std::endl << std::endl;
+
+      for(continentIt = partidaContinentes.begin(); continentIt != partidaContinentes.end(); continentIt++){
+        std::vector<Pais> partidaPais = continentIt->ObtenerPaises();
+        std::vector<Pais>::iterator partidaPaisIt = partidaPais.begin();
+
+        for(partidaPaisIt = partidaPais.begin(); partidaPaisIt != partidaPais.end(); partidaPaisIt++){
+          std::cout << std::setw(2) << inventario << ") " << std::setw(20) << continentIt->ObtenerNombre() << std::setw(30) << partidaPaisIt->ObtenerNombre() << std::setw(25) << partidaPaisIt->ObtenerCantidadTropas() << std::setw(30) << partidaPaisIt->ObtenerDueno()<< std::endl;
+          inventario++;
+        }
+      }
     }
     else if(cinUsuario == "2") {
+      std::vector<Pais>::iterator paisesJugadorIt = paisesJugador.begin();
+      std::cout << std::setw(25) << "Pais" << std::setw(10) << "Tropa" << std::endl;
+      for(paisesJugadorIt = paisesJugador.begin(); paisesJugadorIt != paisesJugador.end(); paisesJugadorIt++){
+        std::cout << std::setw(25) << paisesJugadorIt->ObtenerNombre() << std::setw(10) << paisesJugadorIt->ObtenerCantidadTropas() << std::endl;
+      }
 
     }
     else if(cinUsuario == "3") {
+      int inventario = 1;
+      std::vector<Pais>::iterator paisesJugadorIt = paisesJugador.begin();
+
+      std::cout <<std::setw(5) << "# Pais" << std::setw(30) << "Nombre del pais" << std::setw(10) << "Tropas del pais" << std::endl;
+      for(paisesJugadorIt = paisesJugador.begin(); paisesJugadorIt != paisesJugador.end(); paisesJugadorIt++){
+        std::cout <<std::setw(5) << inventario << std::setw(30) << paisesJugadorIt->ObtenerNombre() << std::setw(10) << paisesJugadorIt->ObtenerCantidadTropas() << std::endl;
+        inventario++;
+      }
+      do {
+        int numeroPais, tropasPais;
+        std::string paisFortificar;
+        std::cout<<"Seleccione el # del pais que va a fortificar:";
+        std::getline(std::cin, cinUsuario);
+        std::stringstream stream(cinUsuario);
+
+        // Si no ingreso nada, simplemente continua.
+        if (argumentos.empty()) {
+          continue;
+        }
+        
+        try {
+          int numeroPais = std::stoi(cinUsuario); 
+          
+          if(numeroPais > inventario) {
+            std::cout << "El pais que estas tratando de seleccionar no te pertenece" << std::endl;
+          }
+          else {
+            paisesJugadorIt = paisesJugador.begin() + (numeroPais -1);
+            paisFortificar = paisesJugadorIt->ObtenerNombre();
+            tropasPais = paisesJugadorIt->ObtenerCantidadTropas();
+          }
+          std::cout << "Cuantas tropas va a añadir a " << paisFortificar;
+        } 
+        catch (const std::invalid_argument& e) {
+          std::cout << "Argumento invalido. Debe ingresar el numero del pais" << std::endl;
+        }
+      }
+      while(!continuar);
+      continuar = false;
 
     }
     else if(cinUsuario == "4") {
-      if(sumarTropas > 0) {
-        
-      }
+
     }
     else if(cinUsuario == "5") {
+      if(sumarTropas > 0) {
+        std::cout << "\n\nDebes asignar todas las tropas."<< "!!Usted tiene " << sumarTropas << " tropas por asignar!!" <<std::endl;;
+      }
+      else {
+        continuar = true;
+      }
+    }
+    else if(cinUsuario == "6") {
       std::cout<<"Esta seguro que desea salir (Si=s/No=n)?\n";
       std::getline(std::cin, cinUsuario);
       std::stringstream stream(cinUsuario);
-      if(posibilidad_salir=='n'){
+      if(cinUsuario=="n"){
         continuar=true;
-      }else if(posibilidad_salir=='s'){
+      }
+      else if(cinUsuario=="s"){
         return;
-      }else{
+      }
+      else{
       }
     }
     else {
