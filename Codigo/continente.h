@@ -33,6 +33,7 @@ class Continente{
         std::string nombre;
         int tropasAdicionales;
         std::vector<Pais> paises;
+        int bonificacion;
         
     public:
         //============================
@@ -40,7 +41,7 @@ class Continente{
         //============================
         Continente();
 
-        Continente(std::string nombre, std::vector<Pais> paises, int nTropasAdicionales);
+        Continente(std::string nombre, std::vector<Pais> paises, int nTropasAdicionales, int nbonificacion);
 
         //============================
         //Getters y Setters
@@ -48,10 +49,12 @@ class Continente{
         std::string ObtenerNombre();
         int ObtenerTropasAdicionales();
         std::vector<Pais> ObtenerPaises();
+        int ObtenerBonificacion();
 
         void FijarNombre(std::string nnombre);
         void FijarTropasAdicionales(int nTropasAdicionales);
         void FijarPaises(std::vector<Pais> npaises);
+        void FijarBonificacion(int nbonificacion);
 };
 
 //*****************************************************************

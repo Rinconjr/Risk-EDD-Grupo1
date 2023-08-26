@@ -137,6 +137,7 @@ void Menu::comando_inicializar_nueva_partida() {
   std::vector<std::string> nombrePaises = {"Alaska","Alberta","America Central","Estados Unidos Orientales","Groenlandia","Territorio Noroccidental","Ontario","Quebec","Estados Unidos Occidentales","Argentina","Brasil","Peru","Venezuela","Gran Bretana","Islandia","Europa del Norte","Escandinavia","Europa del Sur","Ucrania","Europa Occidental","Congo","Africa Oriental","Egipto","Madagascar","Africa del Norte","Africa del Sur","Afghanistan","China","India","Irkutsk","Japon","Kamchatka","Medio Oriente","Mongolia","Siam","Siberia","Ural","Yakutsk","Australia Oriental","Indonesia","Nueva Guinea","Australia Occidental"};
   std::vector<std::string> paisContinente = {"America del Norte","America del Norte","America del Norte","America del Norte","America del Norte","America del Norte","America del Norte","America del Norte","America del Norte","America del Sur","America del Sur","America del Sur","America del Sur","Europa","Europa","Europa","Europa","Europa","Europa","Europa","Africa","Africa","Africa","Africa","Africa","Africa","Asia","Asia","Asia","Asia","Asia","Asia","Asia","Asia","Asia","Asia","Asia","Asia","Australia","Australia","Australia","Australia"};
   std::vector<std::string> tropa =        {"Tropa","Tropa","Caballeria","Artilleria","Caballeria","Artilleria","Artilleria","Artilleria","Tropa","Caballeria","Artilleria","Caballeria","Artilleria","Caballeria","Tropa","Caballeria","Artilleria","Caballeria","Artilleria","Tropa","Caballeria","Artilleria","Tropa","Tropa","Tropa","Artilleria","Tropa","Caballeria","Tropa","Tropa","Tropa","Caballeria","Artilleria","Artilleria","Artilleria","Artilleria","Caballeria","Caballeria","Tropa","Caballeria","Caballeria","Artilleria"};
+  std::vector<int> bonificacionContinentes = {4,3,5,3,7,2};
 
   std::vector<std::string>::iterator nombreIt = nombrePaises.begin();
   std::vector<std::string>::iterator paisIt = paisContinente.begin();
@@ -413,6 +414,16 @@ void Menu::comando_inicializar_nueva_partida() {
     paisesContinente.push_back(paisAux);
   }
 
+  continentes.erase(continentes.begin());
+  std::vector<Continente>::iterator continentIt = continentes.begin();
+  
+
+  int contadorBonificacion = 0;
+  for(continentIt = continentes.begin(); continentIt != continentes.end(); continentIt++){
+    continentIt->FijarBonificacion(bonificacionContinentes[contadorBonificacion]);
+    contadorBonificacion++;
+  }
+
   //Asignacion de tropas a territorios:
   int tropasPorJugador;
 
@@ -490,7 +501,7 @@ void Menu::comando_inicializar_nueva_partida() {
   mipartida.FijarDados(dados);
 
   std::vector<Continente> partidaContinentes = mipartida.ObtenerContinentes();
-  std::vector<Continente>::iterator continentIt = partidaContinentes.begin(); 
+  continentIt = partidaContinentes.begin(); 
 
   partidaContinentes = mipartida.ObtenerContinentes();
   continentIt = partidaContinentes.begin();
@@ -570,6 +581,31 @@ void Menu::comando_turno(std::string comando) {
   //Calcular tropas
   int sumarTropas = 3;
   std::vector<std::string> paisesJugador;
+
+  //Si domina un continente
+  partidaContinentes = mipartida.ObtenerContinentes();
+  continentIt = partidaContinentes.begin();
+
+  for(continentIt = partidaContinentes.begin(); continentIt != partidaContinentes.end(); continentIt++){
+    bool domina = true;
+    std::vector<Pais> partidaPais = continentIt->ObtenerPaises();
+    std::vector<Pais>::iterator partidaPaisIt = partidaPais.begin();
+
+    for(partidaPaisIt = partidaPais.begin(); partidaPaisIt != partidaPais.end(); partidaPaisIt++){
+      if(partidaPaisIt->ObtenerDueno() != turnoJugador) {
+        domina = false;
+      }
+    }
+
+    if(domina) {
+      sumarTropas += continentIt->ObtenerBonificacion();
+    }
+  }
+
+  std::cout << "Su bonificacion es de " << sumarTropas << std::endl;
+
+  
+
 
   //FASE 1
 
