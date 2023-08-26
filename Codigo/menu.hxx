@@ -523,7 +523,7 @@ void Menu::comando_inicializar_nueva_partida() {
   }
 
 
-  std::cout << " Partida creada exitosamente.\n";
+  std::cout << "\n Partida creada exitosamente.\n";
   std::cout << " Presione enter para continuar.";
   std::cin.ignore();
 }
@@ -544,6 +544,8 @@ void Menu::comando_turno(std::string comando) {
   int turnoJugador = std::stoi(comando);
   std::queue<Jugador> jugadores = mipartida.ObtenerJugadores();
   Jugador jugadorTurno = jugadores.front();
+
+  std::string continenteDominado = "";
 
 
   std::vector<Continente> partidaContinentes = mipartida.ObtenerContinentes();
@@ -568,10 +570,10 @@ void Menu::comando_turno(std::string comando) {
   }
 
   //Calcular tropas
-  int sumarTropas = 3;
+  int sumarTropas = 3; //TODO: Esto esta mal, se debe dividir el numero de territorios que ocupa el jugador entre 3 y esas son las tropas en cada turno.
   std::vector<Pais> paisesJugador;
 
-  //Si domina un continente
+  //Si domina un continente se le suman las tropas de bonificacion
   partidaContinentes = mipartida.ObtenerContinentes();
   continentIt = partidaContinentes.begin();
 
@@ -591,6 +593,7 @@ void Menu::comando_turno(std::string comando) {
 
     if(domina) {
       sumarTropas += continentIt->ObtenerBonificacion();
+      continenteDominado = continentIt->ObtenerNombre(); //Se guarda el nombre del continente dominado
     }
   }
 
@@ -598,12 +601,23 @@ void Menu::comando_turno(std::string comando) {
   int opcion3Seleccionada = 0;
   char posibilidad_salir;
   while(!continuar) {
-    std::cout<<"---------------------MENU TURNO-------------------------\n";
-    std::cout << "Turno del jugador " << turnoJugador<<"\n";
-    std::cout << "Fase 1" << std::endl <<std::setw(30)<<"Opciones\n";
+    std::cout<<"\n---------------------MENU TURNO-------------------------\n";
+    std::cout << "Turno del jugador " << turnoJugador <<"\n";
+
+    if(continenteDominado.empty() == false){
+      std::cout << "Usted tiene una bonificacion de tropas por dominar el continente '" << continenteDominado << "'." << std::endl;
+    }
+    
+
+    std::cout << "Fase 1" << std::endl << std::setw(30) << "Opciones\n";
     std::cout << "1) Ver todos los paises.\n";
     std::cout << "2) Ver mis paises.\n";
-    std::cout << "3) Fortificar pais."<< " Usted tiene " << sumarTropas << " tropas por asignar!!!\n";
+    if (sumarTropas != 0){
+      std::cout << "3) Fortificar pais. Usted tiene " << sumarTropas << " tropas por asignar!!!\n";
+    }
+    else{
+      std::cout << "3) Fortificar pais. IMPORTANTE: Es posible avanzar de fase! Ya asigno las tropas.\n";
+    }
     std::cout << "4) Canjear cartas.\n";
     std::cout << "5) Siguiente fase.\n";
     std::cout << "6) Salir.\n";
@@ -612,7 +626,7 @@ void Menu::comando_turno(std::string comando) {
     do {
       continuar = false;
 
-      std::cout <<"Selecciona el numero de la opcion: ";
+      std::cout << "Seleccione el numero de la opcion: ";
       std::getline(std::cin, cinUsuario);
       std::stringstream stream(cinUsuario);
       argumentos.clear();
@@ -625,17 +639,9 @@ void Menu::comando_turno(std::string comando) {
       if (argumentos.empty()) {
         continue;
       }
-      else if(argumentos.size() > 1) {
-        std::cout << "El nombre de la partida no puede estar separada por espacios. \n";
-        continue;
-      }
-      //Regresa al menu principal
-      else if (argumentos[0].compare("salir") == 0) {
-        return;
-      }
       // Verificamos si el nombre de la partida contiene solo espacios en blanco
       else if (contieneSoloEspacios(argumentos[0])) {
-        std::cout << "El nombre de la partida no puede contener solo espacios en blanco. \n";
+        std::cout << "Porfavor ingrese una opcion. \n";
         continue;
       }
       else {
@@ -646,12 +652,14 @@ void Menu::comando_turno(std::string comando) {
     while(!continuar);
     continuar = false;
 
+    //Se muestran todos los paises de la partida
     if(cinUsuario == "1") {
       partidaContinentes = mipartida.ObtenerContinentes();
       continentIt = partidaContinentes.begin();
 
       int inventario = 1;
 
+      std::cout<<"\n----------------------------------------------PAISES PARTIDA--------------------------------------------------\n";
       std::cout << std::endl << std::setw(20) << "Continentes" << std::setw(30) << "Pais" << std::setw(30) << "Cantidad de tropas" << std::setw(30) << "Dueno" << std::endl << std::endl;
 
       for(continentIt = partidaContinentes.begin(); continentIt != partidaContinentes.end(); continentIt++){
@@ -664,12 +672,14 @@ void Menu::comando_turno(std::string comando) {
         }
       }
     }
+    //Se muestran los paises del jugador
     else if(cinUsuario == "2") {
       partidaContinentes = mipartida.ObtenerContinentes();
       continentIt = partidaContinentes.begin();
 
       int inventario = 1;
 
+      std::cout<<"\n---------------------PAISES JUGADOR " << turnoJugador << "-------------------------\n";
       std::cout << std::endl << std::setw(20) << "Continentes" << std::setw(30) << "Pais" << std::setw(30) << "Cantidad de tropas" << std::setw(30) << "Dueno" << std::endl << std::endl;
 
       for(continentIt = partidaContinentes.begin(); continentIt != partidaContinentes.end(); continentIt++){
@@ -681,85 +691,86 @@ void Menu::comando_turno(std::string comando) {
             std::cout << std::setw(2) << inventario << ") " << std::setw(20) << continentIt->ObtenerNombre() << std::setw(30) << partidaPaisIt->ObtenerNombre() << std::setw(25) << partidaPaisIt->ObtenerCantidadTropas() << std::endl;
             inventario++;
           }
-          
         }
       }
-
     }
+    //Se fortifica un pais
     else if(cinUsuario == "3") {
-      if(sumarTropas == 0) {
-        std::cout << "No tienes mas tropas por asignar, canjea cartas o pasa a la siguiente fase." << std::endl;
+      if(sumarTropas == 0) {  //El jugador no tiene tropas por asignar
+        std::cout << "\nNo tienes mas tropas por asignar, canjea cartas o pasa a la siguiente fase.\n";
+        std::cout << "Presione enter para continuar. " << std::endl;
+        std::cin.ignore();
       }
-      else {
+      else {  //El jugador tiene tropas por asignar
         int inventario = 1;
-      std::vector<Pais>::iterator paisesJugadorIt = paisesJugador.begin();
+        std::vector<Pais>::iterator paisesJugadorIt = paisesJugador.begin();
 
-      std::cout <<std::setw(5) << "# Pais" << std::setw(30) << "Nombre del pais" << std::setw(10) << "Tropas del pais" << std::endl;
-      for(paisesJugadorIt = paisesJugador.begin(); paisesJugadorIt != paisesJugador.end(); paisesJugadorIt++){
-        std::cout <<std::setw(5) << inventario << std::setw(30) << paisesJugadorIt->ObtenerNombre() << std::setw(10) << paisesJugadorIt->ObtenerCantidadTropas() << std::endl;
-        inventario++;
-      }
-      do {
-        int numeroPais, tropasPais, numeroTropas;
-        std::string paisFortificar;
-        std::cout<<"Seleccione el # del pais que va a fortificar:";
-        std::getline(std::cin, cinUsuario);
-        std::stringstream stream(cinUsuario);
-
-        // Si no ingreso nada, simplemente continua.
-        if (argumentos.empty()) {
-          continue;
+        std::cout <<std::setw(5) << "# Pais" << std::setw(30) << "Nombre del pais" << std::setw(10) << "Tropas del pais" << std::endl;
+        for(paisesJugadorIt = paisesJugador.begin(); paisesJugadorIt != paisesJugador.end(); paisesJugadorIt++){
+          std::cout <<std::setw(5) << inventario << std::setw(30) << paisesJugadorIt->ObtenerNombre() << std::setw(10) << paisesJugadorIt->ObtenerCantidadTropas() << std::endl;
+          inventario++;
         }
-        
-        try {
-          numeroPais = std::stoi(cinUsuario); 
-        } 
-        catch (const std::invalid_argument& e) {
-          std::cout << "Argumento invalido. Debe ingresar el numero del pais" << std::endl;
-          continue;
-        }
-          
-        if(numeroPais > inventario) {
-          std::cout << "El pais que estas tratando de seleccionar no te pertenece" << std::endl;
-        }
-        else {
-          paisesJugadorIt = paisesJugador.begin() + (numeroPais -1);
-          paisFortificar = paisesJugadorIt->ObtenerNombre();
-          tropasPais = paisesJugadorIt->ObtenerCantidadTropas();
-        }
-
-        std::cout << "Puedes anadir " << sumarTropas << std::endl;
-        std::cout << paisFortificar << " tiene actualmente " << tropasPais << " tropas\n";
         do {
-            
-          std::cout<<" Seleccione el numero de tropas que anadira a " << paisFortificar <<":";
+          int numeroPais, tropasPais, numeroTropas;
+          std::string paisFortificar;
+          std::cout<<"Seleccione el # del pais que desea fortificar: ";
           std::getline(std::cin, cinUsuario);
           std::stringstream stream(cinUsuario);
-          
+
           // Si no ingreso nada, simplemente continua.
           if (argumentos.empty()) {
             continue;
           }
-
+        
           try {
-            numeroTropas = std::stoi(cinUsuario); 
+            numeroPais = std::stoi(cinUsuario); 
           } 
           catch (const std::invalid_argument& e) {
-            std::cout << "Argumento invalido. Debe ingresar el numero de tropas" << std::endl;
+            std::cout << "Argumento invalido. Debe ingresar el numero del pais. " << std::endl;
             continue;
           }
-
-          if(sumarTropas < numeroTropas) {
-            std::cout << "No tienes tantas tropas, actualmente tienes "<< sumarTropas << " tropas por asignar" << std::endl;
-            continue;
-          }
-          else if (numeroTropas < 0) {
-            std::cout << "No puedes poner tropas negativas"<< sumarTropas << " tropas por asignar" << std::endl;
-            continue;
+          
+          if(numeroPais > inventario) {
+            std::cout << "El pais que estas tratando de seleccionar no te pertenece. " << std::endl;
           }
           else {
-            partidaContinentes = mipartida.ObtenerContinentes();
-            continentIt = partidaContinentes.begin();
+            paisesJugadorIt = paisesJugador.begin() + (numeroPais -1);
+            paisFortificar = paisesJugadorIt->ObtenerNombre();
+            tropasPais = paisesJugadorIt->ObtenerCantidadTropas();
+          }
+
+          std::cout << "Puedes anadir " << sumarTropas << " tropas. " << std::endl;
+          std::cout << "El pais seleccionado: '" << paisFortificar << "' tiene actualmente " << tropasPais << " tropas. \n";
+          do {
+            
+            std::cout << " Seleccione el numero de tropas que anadira a '" << paisFortificar <<"': ";
+            std::getline(std::cin, cinUsuario);
+            std::stringstream stream(cinUsuario);
+          
+            // Si no ingreso nada, simplemente continua.
+            if (argumentos.empty()) {
+              continue;
+            }
+
+            try {
+              numeroTropas = std::stoi(cinUsuario); 
+            } 
+            catch (const std::invalid_argument& e) {
+              std::cout << "Argumento invalido. Debe ingresar el numero de tropas." << std::endl;
+              continue;
+            }
+
+            if(sumarTropas < numeroTropas) {
+              std::cout << "No tienes tantas tropas, actualmente tienes "<< sumarTropas << " tropas por asignar." << std::endl;
+              continue;
+            }
+            else if (numeroTropas < 0) {
+              std::cout << "No puedes poner tropas negativas. Actualmente tienes "<< sumarTropas << " tropas por asignar. " << std::endl;
+              continue;
+            }
+            else { //Si se ingreso un numero valido de tropas
+              partidaContinentes = mipartida.ObtenerContinentes();
+              continentIt = partidaContinentes.begin();
 
             for(continentIt = partidaContinentes.begin(); continentIt != partidaContinentes.end(); continentIt++){
               bool domina = true;
@@ -768,15 +779,19 @@ void Menu::comando_turno(std::string comando) {
 
               for(partidaPaisIt = partidaPais.begin(); partidaPaisIt != partidaPais.end(); partidaPaisIt++){
                 if(partidaPaisIt->ObtenerNombre() == paisFortificar) {
-                  partidaPaisIt->FijarCantidadTropas(partidaPaisIt->ObtenerCantidadTropas() + numeroTropas);
+                  partidaPaisIt->FijarCantidadTropas(partidaPaisIt->ObtenerCantidadTropas() + numeroTropas); //Se agrega la cantidad de tropas al pais
                   continentIt->FijarPaises(partidaPais);
                   mipartida.FijarContinentes(partidaContinentes);
-                  sumarTropas -= numeroTropas;
+                  sumarTropas -= numeroTropas; //Se restan las tropas asignadas
                   continuar = true;
                   continue;
                 }
               }
             }
+
+            std::cout << "\nAgregando tropas a " << paisFortificar << "..." << std::endl;
+            std::cout << "Presione enter para continuar. " << std::endl;
+            std::cin.ignore();
           }
         }
         while(!continuar);
@@ -785,23 +800,28 @@ void Menu::comando_turno(std::string comando) {
       continuar = false;
       }
     }
+    //Se canjean cartas
     else if(cinUsuario == "4") {
-
+      //Codigo canjear cartas
     }
+    //Seguir de fase
     else if(cinUsuario == "5") {
       if(sumarTropas > 0) {
-        std::cout << "\n\nDebes asignar todas las tropas."<< "!!Usted tiene " << sumarTropas << " tropas por asignar!!" <<std::endl;;
+        std::cout << "\nPara poder seguir de fase, debe asignar todas las tropas. !!Usted aun tiene " << sumarTropas << " tropas por asignar!!" << std::endl;
+        std::cout << "Presione enter para continuar. " << std::endl;
+        std::cin.ignore();
       }
       else {
         continuar = true;
       }
     }
+    //Salir del turno
     else if(cinUsuario == "6") {
-      std::cout<<"Esta seguro que desea salir (Si=s/No=n)?\n";
+      std::cout<<"Esta seguro que desea salir? (Si=s/No=n): ";
       std::getline(std::cin, cinUsuario);
       std::stringstream stream(cinUsuario);
       if(cinUsuario=="n"){
-        continuar=true;
+        continue;
       }
       else if(cinUsuario=="s"){
         return;
@@ -810,15 +830,126 @@ void Menu::comando_turno(std::string comando) {
       }
     }
     else {
-      std::cout << "\n\nIngrese una opcion del menu. \n\n";
+      std::cout << "\nOpcion '" << cinUsuario << "' no encontrada. \n";
     }
   }
 
-  
+
+  std::cout << "\nCambiando a fase 2: Ataque! " << std::endl;
+  std::cout << "Presione enter para continuar. " << std::endl;
+  std::cin.ignore();
+
+  bool fase2 = true;
 
   //FASE 2
 
+  while (fase2){
+    std::cout<<"\n---------------------MENU TURNO-------------------------\n";
+    std::cout << "Turno del jugador " << turnoJugador <<"\n";
+    std::cout << "Fase 2 - Ataque!" << std::endl << std::setw(30) << "Opciones\n";
+    std::cout << "1) Atacar.\n";
+    std::cout << "2) Siguiente fase.\n";
+    std::cout<<"---------------------MENU TURNO-------------------------\n";
+
+    do {
+      continuar = false;
+
+      std::cout << "Seleccione el numero de la opcion: ";
+      std::getline(std::cin, cinUsuario);
+      std::stringstream stream(cinUsuario);
+      argumentos.clear();
+
+      // while para ir guardando los argumentos en el vector
+      while (getline(stream, cinUsuario, delimitador)) {
+        argumentos.push_back(cinUsuario);    
+      }
+      // Si no ingreso nada, simplemente continua.
+      if (argumentos.empty()) {
+        continue;
+      }
+      // Verificamos si el nombre de la partida contiene solo espacios en blanco
+      else if (contieneSoloEspacios(argumentos[0])) {
+        std::cout << "Porfavor ingrese una opcion. \n";
+        continue;
+      }
+      else {
+        cinUsuario = argumentos[0];
+        continuar = true;
+      }
+    }
+    while(!continuar);
+    continuar = false;
+
+    //Se entra a la opcion de atacar
+    if(cinUsuario.compare("1") == 0) {
+
+      //mostrar los paises que no le pertenecen al jugador (A los que puede Atacar)
+      partidaContinentes = mipartida.ObtenerContinentes();
+      continentIt = partidaContinentes.begin();
+      //Mostrar el nombre de los paises que NO le pertenecen al jugador
+      std::cout << "Paises a los que puede atacar el jugador '" << turnoJugador << "'." << std::endl;
+      std::cout << std::setw(5) << "# Pais" << std::setw(30) << "Nombre del pais" << std::setw(10) << "Tropas del pais" << std::endl;
+      int inventario = 1;
+      for(continentIt = partidaContinentes.begin(); continentIt != partidaContinentes.end(); continentIt++){
+        std::vector<Pais> partidaPais = continentIt->ObtenerPaises();
+        std::vector<Pais>::iterator partidaPaisIt = partidaPais.begin();
+
+        for(partidaPaisIt = partidaPais.begin(); partidaPaisIt != partidaPais.end(); partidaPaisIt++){
+          if(partidaPaisIt->ObtenerDueno() != turnoJugador ) {
+            std::cout <<std::setw(5) << inventario << ")" << std::setw(30) << partidaPaisIt->ObtenerNombre() << std::setw(10) << partidaPaisIt->ObtenerCantidadTropas() << std::endl;
+            inventario++;
+          }
+        }
+      }
+
+      do{
+        continuar = false;
+
+        std::cout << "Porfavor ingrese el numero del pais al cual desea atacar: ";
+        std::getline(std::cin, cinUsuario);
+        std::stringstream stream(cinUsuario);
+        argumentos.clear();
+
+        // while para ir guardando los argumentos en el vector
+        while (getline(stream, cinUsuario, delimitador)) {
+          argumentos.push_back(cinUsuario);    
+        }
+        // Si no ingreso nada, simplemente continua.
+        if (argumentos.empty()) {
+          continue;
+        }
+        // Verificamos si el nombre de la partida contiene solo espacios en blanco
+        else if (contieneSoloEspacios(argumentos[0])) {
+          std::cout << "Porfavor ingrese una opcion. \n";
+          continue;
+        }
+        else {
+          cinUsuario = argumentos[0];
+          continuar = true;
+        }
+      }while(!continuar);
+
+      continuar = false;
+
+      
+
+
+      
+    }
+    //Se pasa a la siguiente fase
+    else if(cinUsuario.compare("2") == 0) {
+      fase2 = false;
+    }
+    //Opcion no encontrada
+    else {
+      std::cout << "\nOpcion '" << cinUsuario << "' no encontrada. \n";
+    }
+
+  }
+
   //hacer la monda de ataca
+
+
   /*
   //de aca pa abajo daditos xd
   bool avanzar;
@@ -1643,7 +1774,6 @@ void Menu::limpiar_consola() {
 
 //Simplemente es la imagen de inicio del juego
 void Menu::imagen_risk(){
-  //SetConsoleTextAttribute(hConsole, FOREGROUND_GREEN | FOREGROUND_INTENSITY);
   std::cout << "---------------------------------------------------------------------BIENVENIDO!----------------------------------------------------------------------\n";
   std::cout << "                                             ,&&@&@@@@@@@@@@@@@&                                                                                      \n";
   std::cout << "                                                &@&@&@@@&@@@&@&&                                                                                      \n";
@@ -1673,9 +1803,8 @@ void Menu::imagen_risk(){
   std::cout << "                                          &@(                                                                                                         \n";
   std::cout << "                                          &@(                                                                                                         \n";
   std::cout << "                                                                                                                                                      \n";
-  std::cout << "                                                              Version 0.1.4                                                                           \n";
+  std::cout << "                                                              Version 0.0.7                                                                           \n";
   std::cout << "------------------------------------------------------------------------------------------------------------------------------------------------------\n";
-  //SetConsoleTextAttribute(hConsole, FOREGROUND_BLUE | FOREGROUND_GREEN | FOREGROUND_RED);
 }
 
 //Es el inicio del programa y se redirreciona dependiendo de la opcion que quiera hacer el usuario
