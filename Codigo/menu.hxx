@@ -9,7 +9,6 @@
 //  Fecha de inicio: 28/07/23
 //  Fecha de finalización: ---
 //*****************************************************************
-//Sapoperro
 
 //************************************************************************
 // INICIO - LIBRERIAS
@@ -571,7 +570,7 @@ void Menu::comando_turno(std::string comando) {
   }
 
   //Calcular tropas
-  int sumarTropas = 3; //TODO: Esto esta mal, se debe dividir el numero de territorios que ocupa el jugador entre 3 y esas son las tropas en cada turno.
+  int sumarTropas = 0; //TODO: Esto esta mal, se debe dividir el numero de territorios que ocupa el jugador entre 3 y esas son las tropas en cada turno.
   std::vector<Pais> paisesJugador;
 
   //Si domina un continente se le suman las tropas de bonificacion
@@ -588,6 +587,7 @@ void Menu::comando_turno(std::string comando) {
         domina = false;
       }
       else {
+        sumarTropas++;
         paisesJugador.push_back(*partidaPaisIt);
       }
     }
@@ -597,6 +597,7 @@ void Menu::comando_turno(std::string comando) {
       continenteDominado = continentIt->ObtenerNombre(); //Se guarda el nombre del continente dominado
     }
   }
+  sumarTropas = sumarTropas / 3;
 
   //FASE 1
   int opcion3Seleccionada = 0;
