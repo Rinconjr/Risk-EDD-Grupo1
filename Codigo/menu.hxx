@@ -318,7 +318,8 @@ void Menu::comando_inicializar_nueva_partida() {
     }
     else if(argumentos.size() > 1) {
       std::cout << "Ingrese solamente el color que desea.\n";
-      continue;
+      std::cout << "Presione enter para continuar.";
+      std::cin.ignore();
     }
     else if (argumentos[0].compare("salir") == 0) {
       return;
@@ -338,7 +339,8 @@ void Menu::comando_inicializar_nueva_partida() {
 
       if(encontrado == false){
         std::cout << "Color: '" << argumentos[0] << "' no encontrado o ya fue seleccionado. Porfavor ingrese un color valido. \n";
-        continue;
+        std::cout << "Presione enter para continuar.";
+        std::cin.ignore();
       }
       else{
         auxJugador.FijarColor(argumentos[0]);
