@@ -538,8 +538,8 @@ void Menu::comando_inicializar_nueva_partida() {
     std::cout << "Jugador " << i+1 << ": " << contador[i] << std::endl;
   }
 
-  std::cout << "\n Partida creada exitosamente.\n";
-  std::cout << " Presione enter para continuar.";
+  std::cout << "\nPartida creada exitosamente.\n";
+  std::cout << "Presione enter para continuar.";
   std::cin.ignore();
 }
 
@@ -1149,7 +1149,7 @@ void Menu::comando_turno(std::string comando) {
 
               int num_dados_atacante, num_dados_defensor;
               do {
-                std::cout << "Tienes " << tropasQueatacan << " tropas para atacar. Con cuantas deseas realizar el ataque:";
+                std::cout << "Puedes lanzar " << tropasQueatacan << " dados para atacar. Con cuantos deseas realizar el ataque: ";
                 std::getline(std::cin, cinUsuario);
                 std::stringstream stream(cinUsuario);
                 argumentos.clear();
@@ -1196,7 +1196,7 @@ void Menu::comando_turno(std::string comando) {
                 tropasQueDefienden = 2;
               }
               do {
-                std::cout << "Defensor. Tienes " << tropasQueDefienden << " tropas para defender. Con cuantas deseas defenderte:";
+                std::cout << "Defensor (Jugador " << duenoPaisDefensor << "). Tienes " << tropasQueDefienden << " dados para defenderte. Con cuantos deseas defenderte: ";
                 std::getline(std::cin, cinUsuario);
                 std::stringstream stream(cinUsuario);
                 argumentos.clear();
@@ -1270,29 +1270,33 @@ void Menu::comando_turno(std::string comando) {
               }
               std::cout << "\n  ----------------DADOS----------------\n";
               std::cout << "\n";
-          
+
+              int tropas_defensor_perdidas = 0;
+              int tropas_atacante_perdidas = 0;
 
               // Comparar los resultados de los dados y descontar tropas
               for (int i = 0; i < std::min(num_dados_atacante, num_dados_defensor); i++) {
                 if (dados_atacante[i] > dados_defensor[i]) {
                   tropas_defensor--; //se le resta la tropa al defensor
+                  tropas_defensor_perdidas++;
                 } else {
                   tropas_atacante--; //se le resta una tropa al atacante
+                  tropas_atacante_perdidas++;
                 }
               }
               std::cout << "  -----------TROPAS RESTANTES----------\n";
               // Mostrar cantidad de tropas restantes después del enfrentamiento
               std::cout << "  Tropas restantes:\n";
-              std::cout << "   Atacante: " << tropas_atacante << "\n";
-              std::cout << "   Defensor: " << tropas_defensor << "\n";
+              std::cout << "   Atacante: " << tropas_atacante << ". Este perdio "<< tropas_atacante_perdidas <<" tropas durante el ataque. \n";
+              std::cout << "   Defensor: " << tropas_defensor << ". Este perdio "<< tropas_defensor_perdidas <<" tropas durante la defensa. \n";
               std::cout << "  -----------TROPAS RESTANTES----------\n";
 
               int tropasNuevoPais;
               if (tropas_defensor == 0) {
                 conquistoPais = true;
-                std::cout << "Has conquistado el territorio." << std::endl; 
+                std::cout << "Felicidades! Has conquistado el territorio: " << paisDefensor << std::endl; 
                 do {
-                  std::cout <<"Te quedan " << tropas_atacante << " en " <<paisAtaque << ". Cuantas quieren movilizar a " << paisDefensor << ": ";
+                  std::cout <<"Te quedan " << tropas_atacante << " tropas en " << paisAtaque << ". Cuantas quieres movilizar a " << paisDefensor << ": ";
                   std::getline(std::cin, cinUsuario);
                   std::stringstream stream(cinUsuario);
                   argumentos.clear();
@@ -1452,8 +1456,8 @@ void Menu::comando_turno(std::string comando) {
                 //#&
               }
               continuar2 = true;
-              std::cout << " Guardando cambios...";
-              std::cout << " Presione enter para continuar.";
+              std::cout << "Guardando cambios...\n";
+              std::cout << "Presione enter para continuar.";
               std::cin.ignore();
             }
             
@@ -1524,6 +1528,10 @@ void Menu::comando_turno(std::string comando) {
   }
 
   //FASE 3
+
+  std::cout << "\nCambiando a fase 3: Fortificacion! " << std::endl;
+  std::cout << "Presione enter para continuar. " << std::endl;
+  std::cin.ignore();
 
   bool fase3 = true;
 
@@ -1828,8 +1836,8 @@ void Menu::comando_turno(std::string comando) {
   jugadores.push(jugadorTurno);
   mipartida.FijarJugadores(jugadores);
 
-  std::cout << " Turno finalizado. \n";
-  std::cout << " Presione enter para continuar.";
+  std::cout << "Turno finalizado. \n";
+  std::cout << "Presione enter para continuar.";
   std::cin.ignore();
 }
 
