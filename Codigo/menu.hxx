@@ -16,7 +16,6 @@
 #include "menu.h"
 #include "continente.h"
 #include "carta.h"
-#include "dado.h"
 #include "pais.h"
 #include "jugador.h"
 #include "partida.h"
@@ -142,10 +141,6 @@ void Menu::comando_inicializar_nueva_partida() {
   std::vector<std::string>::iterator nombreIt = nombrePaises.begin();
   std::vector<std::string>::iterator paisIt = paisContinente.begin();
   std::vector<std::string>::iterator tropaIt = tropa.begin();
-
-  //Variables para crear dados
-  Dado auxDado;
-  std::vector<Dado> dados;
 
   //Aleatorizar paises
   std::vector<std::string> auxPaises;
@@ -493,19 +488,6 @@ void Menu::comando_inicializar_nueva_partida() {
   }
 
   mipartida.FijarCartas(cartas);
-
-  //Dados
-  for(int i = 0; i < 3; i++) {
-    auxDado.FijarColor("Ataque");
-    dados.push_back(auxDado);
-  }
-
-  for(int i = 0; i < 2; i++) {
-    auxDado.FijarColor("Defensa");
-    dados.push_back(auxDado);
-  }
-
-  mipartida.FijarDados(dados);
 
   //Mostrar continentes y paises creados con su respectivo dueño y cantidad de tropas
   std::cout << "  Se crearon los siguientes continentes y paises: \n";

@@ -19,7 +19,6 @@
 #include <queue>
 #include "continente.h"
 #include "carta.h"
-#include "dado.h"
 #include "pais.h"
 #include "jugador.h"
 #include "partida.h"
@@ -39,17 +38,15 @@
         this->continentes = std::vector<Continente>();
         this->jugadores = std::queue<Jugador>();
         this->cartas = std::vector<Carta>();
-        this->dados = std::vector<Dado>();
     }
 
-    Partida::Partida(std::string nnombre,std::string ntipo, int ntradeos, std::vector<Continente> ncontinentes, std::queue<Jugador> njugadores, std::vector<Carta> ncartas, std::vector<Dado> ndados) {
+    Partida::Partida(std::string nnombre,std::string ntipo, int ntradeos, std::vector<Continente> ncontinentes, std::queue<Jugador> njugadores, std::vector<Carta> ncartas) {
         this->nombre = nnombre;
         this->tipo = ntipo;
         this->setsTradeados = ntradeos;
         this->continentes = ncontinentes;
         this->jugadores = njugadores;
         this->cartas = ncartas;
-        this->dados = ndados;
     }
 
     std::string Partida::ObtenerNombre() {
@@ -70,9 +67,6 @@
     std::vector<Carta> Partida::ObtenerCartas() {
         return this->cartas;
     }
-    std::vector<Dado> Partida::ObtenerDados() {
-        return this->dados;
-    }
 
     void Partida::FijarNombre(std::string nnombre) {
         this->nombre = nnombre;
@@ -91,9 +85,6 @@
     }
     void Partida::FijarCartas(std::vector<Carta> ncartas) {
         this->cartas = ncartas;
-    }
-    void Partida::FijarDados(std::vector<Dado> ndados) {
-        this->dados = ndados;
     }
 
 //************************************************************************

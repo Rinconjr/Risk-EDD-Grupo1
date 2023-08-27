@@ -22,7 +22,6 @@
 #include "continente.h"
 #include "jugador.h"
 #include "carta.h"
-#include "dado.h"
 //*****************************************************************
 // FIN - LIBRERIAS INCLUIDAS
 //*****************************************************************
@@ -35,7 +34,6 @@ class Partida {
     std::vector<Continente> continentes;
     std::queue<Jugador> jugadores;
     std::vector<Carta> cartas;
-    std::vector<Dado> dados;
 
   public:
     //============================
@@ -43,7 +41,7 @@ class Partida {
     //============================
     Partida();
 
-    Partida(std::string nnombre,std::string ntipo, int ntradeos, std::vector<Continente> ncontinentes, std::queue<Jugador> njugadores, std::vector<Carta> ncartas, std::vector<Dado> ndados);
+    Partida(std::string nnombre,std::string ntipo, int ntradeos, std::vector<Continente> ncontinentes, std::queue<Jugador> njugadores, std::vector<Carta> ncartas);
 
     //============================
     //Getters y Setters
@@ -54,7 +52,6 @@ class Partida {
     std::vector<Continente> ObtenerContinentes();
     std::queue<Jugador> ObtenerJugadores();
     std::vector<Carta> ObtenerCartas();
-    std::vector<Dado> ObtenerDados();
 
     void FijarNombre(std::string nnombre);
     void FijarTipoJuego(std::string ntipo);
@@ -62,7 +59,6 @@ class Partida {
     void FijarContinentes(std::vector<Continente> ncontinentes);
     void FijarJugadores(std::queue<Jugador> njugadores);
     void FijarCartas(std::vector<Carta> ncartas);
-    void FijarDados(std::vector<Dado> ndados);
 };
 
 //*****************************************************************
