@@ -1484,7 +1484,7 @@ void Menu::comando_turno(std::string comando) {
       inventario = 1;
 
       std::cout<<"\n--------------------------------PAISES JUGADOR " << turnoJugador << "---------------------------------";
-      std::cout << std::endl << std::setw(20) << "Continentes" << std::setw(30) << "Pais" << std::setw(30) << "Cantidad de tropas" << std::endl;
+      std::cout << std::endl << std::setw(20) << "Continentes" << std::setw(30) << "Pais" << std::setw(30) << "Cantidad de tropas\n";
 
       for(continentIt = partidaContinentes.begin(); continentIt != partidaContinentes.end(); continentIt++){
         std::vector<Pais> partidaPais = continentIt->ObtenerPaises();
@@ -1507,7 +1507,7 @@ void Menu::comando_turno(std::string comando) {
       inventario = 1;
 
       std::cout<<"\n---------------------------------------------PAISES ENEMIGOS-------------------------------------------------";
-      std::cout << std::endl << std::setw(20) << "Continentes" << std::setw(30) << "Pais" << std::setw(30) << "Cantidad de tropas\n";
+      std::cout << std::endl << std::setw(20) << "Continentes" << std::setw(30) << "Pais" << std::setw(30) << "Cantidad de tropas" << std::setw(30) << "Dueno\n";
       for(continentIt = partidaContinentes.begin(); continentIt != partidaContinentes.end(); continentIt++){
         std::vector<Pais> partidaPais = continentIt->ObtenerPaises();
         std::vector<Pais>::iterator partidaPaisIt = partidaPais.begin();
@@ -1581,8 +1581,8 @@ void Menu::comando_turno(std::string comando) {
 
       int inventario = 1;
 
-      std::cout<<"\n---------------------PAISES JUGADOR " << turnoJugador << "-------------------------\n";
-      std::cout << std::endl << std::setw(20) << "Continentes" << std::setw(30) << "Pais" << std::setw(30) << "Cantidad de tropas" << std::endl << std::endl;
+      std::cout<<"\n--------------------------------PAISES JUGADOR " << turnoJugador << "---------------------------------";
+      std::cout << std::endl << std::setw(20) << "Continentes" << std::setw(30) << "Pais" << std::setw(30) << "Cantidad de tropas" << std::endl;
 
       for(continentIt = partidaContinentes.begin(); continentIt != partidaContinentes.end(); continentIt++){
         std::vector<Pais> partidaPais = continentIt->ObtenerPaises();
@@ -1595,6 +1595,7 @@ void Menu::comando_turno(std::string comando) {
           }
         }
       }
+      std::cout<<"--------------------------------PAISES JUGADOR " << turnoJugador << "---------------------------------\n\n";
 
       do {
         continuar = false;
