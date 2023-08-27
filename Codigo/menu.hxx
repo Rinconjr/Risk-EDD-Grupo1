@@ -1274,8 +1274,10 @@ void Menu::comando_turno(std::string comando) {
               std::cout << "  -----------TROPAS RESTANTES----------\n";
 
               int tropasNuevoPais;
+              bool paisConquistado = false;
               if (tropas_defensor == 0) {
                 conquistoPais = true;
+                paisConquistado = true;
                 std::cout << "Felicidades! Has conquistado el territorio: " << paisDefensor << std::endl; 
                 do {
                   std::cout <<"Te quedan " << tropas_atacante << " tropas en " << paisAtaque << ". Cuantas quieres movilizar a " << paisDefensor << ": ";
@@ -1355,7 +1357,7 @@ void Menu::comando_turno(std::string comando) {
 
                 for(partidaPaisIt = partidaPais.begin(); partidaPaisIt != partidaPais.end(); partidaPaisIt++){
                   if(partidaPaisIt->ObtenerDueno() != turnoJugador ) {
-                    if(inventario == idPaisDefensa && conquistoPais) {
+                    if(inventario == idPaisDefensa && paisConquistado) {
                       continuar = true;
                       partidaPaisIt->FijarCantidadTropas(tropasNuevoPais);
                       partidaPaisIt->FijarDueno(turnoJugador);
