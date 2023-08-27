@@ -681,8 +681,8 @@ void Menu::comando_turno(std::string comando) {
 
       inventario = 1;
 
-      std::cout<<"\n----------------------------------------------PAISES PARTIDA--------------------------------------------------\n";
-      std::cout << std::endl << std::setw(20) << "Continentes" << std::setw(30) << "Pais" << std::setw(30) << "Cantidad de tropas" << std::setw(30) << "Dueno" << std::endl << std::endl;
+      std::cout<<"\n----------------------------------------------PAISES PARTIDA--------------------------------------------------";
+      std::cout << std::endl << std::setw(20) << "Continentes" << std::setw(30) << "Pais" << std::setw(30) << "Cantidad de tropas" << std::setw(30) << "Dueno" << std::endl;
 
       for(continentIt = partidaContinentes.begin(); continentIt != partidaContinentes.end(); continentIt++){
         std::vector<Pais> partidaPais = continentIt->ObtenerPaises();
@@ -693,6 +693,7 @@ void Menu::comando_turno(std::string comando) {
           inventario++;
         }
       }
+      std::cout<<"----------------------------------------------PAISES PARTIDA--------------------------------------------------\n\n";
     }
     //Se muestran los paises del jugador
     else if(cinUsuario == "2") {
@@ -701,8 +702,8 @@ void Menu::comando_turno(std::string comando) {
 
       inventario = 1;
 
-      std::cout<<"\n---------------------PAISES JUGADOR " << turnoJugador << "-------------------------\n";
-      std::cout << std::endl << std::setw(20) << "Continentes" << std::setw(30) << "Pais" << std::setw(30) << "Cantidad de tropas" << std::endl << std::endl;
+      std::cout<<"\n------------------------------PAISES JUGADOR " << turnoJugador << "----------------------------------";
+      std::cout << std::endl << std::setw(20) << "Continentes" << std::setw(30) << "Pais" << std::setw(30) << "Cantidad de tropas" << std::endl;
 
       for(continentIt = partidaContinentes.begin(); continentIt != partidaContinentes.end(); continentIt++){
         std::vector<Pais> partidaPais = continentIt->ObtenerPaises();
@@ -715,6 +716,7 @@ void Menu::comando_turno(std::string comando) {
           }
         }
       }
+      std::cout<<"------------------------------PAISES JUGADOR " << turnoJugador << "---------------------------------\n\n";
     }
     //Se fortifica un pais
     else if(cinUsuario == "3") {
@@ -726,12 +728,13 @@ void Menu::comando_turno(std::string comando) {
       else {  //El jugador tiene tropas por asignar
         inventario = 1;
         std::vector<Pais>::iterator paisesJugadorIt = paisesJugador.begin();
-
-        std::cout <<std::setw(5) << "# Pais" << std::setw(30) << "Nombre del pais" << std::setw(10) << "Tropas del pais" << std::endl;
+        std::cout<<"\n---------------------PAISES JUGADOR " << turnoJugador << "-------------------------\n";
+        std::cout <<std::setw(5) << "# Pais" << std::setw(30) << "Nombre del pais" << std::setw(12) << "Tropas del pais" << std::endl;
         for(paisesJugadorIt = paisesJugador.begin(); paisesJugadorIt != paisesJugador.end(); paisesJugadorIt++){
           std::cout <<std::setw(5) << inventario << std::setw(30) << paisesJugadorIt->ObtenerNombre() << std::setw(10) << paisesJugadorIt->ObtenerCantidadTropas() << std::endl;
           inventario++;
         }
+        std::cout<<"---------------------PAISES JUGADOR " << turnoJugador << "-------------------------\n\n";
         do {
           int numeroPais, tropasPais, numeroTropas;
           std::string paisFortificar;
@@ -882,7 +885,7 @@ void Menu::comando_turno(std::string comando) {
     std::cout << "2) Ver mis paises y cantidad de tropas\n";
     std::cout << "3) Ver paises enemigos y cantidad de tropas\n";
     std::cout << "4) Siguiente fase.\n";
-    std::cout<<"---------------------MENU TURNO-------------------------\n";
+    std::cout<<"---------------------MENU TURNO-------------------------\n\n";
 
     do {
       continuar = false;
@@ -919,8 +922,8 @@ void Menu::comando_turno(std::string comando) {
 
       inventario = 1;
 
-      std::cout<<"\n---------------------PAISES JUGADOR " << turnoJugador << "-------------------------\n";
-      std::cout << std::endl << std::setw(20) << "Continentes" << std::setw(30) << "Pais" << std::setw(30) << "Cantidad de tropas\n";
+      std::cout<<"\n--------------------------------PAISES JUGADOR " << turnoJugador << "---------------------------------";
+      std::cout << std::endl << std::setw(20) << "Continentes" << std::setw(30) << "Pais" << std::setw(30) << "Cantidad de tropas" << std::endl;
       for(continentIt = partidaContinentes.begin(); continentIt != partidaContinentes.end(); continentIt++){
         std::vector<Pais> partidaPais = continentIt->ObtenerPaises();
         std::vector<Pais>::iterator partidaPaisIt = partidaPais.begin();
@@ -932,6 +935,7 @@ void Menu::comando_turno(std::string comando) {
           }
         }
       }
+      std::cout<<"--------------------------------PAISES JUGADOR " << turnoJugador << "---------------------------------\n\n";
 
       //Se escoge el pais de ataque
       do {
@@ -1009,7 +1013,7 @@ void Menu::comando_turno(std::string comando) {
 
       inventario = 1;
 
-      std::cout<<"\n---------------------PAISES JUGADOR " << turnoJugador << "-------------------------\n";
+      std::cout<<"\n-----------------------PAISES JUGADOR DONDE PUEDE ATACAR-----------------------";
       std::cout << std::endl << std::setw(20) << "Continentes" << std::setw(30) << "Pais" << std::setw(30) << "Cantidad de tropas\n";
       for(continentIt = partidaContinentes.begin(); continentIt != partidaContinentes.end(); continentIt++){
         std::vector<Pais> partidaPais = continentIt->ObtenerPaises();
@@ -1022,6 +1026,7 @@ void Menu::comando_turno(std::string comando) {
           }
         }
       }
+      std::cout<<"-----------------------PAISES JUGADOR DONDE PUEDE ATACAR-----------------------\n\n";
 
       //Se escoge el pais de defensa
       do {
@@ -1097,7 +1102,6 @@ void Menu::comando_turno(std::string comando) {
         std::cout << "  Opciones:\n";
         std::cout << "   1. Lanzar dados\n";
         std::cout << "   2. Retirarse\n";
-        std::cout << "  Elija una opcion: \n";
 
         bool continuar2 = false;
         do {
@@ -1253,19 +1257,21 @@ void Menu::comando_turno(std::string comando) {
               std::sort(dados_defensor, dados_defensor + num_dados_defensor, std::greater<int>());
           
               // Mostrar resultados de los dados
-              std::cout << "  ------------------------------------\n";
+              std::cout << "\n  ----------------DADOS----------------\n";
               std::cout << "  Resultados del lanzamiento de dados:\n";
-              std::cout << "   Atacante: ";
+              std::cout << "   -Atacante: ";
               for (int i = 0; i < num_dados_atacante; i++) {
                 std::cout << dados_atacante[i] << " ";
               }
               std::cout << "\n";
-              std::cout << "   Defensor: ";
+              std::cout << "   -Defensor: ";
               for (int i = 0; i < num_dados_defensor; i++) {
                 std::cout << dados_defensor[i] << " ";
               }
+              std::cout << "\n  ----------------DADOS----------------\n";
               std::cout << "\n";
           
+
               // Comparar los resultados de los dados y descontar tropas
               for (int i = 0; i < std::min(num_dados_atacante, num_dados_defensor); i++) {
                 if (dados_atacante[i] > dados_defensor[i]) {
@@ -1274,11 +1280,12 @@ void Menu::comando_turno(std::string comando) {
                   tropas_atacante--; //se le resta una tropa al atacante
                 }
               }
-          
+              std::cout << "  -----------TROPAS RESTANTES----------\n";
               // Mostrar cantidad de tropas restantes después del enfrentamiento
               std::cout << "  Tropas restantes:\n";
               std::cout << "   Atacante: " << tropas_atacante << "\n";
               std::cout << "   Defensor: " << tropas_defensor << "\n";
+              std::cout << "  -----------TROPAS RESTANTES----------\n";
 
               int tropasNuevoPais;
               if (tropas_defensor == 0) {
@@ -1444,7 +1451,6 @@ void Menu::comando_turno(std::string comando) {
                 
                 //#&
               }
-
               continuar2 = true;
               std::cout << " Guardando cambios...";
               std::cout << " Presione enter para continuar.";
@@ -1473,8 +1479,9 @@ void Menu::comando_turno(std::string comando) {
 
       inventario = 1;
 
-      std::cout<<"\n---------------------PAISES JUGADOR " << turnoJugador << "-------------------------\n";
-      std::cout << std::endl << std::setw(20) << "Continentes" << std::setw(30) << "Pais" << std::setw(30) << "Cantidad de tropas\n";
+      std::cout<<"\n--------------------------------PAISES JUGADOR " << turnoJugador << "---------------------------------";
+      std::cout << std::endl << std::setw(20) << "Continentes" << std::setw(30) << "Pais" << std::setw(30) << "Cantidad de tropas" << std::endl;
+
       for(continentIt = partidaContinentes.begin(); continentIt != partidaContinentes.end(); continentIt++){
         std::vector<Pais> partidaPais = continentIt->ObtenerPaises();
         std::vector<Pais>::iterator partidaPaisIt = partidaPais.begin();
@@ -1486,7 +1493,7 @@ void Menu::comando_turno(std::string comando) {
           }
         }
       }
-
+      std::cout<<"--------------------------------PAISES JUGADOR " << turnoJugador << "---------------------------------\n\n";
     }
     else if(cinUsuario.compare("3") == 0) {
       //mostrar los paises que no le pertenecen al jugador (A los que puede Atacar)
@@ -1495,22 +1502,22 @@ void Menu::comando_turno(std::string comando) {
 
       inventario = 1;
 
-      std::cout<<"\n---------------------PAISES JUGADOR " << turnoJugador << "-------------------------\n";
+      std::cout<<"\n---------------------------------------------PAISES ENEMIGOS-------------------------------------------------";
       std::cout << std::endl << std::setw(20) << "Continentes" << std::setw(30) << "Pais" << std::setw(30) << "Cantidad de tropas\n";
       for(continentIt = partidaContinentes.begin(); continentIt != partidaContinentes.end(); continentIt++){
         std::vector<Pais> partidaPais = continentIt->ObtenerPaises();
         std::vector<Pais>::iterator partidaPaisIt = partidaPais.begin();
 
         for(partidaPaisIt = partidaPais.begin(); partidaPaisIt != partidaPais.end(); partidaPaisIt++){
-          if(partidaPaisIt->ObtenerDueno() != turnoJugador ) {
-            std::cout << std::setw(2) << inventario << ") " << std::setw(20) << continentIt->ObtenerNombre() << std::setw(30) << partidaPaisIt->ObtenerNombre() << std::setw(25) << partidaPaisIt->ObtenerCantidadTropas() << std::endl;
+          if (partidaPaisIt->ObtenerDueno() != turnoJugador) { // Cambia la condición
+            std::cout << std::setw(2) << inventario << ") " << std::setw(20) << continentIt->ObtenerNombre() << std::setw(30) << partidaPaisIt->ObtenerNombre() << std::setw(25) << partidaPaisIt->ObtenerCantidadTropas() << std::setw(30) << partidaPaisIt->ObtenerDueno()<< std::endl;
             inventario++;
           }
         }
       }
+      std::cout<<"---------------------------------------------PAISES ENEMIGOS-------------------------------------------------\n\n";
 
     }
-
     if(cinUsuario.compare("4") == 0) {
       fase2 = false;
     }
