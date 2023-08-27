@@ -535,12 +535,6 @@ void Menu::comando_inicializar_nueva_partida() {
     }
   }
 
-  std::cout << "Cantidad jugadores" << std::endl;
-  for(int i = 0; i < cantidad_jugadores; i++) {
-    std::cout <<"Jugador " << i << " " << contador[i]<< std::endl;
-  }
-
-
   std::cout << "\n Partida creada exitosamente.\n";
   std::cout << " Presione enter para continuar.";
   std::cin.ignore();
@@ -680,7 +674,7 @@ void Menu::comando_turno(std::string comando) {
       int inventario = 1;
 
       std::cout<<"\n----------------------------------------------PAISES PARTIDA--------------------------------------------------\n";
-      std::cout << std::endl << std::setw(20) << "Continentes" << std::setw(30) << "Pais" << std::setw(30) << "Cantidad de tropas" << std::endl << std::endl;
+      std::cout << std::endl << std::setw(20) << "Continentes" << std::setw(30) << "Pais" << std::setw(30) << "Cantidad de tropas" << std::setw(30) << "Dueno" << std::endl << std::endl;
 
       for(continentIt = partidaContinentes.begin(); continentIt != partidaContinentes.end(); continentIt++){
         std::vector<Pais> partidaPais = continentIt->ObtenerPaises();
@@ -700,7 +694,7 @@ void Menu::comando_turno(std::string comando) {
       int inventario = 1;
 
       std::cout<<"\n---------------------PAISES JUGADOR " << turnoJugador << "-------------------------\n";
-      std::cout << std::endl << std::setw(20) << "Continentes" << std::setw(30) << "Pais" << std::setw(30) << "Cantidad de tropas" << std::setw(30) << "Dueno" << std::endl << std::endl;
+      std::cout << std::endl << std::setw(20) << "Continentes" << std::setw(30) << "Pais" << std::setw(30) << "Cantidad de tropas" << std::endl << std::endl;
 
       for(continentIt = partidaContinentes.begin(); continentIt != partidaContinentes.end(); continentIt++){
         std::vector<Pais> partidaPais = continentIt->ObtenerPaises();
@@ -1174,6 +1168,291 @@ void Menu::comando_turno(std::string comando) {
   std::cin.ignore();
   */
   //FASE 3
+
+  bool fase3 = true;
+
+  while (fase3){
+    std::cout<<"\n---------------------MENU TURNO-------------------------\n";
+    std::cout << "Turno del jugador " << turnoJugador <<"\n";
+    std::cout << "Fase 3 - Fortificacion!" << std::endl << std::setw(30) << "Opciones\n";
+    std::cout << "1) Fortificar pais.\n";
+    std::cout << "2) Terminar turno.\n";
+    std::cout<<"---------------------MENU TURNO-------------------------\n";
+
+    do {
+      continuar = false;
+
+      std::cout << "Seleccione el numero de la opcion: ";
+      std::getline(std::cin, cinUsuario);
+      std::stringstream stream(cinUsuario);
+      argumentos.clear();
+
+      // while para ir guardando los argumentos en el vector
+      while (getline(stream, cinUsuario, delimitador)) {
+        argumentos.push_back(cinUsuario);    
+      }
+      // Si no ingreso nada, simplemente continua.
+      if (argumentos.empty()) {
+        continue;
+      }
+      // Verificamos si el nombre de la partida contiene solo espacios en blanco
+      else if (contieneSoloEspacios(argumentos[0])) {
+        std::cout << "Porfavor ingrese una opcion. \n";
+        continue;
+      }
+      else {
+        cinUsuario = argumentos[0];
+        continuar = true;
+      }
+    }
+    while(!continuar);
+    continuar = false;
+
+    //Se entra a la opcion de atacar
+    if(cinUsuario.compare("1") == 0) {
+      int idPaisOrigen, idPaisDestino;
+      int tropasOrigen = 1;
+      int cantidadTropas;
+      partidaContinentes = mipartida.ObtenerContinentes();
+      continentIt = partidaContinentes.begin();
+
+      int inventario = 1;
+
+      std::cout<<"\n---------------------PAISES JUGADOR " << turnoJugador << "-------------------------\n";
+      std::cout << std::endl << std::setw(20) << "Continentes" << std::setw(30) << "Pais" << std::setw(30) << "Cantidad de tropas" << std::endl << std::endl;
+
+      for(continentIt = partidaContinentes.begin(); continentIt != partidaContinentes.end(); continentIt++){
+        std::vector<Pais> partidaPais = continentIt->ObtenerPaises();
+        std::vector<Pais>::iterator partidaPaisIt = partidaPais.begin();
+
+        for(partidaPaisIt = partidaPais.begin(); partidaPaisIt != partidaPais.end(); partidaPaisIt++){
+          if(partidaPaisIt->ObtenerDueno() == turnoJugador ) {
+            std::cout << std::setw(2) << inventario << ") " << std::setw(20) << continentIt->ObtenerNombre() << std::setw(30) << partidaPaisIt->ObtenerNombre() << std::setw(25) << partidaPaisIt->ObtenerCantidadTropas() << std::endl;
+            inventario++;
+          }
+        }
+      }
+
+      do {
+        continuar = false;
+
+        std::cout << "Seleccione el # del pais de origen donde trasladaras las tropas: ";
+        std::getline(std::cin, cinUsuario);
+        std::stringstream stream(cinUsuario);
+        argumentos.clear();
+
+        // while para ir guardando los argumentos en el vector
+        while (getline(stream, cinUsuario, delimitador)) {
+          argumentos.push_back(cinUsuario);    
+        }
+        // Si no ingreso nada, simplemente continua.
+        if (argumentos.empty()) {
+          continue;
+        }
+        // Verificamos si el nombre de la partida contiene solo espacios en blanco
+        else if (contieneSoloEspacios(argumentos[0])) {
+          std::cout << "Porfavor ingrese una opcion. \n";
+          continue;
+        }
+        else {
+          cinUsuario = argumentos[0];
+
+          try {
+            // Intenta convertir el string a un número entero (int)
+            idPaisOrigen = std::stoi(cinUsuario);
+          } 
+          catch (const std::invalid_argument& e) {
+            std::cout << "Input invalido. \n";
+            continue;
+          }
+          if(idPaisOrigen < 0 || idPaisOrigen >= inventario) {
+            std::cout << "El pais que elegiste no existe. \n";
+            continue;
+          }
+
+          inventario = 1;
+
+          partidaContinentes = mipartida.ObtenerContinentes();
+          continentIt = partidaContinentes.begin();
+
+          for(continentIt = partidaContinentes.begin(); continentIt != partidaContinentes.end(); continentIt++){
+            std::vector<Pais> partidaPais = continentIt->ObtenerPaises();
+            std::vector<Pais>::iterator partidaPaisIt = partidaPais.begin();
+
+            for(partidaPaisIt = partidaPais.begin(); partidaPaisIt != partidaPais.end(); partidaPaisIt++){
+              if(partidaPaisIt->ObtenerDueno() == turnoJugador ) {
+                if(inventario == idPaisOrigen) {
+                  tropasOrigen = partidaPaisIt->ObtenerCantidadTropas();
+                }
+                inventario++;
+              }
+            }
+          }
+
+          if(tropasOrigen == 1) {
+            std::cout << "No puedes trasladar tropas desde un pais que tiene una sola tropa. \n";
+            continue;
+          }
+
+          continuar = true;
+        }
+      }
+      while(!continuar);
+      continuar = false;
+
+      partidaContinentes = mipartida.ObtenerContinentes();
+      continentIt = partidaContinentes.begin();
+
+      inventario = 1;
+
+      std::cout<<"\n---------------------PAISES JUGADOR " << turnoJugador << "-------------------------\n";
+      std::cout << std::endl << std::setw(20) << "Continentes" << std::setw(30) << "Pais" << std::setw(30) << "Cantidad de tropas" << std::endl << std::endl;
+
+      for(continentIt = partidaContinentes.begin(); continentIt != partidaContinentes.end(); continentIt++){
+        std::vector<Pais> partidaPais = continentIt->ObtenerPaises();
+        std::vector<Pais>::iterator partidaPaisIt = partidaPais.begin();
+
+        for(partidaPaisIt = partidaPais.begin(); partidaPaisIt != partidaPais.end(); partidaPaisIt++){
+          if(partidaPaisIt->ObtenerDueno() == turnoJugador ) {
+            std::cout << std::setw(2) << inventario << ") " << std::setw(20) << continentIt->ObtenerNombre() << std::setw(30) << partidaPaisIt->ObtenerNombre() << std::setw(25) << partidaPaisIt->ObtenerCantidadTropas() << std::endl;
+            inventario++;
+          }
+        }
+      }
+
+      do {
+        continuar = false;
+
+        std::cout << "Seleccione el # del pais de destino donde trasladaras las tropas: ";
+        std::getline(std::cin, cinUsuario);
+        std::stringstream stream(cinUsuario);
+        argumentos.clear();
+
+        // while para ir guardando los argumentos en el vector
+        while (getline(stream, cinUsuario, delimitador)) {
+          argumentos.push_back(cinUsuario);    
+        }
+        // Si no ingreso nada, simplemente continua.
+        if (argumentos.empty()) {
+          continue;
+        }
+        // Verificamos si el nombre de la partida contiene solo espacios en blanco
+        else if (contieneSoloEspacios(argumentos[0])) {
+          std::cout << "Porfavor ingrese una opcion. \n";
+          continue;
+        }
+        else {
+          cinUsuario = argumentos[0];
+
+          try {
+            // Intenta convertir el string a un número entero (int)
+            idPaisDestino = std::stoi(cinUsuario);
+          } 
+          catch (const std::invalid_argument& e) {
+            std::cout << "Input invalido. \n";
+            continue;
+          }
+          if(idPaisDestino < 0 || idPaisOrigen >= inventario) {
+            std::cout << "El pais que elegiste no existe. \n";
+            continue;
+          }
+          else if(idPaisDestino == idPaisOrigen) {
+            std::cout << "No puedes transferir tropas al mismo pais de origen. \n";
+            continue;
+          }
+          continuar = true;
+        }
+      }
+      while(!continuar);
+      continuar = false;
+
+
+
+
+
+
+
+      do {
+        continuar = false;
+
+        std::cout << "Seleccione el # de tropas que vas a transferir. " << "Se pueden transferir " << tropasOrigen-1 <<" tropas maximo: ";
+        std::getline(std::cin, cinUsuario);
+        std::stringstream stream(cinUsuario);
+        argumentos.clear();
+
+        // while para ir guardando los argumentos en el vector
+        while (getline(stream, cinUsuario, delimitador)) {
+          argumentos.push_back(cinUsuario);    
+        }
+        // Si no ingreso nada, simplemente continua.
+        if (argumentos.empty()) {
+          continue;
+        }
+        // Verificamos si el nombre de la partida contiene solo espacios en blanco
+        else if (contieneSoloEspacios(argumentos[0])) {
+          std::cout << "Porfavor ingrese una opcion. \n";
+          continue;
+        }
+        else {
+          cinUsuario = argumentos[0];
+
+          try {
+            // Intenta convertir el string a un número entero (int)
+            cantidadTropas = std::stoi(cinUsuario);
+          } 
+          catch (const std::invalid_argument& e) {
+            std::cout << "Input invalido. \n";
+            continue;
+          }
+          if(cantidadTropas < 0 || cantidadTropas >= tropasOrigen) {
+            std::cout << "No puedes transferir tantas tropas. \n";
+            continue;
+          }
+          continuar = true;
+        }
+      }
+      while(!continuar);
+      continuar = false;
+
+
+      partidaContinentes = mipartida.ObtenerContinentes();
+      continentIt = partidaContinentes.begin();
+
+      inventario = 1;
+
+      for(continentIt = partidaContinentes.begin(); continentIt != partidaContinentes.end(); continentIt++){
+        std::vector<Pais> partidaPais = continentIt->ObtenerPaises();
+        std::vector<Pais>::iterator partidaPaisIt = partidaPais.begin();
+        for(partidaPaisIt = partidaPais.begin(); partidaPaisIt != partidaPais.end(); partidaPaisIt++){
+          if(partidaPaisIt->ObtenerDueno() == turnoJugador ) {
+            if(idPaisOrigen == inventario) {
+              std::cout << "Se quitaran " <<cantidadTropas<< " de " << partidaPaisIt->ObtenerNombre() << std::endl;
+              partidaPaisIt->FijarCantidadTropas(partidaPaisIt->ObtenerCantidadTropas() - cantidadTropas);
+              continentIt->FijarPaises(partidaPais);
+              mipartida.FijarContinentes(partidaContinentes);
+            }
+            else if(idPaisDestino == inventario) {
+              std::cout << "Se anadiran " <<cantidadTropas<< " a " << partidaPaisIt->ObtenerNombre() << std::endl;
+              partidaPaisIt->FijarCantidadTropas(partidaPaisIt->ObtenerCantidadTropas() + cantidadTropas);
+              continentIt->FijarPaises(partidaPais);
+              mipartida.FijarContinentes(partidaContinentes);
+            }
+            inventario++;
+          }
+        }
+      }
+      fase3 = false;
+    } 
+    //Se termina el turno
+    else if(cinUsuario.compare("2") == 0) {
+      fase3 = false;
+    }
+    //Opcion no encontrada
+    else {
+      std::cout << "\nOpcion '" << cinUsuario << "' no encontrada. \n";
+    }
+
+  }
 
   //termina el turno, se pone al jugador en la cola de la partida y va el siguiente
   jugadores.pop();
