@@ -1302,6 +1302,7 @@ void Menu::comando_turno(std::string comando) {
             }
           }
 
+          //a
           //Si el pais tiene una sola tropa
           if(tropasOrigen == 1) {
             std::cout << "No puedes trasladar tropas desde un pais que tiene una sola tropa. \n";
