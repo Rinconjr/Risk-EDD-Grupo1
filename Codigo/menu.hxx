@@ -357,10 +357,6 @@ void Menu::comando_inicializar_nueva_partida() {
 
   //Crear Paises
   srand(time(0));
-  int idJugador[cantidad_jugadores];
-  for(int i = 0; i < cantidad_jugadores; i++) {
-    idJugador[i] = 0;
-  }
 
   int paisesTotal = 42;
   int tropas_pais = paisesTotal / cantidad_jugadores;
@@ -382,17 +378,29 @@ void Menu::comando_inicializar_nueva_partida() {
     tropas_pais = 7;
   }
 
+  std::vector<int> art;
   for(nombreIt = nombrePaises.begin(); nombreIt != nombrePaises.end(); nombreIt++,paisIt++){
     bool t = true;
     int numeroAleatorio;
     int test = 0;
     while(t) {
       numeroAleatorio = (rand() % cantidad_jugadores);
-      if(idJugador[numeroAleatorio] < tropas_pais || test > 200) {
-        t = false;
-        idJugador[numeroAleatorio] = idJugador[numeroAleatorio] + 1;
+
+      bool tr = false;
+      for (int i = 0; i < art.size(); ++i) {
+        if(art[i] == numeroAleatorio) {
+          tr = true;
+        }
       }
-      test++;
+      if(!tr) {
+        art.push_back(numeroAleatorio);
+        t = false;
+        test++;
+      }
+
+      if(art.size() == cantidad_jugadores) {
+        art.clear();
+      }
     }
     numeroAleatorio += 1;
     Pais paisAux;
@@ -512,14 +520,24 @@ void Menu::comando_inicializar_nueva_partida() {
 
   std::cout << std::endl << std::setw(20) << "Continentes" << std::setw(30) << "Pais" << std::setw(30) << "Cantidad de tropas" << std::setw(30) << "Dueno" << std::endl << std::endl;
 
+  int contador[cantidad_jugadores];
+  for(int i = 0; i < cantidad_jugadores; i++) {
+    contador[i] = 0;
+  }
   for(continentIt = partidaContinentes.begin(); continentIt != partidaContinentes.end(); continentIt++){
     std::vector<Pais> partidaPais = continentIt->ObtenerPaises();
     std::vector<Pais>::iterator partidaPaisIt = partidaPais.begin();
 
     for(partidaPaisIt = partidaPais.begin(); partidaPaisIt != partidaPais.end(); partidaPaisIt++){
+      contador[partidaPaisIt->ObtenerDueno() -1] += 1;
       std::cout << std::setw(2) << inventario << ") " << std::setw(20) << continentIt->ObtenerNombre() << std::setw(30) << partidaPaisIt->ObtenerNombre() << std::setw(25) << partidaPaisIt->ObtenerCantidadTropas() << std::setw(30) << partidaPaisIt->ObtenerDueno()<< std::endl;
       inventario++;
     }
+  }
+
+  std::cout << "Cantidad jugadores" << std::endl;
+  for(int i = 0; i < cantidad_jugadores; i++) {
+    std::cout <<"Jugador " << i << " " << contador[i]<< std::endl;
   }
 
 
@@ -662,7 +680,7 @@ void Menu::comando_turno(std::string comando) {
       int inventario = 1;
 
       std::cout<<"\n----------------------------------------------PAISES PARTIDA--------------------------------------------------\n";
-      std::cout << std::endl << std::setw(20) << "Continentes" << std::setw(30) << "Pais" << std::setw(30) << "Cantidad de tropas" << std::setw(30) << "Dueno" << std::endl << std::endl;
+      std::cout << std::endl << std::setw(20) << "Continentes" << std::setw(30) << "Pais" << std::setw(30) << "Cantidad de tropas" << std::endl << std::endl;
 
       for(continentIt = partidaContinentes.begin(); continentIt != partidaContinentes.end(); continentIt++){
         std::vector<Pais> partidaPais = continentIt->ObtenerPaises();
