@@ -1388,7 +1388,9 @@ void Menu::comando_turno(std::string comando) {
                 bool eliminado = false;
                 while(!eliminado) {
                   Jugador auxJugador = jugadores.front();
+                  jugadores.pop();
                   if(auxJugador.ObtenerId() == duenoPaisDefensor) {
+                    /*
                     //Las cartas del jugador eliminado pasan al otro jugador
                     
 
@@ -1401,13 +1403,10 @@ void Menu::comando_turno(std::string comando) {
                       barajaJugadorTurno.push_back(baraja[i]);
                     }
                     jugadorTurno.FijarCartas(barajaJugadorTurno);
-                    
-                    jugadores.pop();
+                    */
                     eliminado = true;
-                    
                   }
                   else {
-                    jugadores.pop();
                     jugadores.push(auxJugador);
                     
                   }
@@ -1416,10 +1415,12 @@ void Menu::comando_turno(std::string comando) {
 
                 //Si solo queda el, termina la partida
                 if(jugadores.size() == 1) {
-                  std::cout << "El jugador " << turnoJugador << " ha ganado la partida" << std::endl;
+                  std::cout << "VICTORIA MAGISTRAL DEL JUGADOR " << turnoJugador << std::endl;
+                  std::cout << "Muchas gracias por jugar" << std::endl;
                   std::cout << " Presione enter para continuar.";
                   std::cin.ignore();
-                  return;
+                  
+                  exit(0);
                 }
 
                 //Reubicar al jugador
@@ -1427,14 +1428,14 @@ void Menu::comando_turno(std::string comando) {
                 while (!ordenado)
                 {
                   Jugador auxJugador = jugadores.front();
-                  if(auxJugador.ObtenerId() == duenoPaisDefensor) {
+                  if(auxJugador.ObtenerId() == turnoJugador) {
                     ordenado = true;
                   }
                   else {
                     jugadores.pop();
                     jugadores.push(auxJugador);
                   }
-                  
+                  std::cout << "F";
                 }
                 
                 //#&
