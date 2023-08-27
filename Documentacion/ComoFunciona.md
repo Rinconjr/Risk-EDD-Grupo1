@@ -1,13 +1,21 @@
 ## ⚙️ Como funciona
 
 [inicializar](Documentacion/inicializar.md)
+
 [turno](Documentacion/turno.md)
+
 [guadar](Documentacion/guardar.md)
+
 [guardar_comprimido](Documentacion/guardar_comprimido.md)
+
 [costo_conquista](Documentacion/costo_conquista.md)
+
 [conquista_mas_barata](Documentacion/conquista_mas_barata.md)
+
 [clear](Documentacion/clear.md)
+
 [salir](Documentacion/salir.md)
+
 
 - **inicializar:** Comando: *inicializar <nombre_archivo>*  
     Descripcion: Se inicializa una nueva partida si no se especifica el nombre del archivo de la partida guardada. De especificarse uno se reanuda la partida.
