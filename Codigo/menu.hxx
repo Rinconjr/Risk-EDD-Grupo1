@@ -563,8 +563,6 @@ void Menu::comando_turno(std::string comando) {
   std::queue<Jugador> jugadores = mipartida.ObtenerJugadores();
   Jugador jugadorTurno = jugadores.front();
 
-  std::string continenteDominado = "";
-
 
   std::vector<Continente> partidaContinentes = mipartida.ObtenerContinentes();
   std::vector<Continente>::iterator continentIt = partidaContinentes.begin(); 
@@ -879,7 +877,7 @@ void Menu::comando_turno(std::string comando) {
     std::cout << "1) Atacar.\n";
     std::cout << "2) Ver mis paises y cantidad de tropas\n";
     std::cout << "3) Ver paises enemigos y cantidad de tropas\n";
-    std::cout << "2) Siguiente fase.\n";
+    std::cout << "5) Siguiente fase.\n";
     std::cout<<"---------------------MENU TURNO-------------------------\n";
 
     do {
@@ -906,6 +904,11 @@ void Menu::comando_turno(std::string comando) {
         continuar = true;
       }
     }while(!continuar);
+
+    if(cinUsuario.compare("5") == 0) {
+      fase2 = false;
+    }
+  }
 
 /*
     //Se entra a la opcion de atacar
@@ -1964,7 +1967,6 @@ void Menu::comando_turno(std::string comando) {
   std::cout << " Presione enter para continuar.";
   std::cin.ignore();
   */
-}
 }
 
 //Con esta función se guarda la partida
