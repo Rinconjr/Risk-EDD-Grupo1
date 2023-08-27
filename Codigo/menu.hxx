@@ -1373,8 +1373,79 @@ void Menu::comando_turno(std::string comando) {
                   }
                 }
               }
-              continuar2 = true;
+              
 
+              //Busca si el jugador que perdio el territorio ya no tiene mas territorios
+              bool sinPaises = true;
+              partidaContinentes = mipartida.ObtenerContinentes();
+              continentIt = partidaContinentes.begin();
+              for(continentIt = partidaContinentes.begin(); continentIt != partidaContinentes.end(); continentIt++){
+                std::vector<Pais> partidaPais = continentIt->ObtenerPaises();
+                std::vector<Pais>::iterator partidaPaisIt = partidaPais.begin();
+                for(partidaPaisIt = partidaPais.begin(); partidaPaisIt != partidaPais.end(); partidaPaisIt++){
+                  if(partidaPaisIt->ObtenerDueno() == duenoPaisDefensor ) {
+                    sinPaises = false;
+                  }
+                }
+              }
+
+              if(sinPaises) {
+                bool eliminado = false;
+                while(!eliminado) {
+                  Jugador auxJugador = jugadores.front();
+                  if(auxJugador.ObtenerId() == duenoPaisDefensor) {
+                    //Las cartas del jugador eliminado pasan al otro jugador
+                    
+
+                    //Obtenemos la baraja de ambos
+                    std::vector<Carta> baraja = auxJugador.ObtenerCartas();
+                    std::vector<Carta> barajaJugadorTurno = jugadorTurno.ObtenerCartas();
+
+                    //Hacemos push de cada carta al ganador
+                    for(int i = 0; i < baraja.size(); i++) {
+                      barajaJugadorTurno.push_back(baraja[i]);
+                    }
+                    jugadorTurno.FijarCartas(barajaJugadorTurno);
+                    
+                    jugadores.pop();
+                    eliminado = true;
+                    
+                  }
+                  else {
+                    jugadores.pop();
+                    jugadores.push(auxJugador);
+                    
+                  }
+                }
+                mipartida.FijarJugadores(jugadores);
+
+                //Si solo queda el, termina la partida
+                if(jugadores.size() == 1) {
+                  std::cout << "El jugador " << turnoJugador << " ha ganado la partida" << std::endl;
+                  std::cout << " Presione enter para continuar.";
+                  std::cin.ignore();
+                  return;
+                }
+
+                //Reubicar al jugador
+                bool ordenado = false;
+                while (!ordenado)
+                {
+                  Jugador auxJugador = jugadores.front();
+                  if(auxJugador.ObtenerId() == duenoPaisDefensor) {
+                    ordenado = true;
+                  }
+                  else {
+                    jugadores.pop();
+                    jugadores.push(auxJugador);
+                  }
+                  
+                }
+                
+                //#&
+              }
+
+              continuar2 = true;
               std::cout << " Guardando cambios...";
               std::cout << " Presione enter para continuar.";
               std::cin.ignore();
