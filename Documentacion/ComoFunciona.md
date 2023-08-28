@@ -2,17 +2,17 @@
 
 🎮 [Inicializar](inicializar.md)
 
-🎲 [Turno](Documentacion/turno.md)
+🎲 [Turno](turno.md)
 
-🔒 [Guadar](Documentacion/guardar.md)
+🔒 [Guadar](guardar.md)
 
-🔐 [Guardar_comprimido](Documentacion/guardar_comprimido.md)
+🔐 [Guardar_comprimido](guardar_comprimido.md)
 
-💸 [Costo_conquista](Documentacion/costo_conquista.md)
+💸 [Costo_conquista](costo_conquista.md)
 
-💹 [Conquista_mas_barata](Documentacion/conquista_mas_barata.md)
+💹 [Conquista_mas_barata](conquista_mas_barata.md)
 
-🧹 [Clear](Documentacion/clear.md)
+🧹 [Clear](n/clear.md)
 
-❌ [Salir](Documentacion/salir.md)
+❌ [Salir](salir.md)
 
