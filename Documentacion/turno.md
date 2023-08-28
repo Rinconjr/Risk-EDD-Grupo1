@@ -18,6 +18,10 @@ Cada que un jugador sea eliminado de la partida, este se elimina de la cola de j
 
 ![Jugador4Ganador](/Documentacion/Imagenes/Jugador%204.png)
 
+<p align="center">
+  <img src="/Documentacion/Imagenes/Jugador 4.png" alt="FlujoSistemaDeTurnos">
+</p>
+
 Tras entender cómo funciona el sistema de turnos mediante colas en la partida, para entender mejor el funcionamiento de cada unas de las fases de turno, se decidió realizar el siguiente diagrama de flujo:
 
 ![FlujoSistemaDeTurnos](/Documentacion/Imagenes/Flujo%20turno.jpeg)
