@@ -1,6 +1,6 @@
 ## ⚙️ Como funciona
 
-🎮 [Inicializar](Documentacion/inicializar.md)
+🎮 [Inicializar](Documentacion/ComoFunciona.md/inicializar.md)
 
 🎲 [Turno](Documentacion/turno.md)
 
