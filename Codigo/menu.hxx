@@ -626,7 +626,7 @@ void Menu::comando_turno(std::string comando) {
     }
     
 
-    std::cout << "Fase 1" << std::endl << std::setw(30) << "Opciones\n";
+    std::cout << "Fase 1 - Obtener nuevas unidades!" << std::endl << std::setw(30) << "Opciones\n";
     std::cout << "1) Ver todos los paises.\n";
     std::cout << "2) Ver mis paises.\n";
     if (sumarTropas != 0){
@@ -830,6 +830,7 @@ void Menu::comando_turno(std::string comando) {
       //Codigo canjear cartas
       inventario = 1;
       std::vector<Carta> cartasJugador = jugadorTurno.ObtenerCartas();
+      std::vector<Carta>::iterator cartaIt = cartasJugador.begin();
       /*
       cartasJugador.push_back(Carta("Normal","Ucrania","Artilleria"));
       cartasJugador.push_back(Carta("Normal","Venezuela","Artilleria"));
@@ -840,14 +841,21 @@ void Menu::comando_turno(std::string comando) {
       */
 
       std::cout<<"\n";
-      std::cout<<"-----------------------------PAISES CARTAS-----------------------------\n";
-      std::vector<Carta>::iterator cartaIt = cartasJugador.begin();
-      std::cout <<std::setw(10) << "# Carta" << std::setw(30) << "Pais" << std::setw(20) << "Tipo Carta" << std::setw(10) << "Tropa" << std::endl;
-      for(cartaIt = cartasJugador.begin(); cartaIt != cartasJugador.end(); cartaIt++){
-        std::cout <<std::setw(10) << inventario << ")" << std::setw(30) << cartaIt->ObtenerPais() << std::setw(20) << cartaIt->ObtenerTipo() << std::setw(10) << cartaIt->ObtenerTropa() << std::endl;
-        inventario++;
+      
+      if(cartasJugador.size() == 0){
+        std::cout << "---------------------CARTAS JUGADOR " << turnoJugador << "-------------------------\n";
+        std::cout << "Usted no posee cartas :(. Vuelva al menu principal para atacar o fortificar.";
+        std::cout << "\n---------------------CARTAS JUGADOR " << turnoJugador << "-------------------------\n";
       }
-      std::cout<<"-----------------------------PAISES CARTAS-----------------------------\n";
+      else{
+        std::cout << "---------------------CARTAS JUGADOR " << turnoJugador << "-------------------------\n";
+        std::cout <<std::setw(10) << "# Carta" << std::setw(30) << "Pais" << std::setw(20) << "Tipo Carta" << std::setw(10) << "Tropa" << std::endl;
+        for(cartaIt = cartasJugador.begin(); cartaIt != cartasJugador.end(); cartaIt++){
+          std::cout <<std::setw(10) << inventario << ")" << std::setw(30) << cartaIt->ObtenerPais() << std::setw(20) << cartaIt->ObtenerTipo() << std::setw(10) << cartaIt->ObtenerTropa() << std::endl;
+          inventario++;
+        }
+        std::cout << "\n---------------------CARTAS JUGADOR " << turnoJugador << "-------------------------\n";
+      }
 
       std::cout << std::endl << "Opciones"<< std::endl;
       std::cout << "1) Canjear cartas"<< std::endl;
@@ -878,6 +886,13 @@ void Menu::comando_turno(std::string comando) {
           
 
           if(cinUsuario == "1") {
+            if(cartasJugador.size() == 0){
+              std::cout << "Usted no posee cartas, no puede entrar a esta opcion.\n";
+              std::cout << "Volviendo al menu principal... ";
+              std::cout << "Presione enter para continuar. ";
+              std::cin.ignore();
+              break;
+            }
             int cartasElegidas[3] = {0,0,0};
             int cantidadSeleccionado = 0;
 
@@ -900,6 +915,8 @@ void Menu::comando_turno(std::string comando) {
               }
               std::cout<<"---------------------------------------PAISES CARTAS---------------------------------------\n\n";
 
+              std::cout<<"Si desea salir, simplemente escriba: 'salir'.\n";
+
               do {
                 int numeroCarta;
                 std::cout << "Seleccione el numero de la carta para canjear: ";
@@ -914,6 +931,14 @@ void Menu::comando_turno(std::string comando) {
                 // Si no ingreso nada, simplemente continua.
                 if (argumentos.empty()) {
                   continue;
+                }
+                //TODO: ARREGLAR PARA QUE SE PUEDA SALIR!!
+                if(argumentos[0].compare("salir") == 0) {
+                  std::cout << "Volviendo al menu principal... ";
+                  std::cout << "Presione enter para continuar. ";
+                  continuar = true;
+                  std::cin.ignore();
+                  break;
                 }
                 try {
                   numeroCarta = std::stoi(cinUsuario); 
