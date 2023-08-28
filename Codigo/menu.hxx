@@ -839,19 +839,23 @@ void Menu::comando_turno(std::string comando) {
       cartasJugador.push_back(Carta("Comodin","",""));
       */
 
+      std::cout<<"\n";
+      std::cout<<"-----------------------------PAISES CARTAS-----------------------------\n";
       std::vector<Carta>::iterator cartaIt = cartasJugador.begin();
       std::cout <<std::setw(10) << "# Carta" << std::setw(30) << "Pais" << std::setw(20) << "Tipo Carta" << std::setw(10) << "Tropa" << std::endl;
       for(cartaIt = cartasJugador.begin(); cartaIt != cartasJugador.end(); cartaIt++){
         std::cout <<std::setw(10) << inventario << ")" << std::setw(30) << cartaIt->ObtenerPais() << std::setw(20) << cartaIt->ObtenerTipo() << std::setw(10) << cartaIt->ObtenerTropa() << std::endl;
         inventario++;
       }
+      std::cout<<"-----------------------------PAISES CARTAS-----------------------------\n";
 
       std::cout << std::endl << "Opciones"<< std::endl;
       std::cout << "1) Canjear cartas"<< std::endl;
       std::cout << "2) Regresar"<< std::endl;
+      std::cout << "Seleccione el numero de la opcion: ";
 
       do {
-        std::cout << "Seleccione el numero de la opcion: ";
+
         std::getline(std::cin, cinUsuario);
         std::stringstream stream(cinUsuario);
         argumentos.clear();
@@ -882,6 +886,7 @@ void Menu::comando_turno(std::string comando) {
               inventario = 1;
               std::vector<Carta>::iterator cartaIt = cartasJugador.begin();
               std::cout << std::endl;
+              std::cout<<"---------------------------------------PAISES CARTAS---------------------------------------\n";
               std::cout <<std::setw(10) << "# Carta" << std::setw(30) << "Pais" << std::setw(20) << "Tipo Carta" << std::setw(10) << "Tropa" << std::setw(20) << "Elegido" << std::endl;
               for(cartaIt = cartasJugador.begin(); cartaIt != cartasJugador.end(); cartaIt++){
                 std::cout <<std::setw(10) << inventario << ")" << std::setw(30) << cartaIt->ObtenerPais() << std::setw(20) << cartaIt->ObtenerTipo() << std::setw(10) << cartaIt->ObtenerTropa();
@@ -893,6 +898,7 @@ void Menu::comando_turno(std::string comando) {
                 std::cout << std::endl;
                 inventario++;
               }
+              std::cout<<"---------------------------------------PAISES CARTAS---------------------------------------\n\n";
 
               do {
                 int numeroCarta;
@@ -926,7 +932,7 @@ void Menu::comando_turno(std::string comando) {
                   if(cartasElegidas[i] == numeroCarta && !elegido) {
                     elegido = true;
                     cartasElegidas[i] = 0;
-                    std::cout << "Se ha deseleccionado la carta";
+                    std::cout << "Se ha deseleccionado la carta\n";
                     cantidadSeleccionado--;
                     break;
                   }
@@ -936,7 +942,7 @@ void Menu::comando_turno(std::string comando) {
                     if(cartasElegidas[i] == 0 && !elegido) {
                       elegido == true;
                       cartasElegidas[i] = numeroCarta;
-                      std::cout << "Se ha seleccionado la carta";
+                      std::cout << "Se han seleccionado la carta\n";
                       cantidadSeleccionado++;
                       break;
                     }
@@ -1053,7 +1059,7 @@ void Menu::comando_turno(std::string comando) {
                     cartarCanjIt = cartasCanjear.begin();
                     for(cartarCanjIt = cartasCanjear.begin(); cartarCanjIt != cartasCanjear.end(); cartarCanjIt++){
                       if(cartarCanjIt->ObtenerPais() == partidaPaisIt->ObtenerNombre()) {
-                        std::cout << "Obtienes una bonificacion extra de 2 tropas por la carta de " << cartarCanjIt->ObtenerPais() << ". Las tropas han sido añadidas al pais" << std::endl;
+                        std::cout << "Obtienes una bonificacion extra de 2 tropas por la carta de " << cartarCanjIt->ObtenerPais() << ". Las tropas han sido anadidas al pais" << std::endl;
                         partidaPaisIt->FijarCantidadTropas(partidaPaisIt->ObtenerCantidadTropas() +2);
                         continentIt->FijarPaises(partidaPais);
                         mipartida.FijarContinentes(partidaContinentes);
