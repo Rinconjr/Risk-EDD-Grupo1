@@ -831,14 +831,14 @@ void Menu::comando_turno(std::string comando) {
       inventario = 1;
       std::vector<Carta> cartasJugador = jugadorTurno.ObtenerCartas();
       std::vector<Carta>::iterator cartaIt = cartasJugador.begin();
-      /*
+      
       cartasJugador.push_back(Carta("Normal","Ucrania","Artilleria"));
       cartasJugador.push_back(Carta("Normal","Venezuela","Artilleria"));
       cartasJugador.push_back(Carta("Normal","Argentina","Artilleria"));
       cartasJugador.push_back(Carta("Normal","Congo","Artilleria"));
       cartasJugador.push_back(Carta("Normal","Mongolia","Caballeria"));
       cartasJugador.push_back(Carta("Comodin","",""));
-      */
+      
 
       std::cout<<"\n";
       
@@ -938,6 +938,7 @@ void Menu::comando_turno(std::string comando) {
                   std::cout << "Presione enter para continuar. ";
                   continuar = true;
                   std::cin.ignore();
+                  return;
                   break;
                 }
                 try {
