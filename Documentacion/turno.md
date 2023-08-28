@@ -1,6 +1,10 @@
-**Comando:** turno <id_jugador> 
+**Comando:** 
+
+    turno <id_jugador>  
 
 **Descripcion:** Informa al jugador la cantidad de unidades que puede reclamar, para luego asignaralas y en que cantidad. Despues, se encarga de la configuración del ataque desde que territorio y hacia cual, luego informa los valores obtenidos con los dados y la cantidad de unidades que se ganan o se pierden, este proceso se repite hasta que alguno de los territorios se quede sin unidades o hasta que el atacante decida detenerse. Por ultimo, pregunta al jugador los territorios vecinos que desea seleccionar para la fortificación tambien la cantidad de unidades que se traslaradan de uno al otro.
+
+**Condiciones:** El usuario debe indicar el id del jugador del cual quiere usar el turno y a este le debe corresponder el turno.
 
 ![ColaJugadores](/Documentacion/Imagenes/Cola%20jugadores.png)
 

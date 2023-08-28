@@ -1,3 +1,7 @@
-**Comando:** clear
+**Comando:** 
 
-**Descripcion:** Limpia la consola
+    clear
+
+**Descripcion:** Limpia la consola.
+
+**Condiciones:** Ninguna.

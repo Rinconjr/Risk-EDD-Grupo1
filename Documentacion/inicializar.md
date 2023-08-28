@@ -1,15 +1,18 @@
-**Comando:** inicializar <nombre_archivo>
+**Comando:**
+
+    inicializar <nombre_archivo>
 
 **Descripcion:** Se inicializa una nueva partida si no se especifica el nombre del archivo de la partida guardada. De especificarse uno se reanuda la partida.
+
+**Condiciones:** El usuario no ingrese un espacio o un vacío.
 
 **Explicacion Funcionamiento:** Para entender mejor cómo es el funcionamiento del comando inicializar, se decidió realizar el siguiente diagrama de flujo.
 
 ![Flujo_Inicializar](/Documentacion/Imagenes/Flujo%20Inicializar.png)
 
-Cabe recalcar que el usuario puede escribir salir en cualquier momento del flujo de interacción para volver al menú principal si cometió algún error, descartando los cambios realizados.
+Cabe recalcar que el usuario puede escribir **salir** en cualquier momento del flujo de interacción para volver al menú principal si cometió algún error, descartando los cambios realizados.
 
 **El comando inicializar tiene las siguientes fases:**
-
 1. Elegir nombre de la partida.
 2. Elegir tipo de partida (Normal o Mision Secreta).
 3. Elegir numero de jugadores de la partida.

@@ -1,3 +1,7 @@
-**Comando:** salir
+**Comando:** 
 
-**Descripcion:** Termina la ejecución del programa. Toda partida que no se halla guardado se perdera.
+    salir 
+
+**Descripcion:** Termina la ejecución del programa. Toda partida que no se haya guardado se perderá.
+
+**Condiciones:** Ninguna.
