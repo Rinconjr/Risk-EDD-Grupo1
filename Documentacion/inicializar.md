@@ -4,10 +4,7 @@
 
 **Explicacion Funcionamiento:** Para entender mejor cómo es el funcionamiento del comando inicializar, se decidió realizar el siguiente diagrama de flujo.
 
-<div style="text-align: center;">
-    <img src="/Documentacion/Imagenes/Flujo%20Inicializar.png" alt="Flujo Inicializar" />
-</div>
-
+![Flujo_Inicializar](/Documentacion/Imagenes/Flujo%20Inicializar.png)
 
 Cabe recalcar que el usuario puede escribir salir en cualquier momento del flujo de interacción para volver al menú principal si cometió algún error, descartando los cambios realizados.
 
@@ -24,16 +21,16 @@ Para lograr la distribución aleatoria de los países el sistema primero genera 
 
 Para representar esto mejor, se crea el siguiente diagrama el cual es el vector “vectorJugadoresIguales”:
 
-<div style="text-align: center;">
-    <img src="/Documentacion/Imagenes/Inicializar%20Vector%20tras%20encontrar.png" alt="Flujo Inicializar" />
-</div>
+<p align="center">
+  <img src="/Documentacion/Imagenes/Inicializar%20Vector%20tras%20encontrar.png" alt="FlujoSistemaDeTurnos">
+</p>
 
 En este caso, ya salieron los siguientes números aleatorios: **3,1 y 4.** Cabe mencionar que cada que se encuentre un número y se agregue a este vector, se creará el respectivo país con nombre y continentes ya guardados en otro vector.
 
 Si vuelve a salir el 3, este se rechaza porque este vector se utiliza para asegurar que todos los jugadores tengan igual cantidad de países (en los casos que sea posible). Una vez se genere el valor aleatorio 2, este se agrega al vector.
 
-<div style="text-align: center;">
-    <img src="/Documentacion/Imagenes/Inicializar%20vectorJugadoresIguales.png" alt="Flujo Inicializar" />
-</div>
+<p align="center">
+  <img src="/Documentacion/Imagenes/Inicializar%20vectorJugadoresIguales.png" alt="FlujoSistemaDeTurnos">
+</p>
 
 Una vez se encuentre que el tamaño del vector sea igual al tamaño de jugadores, a este vector se le hará .clear() para volver a iniciar el proceso de selección.
