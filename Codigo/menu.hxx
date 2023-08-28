@@ -375,24 +375,33 @@ void Menu::comando_inicializar_nueva_partida() {
     tropas_pais = 7;
   }
 
+
+  //Creacion de paises y continentes
   std::vector<int> vectorJugadoresIguales;
   for(nombreIt = nombrePaises.begin(); nombreIt != nombrePaises.end(); nombreIt++,paisIt++){
     bool t = true;
     int numeroAleatorio;
     while(t) {
+      //Genera un numero aleatorio para elegir al dueño del pais
       numeroAleatorio = (rand() % cantidad_jugadores);
 
+      //Para procurar que todos los jugadors tengan la misma cantidad de paises, (o similar),  cada vez que se elige al dueño de un pais, este se pone en un vector para que, 
+      //en caso de que salga el mismo jugador de forma aleatoria, no se le permita elegir pais hasta que todos los demas tengan la misma cantidad de paises que el
       bool tr = false;
       for (int i = 0; i < vectorJugadoresIguales.size(); ++i) {
+        //Busca al jugador en la blacklist
         if(vectorJugadoresIguales[i] == numeroAleatorio) {
           tr = true;
         }
       }
+
+      //Si el jugador no esta en la blacklist, se agrega a la misma y se le asigna un territorio
       if(!tr) {
         vectorJugadoresIguales.push_back(numeroAleatorio);
         t = false;
       }
 
+      //Si todos los jugadores tienen la misma cantidad de paises, se libera el número de los jugadores de la blacklist
       if(vectorJugadoresIguales.size() == cantidad_jugadores) {
         vectorJugadoresIguales.clear();
       }
@@ -537,17 +546,21 @@ void Menu::comando_turno(std::string comando) {
   std::vector<std::string> argumentos;
   char delimitador = ' ';
   std::string cinUsuario;
-  int inventario = 1;
-  bool continuar = false;
-  int turnoJugador = std::stoi(comando);
   std::string continenteDominado = "";
-  bool conquistoPais = false;
   std::string paisAtaque, paisDefensor;
+  int inventario, cantidadCartas;
   int duenoPaisDefensor;
-
+  int turnoJugador = std::stoi(comando);
+  bool conquistoPais = false;
+  bool continuar = false;
+  
   //Obtiene los jugadores de la partida
   std::queue<Jugador> jugadores = mipartida.ObtenerJugadores();
   Jugador jugadorTurno = jugadores.front();
+
+  //Obtiene la cantidad de cartas del jugador
+  std::vector<Carta> cartasJugador = jugadorTurno.ObtenerCartas();
+  cantidadCartas = cartasJugador.size();
 
 
   std::vector<Continente> partidaContinentes = mipartida.ObtenerContinentes();
@@ -622,7 +635,12 @@ void Menu::comando_turno(std::string comando) {
     else{
       std::cout << "3) Fortificar pais. IMPORTANTE: Es posible avanzar de fase! Ya asigno las tropas.\n";
     }
-    std::cout << "4) Canjear cartas.\n";
+    if(cantidadCartas >= 5) {
+      std::cout << "4) Ver cartas. Debes canjear tus cartas para cambiar de fase\n";
+    }
+    else {
+      std::cout << "4) Ver cartas.\n";
+    }
     std::cout << "5) Siguiente fase.\n";
     std::cout << "6) Salir.\n";
     std::cout<<"---------------------MENU TURNO-------------------------\n";
@@ -812,6 +830,14 @@ void Menu::comando_turno(std::string comando) {
       //Codigo canjear cartas
       inventario = 1;
       std::vector<Carta> cartasJugador = jugadorTurno.ObtenerCartas();
+
+      cartasJugador.push_back(Carta("Normal","Ucrania","Artilleria"));
+      cartasJugador.push_back(Carta("Normal","Venezuela","Artilleria"));
+      cartasJugador.push_back(Carta("Normal","Argentina","Artilleria"));
+      cartasJugador.push_back(Carta("Normal","Congo","Artilleria"));
+      cartasJugador.push_back(Carta("Normal","Mongolia","Caballeria"));
+      cartasJugador.push_back(Carta("Comodin","",""));
+
       std::vector<Carta>::iterator cartaIt = cartasJugador.begin();
       std::cout <<std::setw(10) << "# Carta" << std::setw(30) << "Pais" << std::setw(20) << "Tipo Carta" << std::setw(10) << "Tropa" << std::endl;
       for(cartaIt = cartasJugador.begin(); cartaIt != cartasJugador.end(); cartaIt++){
@@ -819,6 +845,241 @@ void Menu::comando_turno(std::string comando) {
         inventario++;
       }
 
+
+      std::cout << std::endl << "Opciones"<< std::endl;
+      std::cout << "1) Canjear cartas"<< std::endl;
+      std::cout << "2) Regresar"<< std::endl;
+
+      do {
+        std::cout << "Seleccione el numero de la opcion: ";
+        std::getline(std::cin, cinUsuario);
+        std::stringstream stream(cinUsuario);
+        argumentos.clear();
+
+        // while para ir guardando los argumentos en el vector
+        while (getline(stream, cinUsuario, delimitador)) {
+          argumentos.push_back(cinUsuario);    
+        }
+        // Si no ingreso nada, simplemente continua.
+        if (argumentos.empty()) {
+          continue;
+        }
+        // Verificamos si contiene solo espacios en blanco
+        else if (contieneSoloEspacios(argumentos[0])) {
+          std::cout << "Porfavor ingrese una opcion. \n";
+          continue;
+        }
+        else {
+          cinUsuario = argumentos[0];
+          
+
+          if(cinUsuario == "1") {
+            int cartasElegidas[3] = {0,0,0};
+            int cantidadSeleccionado = 0;
+
+            do {
+              bool elegido = false;
+              inventario = 1;
+              std::vector<Carta>::iterator cartaIt = cartasJugador.begin();
+              std::cout << std::endl;
+              std::cout <<std::setw(10) << "# Carta" << std::setw(30) << "Pais" << std::setw(20) << "Tipo Carta" << std::setw(10) << "Tropa" << std::setw(20) << "Elegido" << std::endl;
+              for(cartaIt = cartasJugador.begin(); cartaIt != cartasJugador.end(); cartaIt++){
+                std::cout <<std::setw(10) << inventario << ")" << std::setw(30) << cartaIt->ObtenerPais() << std::setw(20) << cartaIt->ObtenerTipo() << std::setw(10) << cartaIt->ObtenerTropa();
+                for(int i = 0; i < 3; i++) {
+                  if(inventario == cartasElegidas[i]) {
+                    std::cout << std::setw(20) << "Seleccionado";
+                  }
+                }
+                std::cout << std::endl;
+                inventario++;
+              }
+
+              do {
+                int numeroCarta;
+                std::cout << "Seleccione el numero de la carta para canjear: ";
+                std::getline(std::cin, cinUsuario);
+                std::stringstream stream(cinUsuario);
+                argumentos.clear();
+
+                // while para ir guardando los argumentos en el vector
+                while (getline(stream, cinUsuario, delimitador)) {
+                  argumentos.push_back(cinUsuario);    
+                }
+                // Si no ingreso nada, simplemente continua.
+                if (argumentos.empty()) {
+                  continue;
+                }
+                try {
+                  numeroCarta = std::stoi(cinUsuario); 
+                } 
+                catch (const std::invalid_argument& e) {
+                  std::cout << "Argumento invalido. Debe ingresar el numero de la carta. " << std::endl;
+                  continue;
+                }
+                if(numeroCarta < 0 || numeroCarta >= inventario) {
+                  std::cout << "No posees esa carta. " << std::endl;
+                  continue;
+                }
+
+                bool elegido = false;
+                for(int i = 0; i < 3; i++) {
+                  if(cartasElegidas[i] == numeroCarta && !elegido) {
+                    elegido = true;
+                    cartasElegidas[i] = 0;
+                    std::cout << "Se ha deseleccionado la carta";
+                    cantidadSeleccionado--;
+                    break;
+                  }
+                }
+                if(!elegido) {
+                  for(int i = 0; i < 3; i++) {
+                    if(cartasElegidas[i] == 0 && !elegido) {
+                      elegido == true;
+                      cartasElegidas[i] = numeroCarta;
+                      std::cout << "Se ha seleccionado la carta";
+                      cantidadSeleccionado++;
+                      break;
+                    }
+                  }
+                }
+                continuar = true;
+              }
+              while (!continuar);
+              continuar = false;
+
+              if(cantidadSeleccionado == 3) {
+                continuar = true;
+              }
+            }
+            while(!continuar);
+
+            std::cout <<"Se han seleccionado las siguientes cartas de la baraja: " << std::endl;
+
+            for(int i = 0; i < 3; i++) {
+              std::cout << cartasElegidas[i] << std::endl;
+            }
+
+            //Comprobar si son canjeables
+            std::vector<Carta> cartasCanjear;
+            std::string tipoCarta = "";
+
+            for(int i = 0; i < 3; i++) {
+              inventario = 1;
+              std::vector<Carta>::iterator cartaIt = cartasJugador.begin();
+              
+              for(cartaIt = cartasJugador.begin(); cartaIt != cartasJugador.end(); cartaIt++){
+                
+                if(inventario == cartasElegidas[i]) {
+                  if(cartaIt->ObtenerTipo() == "Comodin") {
+                    cartasCanjear.push_back(*cartaIt);
+                  }
+                  else if(cartaIt->ObtenerTipo() == "Normal" && (cartaIt->ObtenerTropa() == tipoCarta || tipoCarta == "")) {
+                    tipoCarta = cartaIt->ObtenerTropa();
+                    cartasCanjear.push_back(*cartaIt);
+                  }
+                }
+                inventario++;
+              }
+            }
+
+            if(cartasCanjear.size() != 3) {
+              std::cout << "Las cartas elegidas no pueden ser canjeadas" << std::endl;
+              continuar = true;
+            }
+            else {
+              std::cout << "Las cartas elegidas SI pueden ser canjeadas" << std::endl;
+
+              //Se ponen las cartas de vuelta a la partida
+              std::vector<Carta>::iterator cartarCanjIt = cartasCanjear.begin();
+              std::vector<Carta>barajaPartida = mipartida.ObtenerCartas();
+              for(cartarCanjIt = cartasCanjear.begin(); cartarCanjIt != cartasCanjear.end(); cartarCanjIt++){ 
+                barajaPartida.push_back(*cartarCanjIt);
+              }
+              mipartida.FijarCartas(barajaPartida);
+
+              //Se eliminan las cartas en el jugador
+              std::vector<Carta> cartasActualizadas;
+              tipoCarta = "";
+              
+              inventario = 1;
+              cartaIt = cartasJugador.begin();
+                
+              for(cartaIt = cartasJugador.begin(); cartaIt != cartasJugador.end(); cartaIt++){
+                bool esta = false;
+                for(int i = 0; i < 3; i++) {
+                  if(inventario == cartasElegidas[i]) {
+                    esta = true;
+                  }
+                }
+                if(!esta) {
+                  cartasActualizadas.push_back(*cartaIt);
+                }
+                inventario++;
+              }
+              //jugadorTurno.FijarCartas(cartasActualizadas);
+
+              //Obtenemos la bonificacion por sets tradeados
+              int bonificacion = mipartida.ObtenersetsTradeados();
+              if(bonificacion == 0) {
+                bonificacion = 4;
+              }
+              else if(bonificacion == 1) {
+                bonificacion = 6;
+              }
+              else if(bonificacion == 2) {
+                bonificacion = 8;
+              }
+              else if(bonificacion == 3) {
+                bonificacion = 10;
+              }
+              else if(bonificacion == 4) {
+                bonificacion = 12;
+              }
+              else {
+                bonificacion -= 5;
+                bonificacion = 15 + (5*bonificacion);
+              }
+
+              mipartida.FijarsetsTradeados(mipartida.ObtenersetsTradeados()+1);
+
+              //Comprobar si en algunas de las cartas elegidas, el usuario es dueño de alguna
+
+              for(continentIt = partidaContinentes.begin(); continentIt != partidaContinentes.end(); continentIt++){
+                std::vector<Pais> partidaPais = continentIt->ObtenerPaises();
+                std::vector<Pais>::iterator partidaPaisIt = partidaPais.begin();
+
+                for(partidaPaisIt = partidaPais.begin(); partidaPaisIt != partidaPais.end(); partidaPaisIt++){
+                  if(partidaPaisIt->ObtenerDueno() == turnoJugador ) {
+                    cartarCanjIt = cartasCanjear.begin();
+                    for(cartarCanjIt = cartasCanjear.begin(); cartarCanjIt != cartasCanjear.end(); cartarCanjIt++){
+                      if(cartarCanjIt->ObtenerPais() == partidaPaisIt->ObtenerNombre()) {
+                        std::cout << "Obtienes una bonificacion extra de 2 tropas por la carta de " << cartarCanjIt->ObtenerPais() << ". Las tropas han sido añadidas al pais" << std::endl;
+                        partidaPaisIt->FijarCantidadTropas(partidaPaisIt->ObtenerCantidadTropas() +2);
+                        continentIt->FijarPaises(partidaPais);
+                        mipartida.FijarContinentes(partidaContinentes);
+                      }
+                    }
+                  }
+                }
+              }
+
+              std::cout << "Has recibido una bonificacion de " << bonificacion << " tropas por las cartas, ahora ubicalas en tus putos territorios. Estoy estresado" << std::endl;
+              sumarTropas += bonificacion;
+
+              continuar = false;
+            } 
+          }
+          else if(cinUsuario == "2") {
+            continuar = true;
+          }
+          else {
+            std::cout << "La opcion no existe. \n";
+            continue;
+          }
+        }
+      }
+      while (!continuar);
+      continuar = false;
     }
     //Seguir de fase
     else if(cinUsuario == "5") {
