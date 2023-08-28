@@ -14,9 +14,9 @@ Si el turno de jugador es correcto, se ejecutan las tres fases correspondientes 
 
 Cada que un jugador sea eliminado de la partida, este se elimina de la cola de jugadores y el único jugador que quede en la cola será el ganador de la partida.
 
-![Jugadores2Y3Eliminados](/Documentacion/Imagenes/Jugadores%202%20y%203.png)
-
-![Jugador4Ganador](/Documentacion/Imagenes/Jugador%204.png)
+<p align="center">
+  <img src="/Documentacion/Imagenes/Jugadores%202%20y%203.png" alt="FlujoSistemaDeTurnos">
+</p>
 
 <p align="center">
   <img src="/Documentacion/Imagenes/Jugador 4.png" alt="FlujoSistemaDeTurnos">
