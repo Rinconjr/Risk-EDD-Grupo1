@@ -625,7 +625,6 @@ void Menu::comando_turno(std::string comando) {
       std::cout << "Usted tiene una bonificacion de tropas por dominar el continente '" << continenteDominado << "'." << std::endl;
     }
     
-
     std::cout << "Fase 1 - Obtener nuevas unidades!" << std::endl << std::setw(30) << "Opciones\n";
     std::cout << "1) Ver todos los paises.\n";
     std::cout << "2) Ver mis paises.\n";
@@ -636,7 +635,7 @@ void Menu::comando_turno(std::string comando) {
       std::cout << "3) Fortificar pais. IMPORTANTE: Es posible avanzar de fase! Ya asigno las tropas.\n";
     }
     if(cantidadCartas >= 5) {
-      std::cout << "4) Ver cartas. Debes canjear tus cartas para cambiar de fase\n";
+      std::cout << "4) Ver cartas.\n";
     }
     else {
       std::cout << "4) Ver cartas.\n";
@@ -832,12 +831,14 @@ void Menu::comando_turno(std::string comando) {
       std::vector<Carta> cartasJugador = jugadorTurno.ObtenerCartas();
       std::vector<Carta>::iterator cartaIt = cartasJugador.begin();
       
+      /*
       cartasJugador.push_back(Carta("Normal","Ucrania","Artilleria"));
       cartasJugador.push_back(Carta("Normal","Venezuela","Artilleria"));
       cartasJugador.push_back(Carta("Normal","Argentina","Artilleria"));
       cartasJugador.push_back(Carta("Normal","Congo","Artilleria"));
       cartasJugador.push_back(Carta("Normal","Mongolia","Caballeria"));
       cartasJugador.push_back(Carta("Comodin","",""));
+      */
       
 
       std::cout<<"\n";
@@ -2216,7 +2217,7 @@ void Menu::imagen_risk(){
   std::cout << "                                          &@(                                                                                                         \n";
   std::cout << "                                          &@(                                                                                                         \n";
   std::cout << "                                                                                                                                                      \n";
-  std::cout << "                                                              Version 0.0.7                                                                           \n";
+  std::cout << "                                                              Version 0.1.0                                                                           \n";
   std::cout << "------------------------------------------------------------------------------------------------------------------------------------------------------\n";
 }
 
