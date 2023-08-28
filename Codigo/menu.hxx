@@ -830,13 +830,14 @@ void Menu::comando_turno(std::string comando) {
       //Codigo canjear cartas
       inventario = 1;
       std::vector<Carta> cartasJugador = jugadorTurno.ObtenerCartas();
-
+      /*
       cartasJugador.push_back(Carta("Normal","Ucrania","Artilleria"));
       cartasJugador.push_back(Carta("Normal","Venezuela","Artilleria"));
       cartasJugador.push_back(Carta("Normal","Argentina","Artilleria"));
       cartasJugador.push_back(Carta("Normal","Congo","Artilleria"));
       cartasJugador.push_back(Carta("Normal","Mongolia","Caballeria"));
       cartasJugador.push_back(Carta("Comodin","",""));
+      */
 
       std::vector<Carta>::iterator cartaIt = cartasJugador.begin();
       std::cout <<std::setw(10) << "# Carta" << std::setw(30) << "Pais" << std::setw(20) << "Tipo Carta" << std::setw(10) << "Tropa" << std::endl;
@@ -844,7 +845,6 @@ void Menu::comando_turno(std::string comando) {
         std::cout <<std::setw(10) << inventario << ")" << std::setw(30) << cartaIt->ObtenerPais() << std::setw(20) << cartaIt->ObtenerTipo() << std::setw(10) << cartaIt->ObtenerTropa() << std::endl;
         inventario++;
       }
-
 
       std::cout << std::endl << "Opciones"<< std::endl;
       std::cout << "1) Canjear cartas"<< std::endl;
@@ -1063,7 +1063,7 @@ void Menu::comando_turno(std::string comando) {
                 }
               }
 
-              std::cout << "Has recibido una bonificacion de " << bonificacion << " tropas por las cartas, ahora ubicalas en tus putos territorios. Estoy estresado" << std::endl;
+              std::cout << "Has recibido una bonificacion de " << bonificacion << " tropas por las cartas. Ahora ubicalas en tus territorios." << std::endl;
               sumarTropas += bonificacion;
 
               continuar = false;
