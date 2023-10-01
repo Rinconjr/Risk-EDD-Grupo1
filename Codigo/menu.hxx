@@ -25,6 +25,7 @@
 #include <iomanip>
 #include <algorithm> // Necesario para std::shuffle
 #include <random> 
+#include <fstream>
 
 //************************************************************************
 // FIN - LIBRERIAS
@@ -2123,10 +2124,141 @@ void Menu::comando_turno(std::string comando) {
 
 //Con esta función se guarda la partida
 void Menu::comando_guardar(std::string nombreArchivo) {
-  std::cout << " Dentro del comando 'guardar'.\n";
-  std::cout << "  Si el comando fue correcto: La partida ha sido guardada correctamente con el nombre de archivo: '" << nombreArchivo << "'.\n";
-  std::cout << "  Si no hay ningun juego inicializado: Esta partida no ha sido inicializada correctamente.\n";
-  std::cout << "  Si hubo algun error al guardar: La partida no ha sido guardada correctamente.\n";
+  //Si deseas ver el json, ejecuta el codigo y pegalo en la consola de inspeccionar de un navegador
+  if(mipartida.ObtenerNombre() != "") {
+    std::cout << "Guardando partida...\n";
+    std::string json = "{";
+
+    //nombre a JSON
+    json += "\"nombre\": \""+mipartida.ObtenerNombre()+"\",";
+
+    //tipo a JSON
+    json += "\"tipo\": \""+mipartida.ObtenerTipoPartida()+"\",";
+
+    //setsTradeados a JSON
+    json += "\"setsTradeados\": \""+std::to_string(mipartida.ObtenersetsTradeados())+"\",";
+
+    //lista de continentes a JSON
+    json += "\"continentes\": [";
+
+    std::vector<Continente> partidaContinentes = mipartida.ObtenerContinentes();
+    std::vector<Continente>::iterator continentIt = partidaContinentes.begin();
+
+    for(continentIt = partidaContinentes.begin(); continentIt != partidaContinentes.end(); continentIt++){
+      //Continente a JSON
+      std::string continenteJSON = "{";
+      continenteJSON += "\"nombre\": \""+continentIt->ObtenerNombre() +"\",";
+      continenteJSON += "\"tropas adicionales\": \""+ std::to_string(continentIt->ObtenerTropasAdicionales())+ "\",";
+      continenteJSON += "\"bonificacion\": \""+ std::to_string(continentIt->ObtenerBonificacion())+ "\",";
+      
+      //Lista de paises del continente a JSON
+      continenteJSON += "\"paises\": [";
+      
+      std::vector<Pais> partidaPais = continentIt->ObtenerPaises();
+      std::vector<Pais>::iterator partidaPaisIt = partidaPais.begin();
+
+      for(partidaPaisIt = partidaPais.begin(); partidaPaisIt != partidaPais.end(); partidaPaisIt++){
+        //Pais JSON
+        std::string paisesJSON = "{";
+        paisesJSON += "\"nombre\": \""+partidaPaisIt->ObtenerNombre() +"\",";
+        paisesJSON += "\"cantidadTropas\": \""+ std::to_string(partidaPaisIt->ObtenerCantidadTropas()) +"\",";
+        paisesJSON += "\"dueno\": \""+ std::to_string(partidaPaisIt->ObtenerDueno()) +"\"";
+        continenteJSON += paisesJSON + "},";
+      }
+      continenteJSON.pop_back();
+      continenteJSON += "]";
+      continenteJSON += " },";
+      
+      json += continenteJSON;
+    }
+    
+    json.pop_back();
+
+    json += "],";
+
+    //lista de jugadores a JSON
+    json += "\"jugadores\": [";
+
+    std::queue<Jugador> jugadores = mipartida.ObtenerJugadores();
+
+    for(int i = 0; i < jugadores.size(); i++) {
+      Jugador jugadorTurno = jugadores.front();
+      jugadores.pop();
+      jugadores.push(jugadorTurno);
+
+      //jugador a JSON
+      std::string jugadorJSON = "{";
+      std::string estado = jugadorTurno.ObtenerEstado() ? "true": "false";
+        
+      jugadorJSON += "\"id\": \""+ std::to_string(jugadorTurno.ObtenerId()) +"\",";
+      jugadorJSON += "\"estado\": \""+ estado +"\",";
+      jugadorJSON += "\"color\": \""+ jugadorTurno.ObtenerColor()+"\",";
+        
+      //Lista de cartas del jugador a JSON
+      jugadorJSON += "\"cartas\": [ ";
+
+      std::vector<Carta> cartasJugador = jugadorTurno.ObtenerCartas();
+      std::vector<Carta>::iterator cartaIt = cartasJugador.begin();
+      for(cartaIt = cartasJugador.begin(); cartaIt != cartasJugador.end(); cartaIt++){
+        //carta a JSON
+        std::string cartasJugadorJSON = "{";
+        cartasJugadorJSON += "\"tipo\": \""+ cartaIt->ObtenerTipo()+"\",";
+        cartasJugadorJSON += "\"pais\": \""+ cartaIt->ObtenerPais()+"\",";
+        cartasJugadorJSON += "\"tropa\": \""+ cartaIt->ObtenerTropa()+"\"";
+        cartasJugadorJSON += "},";
+          
+        jugadorJSON += cartasJugadorJSON;
+      }
+      jugadorJSON.pop_back();
+        
+      jugadorJSON += "]";
+      jugadorJSON += "},";
+      json += jugadorJSON;
+    }
+
+    json.pop_back();
+    json += "],";
+
+    //lista de cartas a JSON
+    json += "\"cartas\": [";
+
+    std::vector<Carta> cartas = mipartida.ObtenerCartas();
+    std::vector<Carta>::iterator cartaIt = cartas.begin();
+    for(cartaIt = cartas.begin(); cartaIt != cartas.end(); cartaIt++){
+      //carta a JSON
+      std::string cartasJSON = "{";
+      cartasJSON += "\"tipo\": \""+ cartaIt->ObtenerTipo()+"\",";
+      cartasJSON += "\"pais\": \""+ cartaIt->ObtenerPais()+"\",";
+      cartasJSON += "\"tropa\": \""+ cartaIt->ObtenerTropa()+"\"";
+      cartasJSON += "},";
+          
+      json += cartasJSON;
+    }
+
+    json.pop_back();
+    json += "]}";
+
+    // Abrir el archivo para escribir
+    std::string partidaTextoPlano = nombreArchivo + ".json";
+    std::ofstream archivoSalida(nombreArchivo);
+
+    // Verificar si se abrió correctamente
+    if (!archivoSalida) {
+      std::cerr << "No se pudo guardar la partida." << std::endl;
+    }
+    else {
+      // Escribir datos en el archivo
+      archivoSalida << json;
+
+      // Cerrar el archivo
+      archivoSalida.close();
+
+      std::cout << "Se ha guardado la partida." << std::endl;
+    }
+  }
+  else {
+    std::cout << "debe crear o cargar una partida para guardarla\n";
+  }
   std::cout << " Presione enter para continuar.";
   std::cin.ignore();
 }
