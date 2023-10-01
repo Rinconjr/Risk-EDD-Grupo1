@@ -27,6 +27,7 @@
 #include <random> 
 #include <fstream>
 
+
 //************************************************************************
 // FIN - LIBRERIAS
 //************************************************************************
@@ -537,7 +538,36 @@ void Menu::comando_inicializar_nueva_partida() {
 
 //Mediante esta función se vuelve cargar un juego que ya exista previamente
 void Menu::comando_inicializar_existente(std::string comando) {
-  std::cout << " Inicializar partida existente (En construccion).\n";
+    
+  // Comprobamos si se encontró la cadena y si está al final del string (para json cuanta los ultimos 5 caracteres, para zip los ultimos 4)
+  if (comando.rfind(".json") != std::string::npos && comando.rfind(".json") == comando.length() - 5) {
+    std::cout << "Abriendo archivo json\n";
+    std::ifstream archivo(comando);
+
+    // Verifica si el archivo se abrió correctamente
+    if (!archivo.is_open()) {
+      std::cerr << "No se pudo abrir el archivo: " << comando << std::endl;
+      return;
+    }
+
+    // Lee y muestra el contenido del archivo línea por línea
+    std::string linea;
+    while (std::getline(archivo, linea)) {
+      std::cout << linea << std::endl;
+    }
+    // Cierra el archivo
+    archivo.close();
+  } 
+  else if(comando.rfind(".zip") != std::string::npos && comando.rfind(".zip") == comando.length() - 4) {
+    std::cout << "Abriendo archivo zip\n";
+  } 
+  else {
+    std::cout << " El archivo no es compatible con RISK.";
+    std::cout << " Presione enter para continuar.";
+    std::cin.ignore();
+    return;
+  }
+  
   std::cout << " Presione enter para continuar.";
   std::cin.ignore();
 }
