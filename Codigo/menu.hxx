@@ -552,9 +552,385 @@ void Menu::comando_inicializar_existente(std::string comando) {
 
     // Lee y muestra el contenido del archivo línea por línea
     std::string linea;
-    while (std::getline(archivo, linea)) {
-      std::cout << linea << std::endl;
+    std::getline(archivo, linea);
+
+    //Busca y asigna el nombre de la partida
+    size_t posicionTipo = linea.find("\"nombre\":");
+    size_t posicionInicio = linea.find(' ', posicionTipo);
+    size_t posicionFinal = linea.find(',', posicionInicio);
+    mipartida.FijarNombre(linea.substr(posicionInicio + 2, posicionFinal - posicionInicio -3));
+    
+    //Busca y asigna el tipo de partida
+    posicionTipo = linea.find("\"tipo\":");
+    posicionInicio = linea.find(' ', posicionTipo);
+    posicionFinal = linea.find(',', posicionInicio);
+    mipartida.FijarTipoJuego(linea.substr(posicionInicio + 2, posicionFinal - posicionInicio -3));
+
+    //Busca y asigna la cantidad de sets tradeados
+    posicionTipo = linea.find("\"setsTradeados\":");
+    posicionInicio = linea.find(' ', posicionTipo);
+    posicionFinal = linea.find(',', posicionInicio);
+    mipartida.FijarsetsTradeados(std::stoi(linea.substr(posicionInicio + 2, posicionFinal - posicionInicio -3)));
+
+    //Obtiene solo el contenido de la llave continentes, delimitado por [ ]
+    std::string continentes = "";
+    int contador = 0;
+    posicionTipo = linea.find("\"continentes\":");
+    posicionInicio = linea.find('[', posicionTipo);
+    for(int i = posicionInicio; i < linea.length(); i++) {
+      continentes += linea[i];
+      if (linea[i] == '[') {
+        contador++;
+      }
+      else if(linea[i] == ']') {
+        contador--;
+        if(contador == 0) {
+          break;
+        } 
+      }
     }
+
+    //Esta seccion es para obtener todo de cada continente
+    std::string continentea = "";
+    std::vector<Continente> continentesPartida;
+    int cont1 = 0;
+    int cont2 = 0;
+
+    //Recorre el contenido de la llave continente
+    for(char c : continentes) {
+      
+      if(c == '[') {
+        cont1++;
+      }
+      else if(c == ']') {
+        cont1--;
+      }
+      else if(c == '{') {
+        cont2++;
+      }
+      else if(c == '}') {
+        cont2--;
+      }
+      if(cont1 == 1 && cont2 == 0) {
+        continentea += '}';
+
+        //Se ejecuta para cada elemento de la llave continente, este if es para cada continente
+        if(continentea.length() != 1) {
+          Continente agregarContinente;
+
+          //Busca y asigna el nombre del continente
+          posicionTipo = continentea.find("\"nombre_continente\":");
+          posicionInicio = continentea.find(' ', posicionTipo+1);
+          posicionFinal = continentea.find(',', posicionInicio);
+          agregarContinente.FijarNombre(continentea.substr(posicionInicio + 2, posicionFinal - posicionInicio -3));
+
+          //Busca y asigna las tropas adicionales del continente
+          posicionTipo = continentea.find("\"tropas_adicionales\":");
+          posicionInicio = continentea.find(' ', posicionTipo);
+          posicionFinal = continentea.find(',', posicionInicio);
+          agregarContinente.FijarTropasAdicionales(std::stoi(continentea.substr(posicionInicio + 2, posicionFinal - posicionInicio -3)));
+
+          //Busca y asigna la bonificacion del continente
+          posicionTipo = continentea.find("\"bonificacion\":");
+          posicionInicio = continentea.find(' ', posicionTipo);
+          posicionFinal = continentea.find(',', posicionInicio);
+          agregarContinente.FijarBonificacion(std::stoi(continentea.substr(posicionInicio + 2, posicionFinal - posicionInicio -3)));
+
+          //std::cout << "\nContinente: " << agregarContinente.ObtenerNombre()<< std::endl;
+          //std::cout << "Tropas adicionales: " << agregarContinente.ObtenerTropasAdicionales() << std::endl;
+          //std::cout << "Bonificacion: "<< agregarContinente.ObtenerBonificacion() << std::endl;
+          //std::cout  << continentea << std::endl<< std::endl;
+
+          //Obtiene solo el contenido de la llave paises, delimitado por [ ]
+          std::string paisesContinente = "";
+          contador = 0;
+          posicionTipo = continentea.find("\"paises\":");
+          posicionInicio = continentea.find('[', posicionTipo);
+          for(int i = posicionInicio; i < continentea.length(); i++) {
+            paisesContinente += continentea[i];
+            if (continentea[i] == '[') {
+              contador++;
+            }
+            else if(continentea[i] == ']') {
+              contador--;
+              if(contador == 0) {
+                break;
+              } 
+            }
+          }
+          //std::cout << paisesContinente << std::endl<< std::endl;
+          
+          std::string pais = "";
+          std::vector<Pais> vecPaisesContinente;
+          Pais paisContinente;
+          
+          int conta1 = 0;
+          int conta2 = 0;
+          //Recorre el contenido de la llave oais
+          for(char c : paisesContinente) {
+            if(c == '[') {
+              conta1++;
+            }
+            else if(c == ']') {
+              conta1--;
+            }
+            else if(c == '{') {
+              conta2++;
+            }
+            else if(c == '}') {
+              conta2--;
+            }
+            if(conta1 == 1 && conta2 == 0) {
+              pais += "}";
+
+              //Se ejecuta para cada pais
+              if(pais.length() != 1) {
+
+                //Busca y asigna el nombre del pais
+                posicionTipo = pais.find("\"nombre\":");
+                posicionInicio = pais.find(' ', posicionTipo);
+                posicionFinal = pais.find(',', posicionInicio);
+                paisContinente.FijarNombre(pais.substr(posicionInicio + 2, posicionFinal - posicionInicio -3));
+
+                //Busca y asigna la cantidad de tropas del pais
+                posicionTipo = pais.find("\"cantidadTropas\":");
+                posicionInicio = pais.find(' ', posicionTipo);
+                posicionFinal = pais.find(',', posicionInicio);
+                paisContinente.FijarCantidadTropas(std::stoi(pais.substr(posicionInicio + 2, posicionFinal - posicionInicio -3)));
+
+                //Busca y asigna el dueno del pais
+                posicionTipo = pais.find("\"dueno\":");
+                posicionInicio = pais.find(' ', posicionTipo);
+                posicionFinal = pais.find(',', posicionInicio);
+                paisContinente.FijarDueno(std::stoi(pais.substr(posicionInicio + 2, posicionFinal - posicionInicio -3)));
+                
+                //std::cout << paisContinente.ObtenerNombre() << "-" << paisContinente.ObtenerCantidadTropas() << "-" << paisContinente.ObtenerDueno() << std::endl;
+                vecPaisesContinente.push_back(paisContinente);
+
+              }
+              pais = "";
+            }
+            else {
+              pais += c;
+            }
+          }
+
+          /*
+          std::vector<Pais>::iterator aIt = vecPaisesContinente.begin();
+          for(aIt = vecPaisesContinente.begin(); aIt != vecPaisesContinente.end(); aIt++){
+            std::cout << "Pais: " << aIt->ObtenerNombre() << ":" << aIt->ObtenerCantidadTropas() << ":" << aIt->ObtenerDueno() << std::endl;
+          }
+          */
+          
+          //Fija el vector de paises al continente que vamos a añadir, y lo empuja al vector de continentes que luego se subiran a mipartida
+          agregarContinente.FijarPaises(vecPaisesContinente);
+          continentesPartida.push_back(agregarContinente);
+        }
+        continentea = "";
+      }
+      else {
+        continentea += c;
+      }
+    }
+
+    //Se suben los continentes a la partida
+    mipartida.FijarContinentes(continentesPartida);
+
+    /* REVISAR QUE SE INSERTAN TODOS LOS CONTINENTES
+    std::vector<Continente> partidaContinentes = mipartida.ObtenerContinentes();
+    std::vector<Continente>::iterator continentIt = partidaContinentes.begin();
+
+    int inventario = 1;
+
+    std::cout<<"\n----------------------------------------------PAISES PARTIDA--------------------------------------------------";
+    std::cout << std::endl << std::setw(20) << "Continentes" << std::setw(30) << "Pais" << std::setw(30) << "Cantidad de tropas" << std::setw(30) << "Dueno" << std::endl;
+
+    for(continentIt = partidaContinentes.begin(); continentIt != partidaContinentes.end(); continentIt++){
+      std::vector<Pais> partidaPais = continentIt->ObtenerPaises();
+      std::vector<Pais>::iterator partidaPaisIt = partidaPais.begin();
+
+      for(partidaPaisIt = partidaPais.begin(); partidaPaisIt != partidaPais.end(); partidaPaisIt++){
+        std::cout << std::setw(2) << inventario << ") " << std::setw(20) << continentIt->ObtenerNombre() << std::setw(30) << partidaPaisIt->ObtenerNombre() << std::setw(25) << partidaPaisIt->ObtenerCantidadTropas() << std::setw(30) << partidaPaisIt->ObtenerDueno()<< std::endl;
+        inventario++;
+      }
+    }
+    */
+
+    //Esta seccion es para obtener todo de las cartas de la partida (Las que no se han asignado a jugadores)
+    //Obtiene solo el contenido de la llave cartas_partida, delimitado por [ ]
+    std::string cartas = "";
+    std::vector<Carta> miPartidaCartas;
+    contador = 0;
+    posicionTipo = linea.find("\"cartas_partida\":");
+    posicionInicio = linea.find('[', posicionTipo);
+    for(int i = posicionInicio; i < linea.length(); i++) {
+      cartas += linea[i];
+      if (linea[i] == '[') {
+        contador++;
+      }
+      else if(linea[i] == ']') {
+        contador--;
+        if(contador == 0) {
+          break;
+        } 
+      }
+    }
+    std::string carta = "";
+    int conta1 = 0;
+    int conta2 = 0;
+
+    //Recorre el contenido de la llave cartas_partida
+    for(char c : cartas) {
+      if(c == '[') {
+        conta1++;
+      }
+      else if(c == ']') {
+        conta1--;
+      }
+      else if(c == '{') {
+        conta2++;
+      }
+      else if(c == '}') {
+        conta2--;
+      }
+      if(conta1 == 1 && conta2 == 0) {
+        carta += '}';
+
+        //Se ejecuta para cada carta
+        if(carta.length() != 1) {
+          Carta card;
+
+          //Busca y asigna el tipo de carta
+          posicionTipo = carta.find("\"tipo\":");
+          posicionInicio = carta.find(' ', posicionTipo);
+          posicionFinal = carta.find(',', posicionInicio);
+          card.FijarTipo(carta.substr(posicionInicio + 2, posicionFinal - posicionInicio -3));
+
+          //Busca y asigna el pais de la carta
+          posicionTipo = carta.find("\"pais\":");
+          posicionInicio = carta.find(' ', posicionTipo);
+          posicionFinal = carta.find(',', posicionInicio);
+          card.FijarPais(carta.substr(posicionInicio + 2, posicionFinal - posicionInicio -3));
+
+          //Busca y asigna la tropa de la carta
+          posicionTipo = carta.find("\"tropa\":");
+          posicionInicio = carta.find(' ', posicionTipo);
+          posicionFinal = carta.find('}', posicionInicio);
+          card.FijarTropa(carta.substr(posicionInicio + 2, posicionFinal - posicionInicio -3));
+
+          //std::cout << card.ObtenerTipo() << ":" << card.ObtenerPais() << ":" << card.ObtenerTropa() << std::endl;
+
+          //Añade las cartas al vector de cartas que luego se añadiran a la partida
+          miPartidaCartas.push_back(card);
+        }
+        carta = "";
+      }
+      else {
+        carta += c;
+      }
+    }
+    //Añade las cartas a mipartida
+    mipartida.FijarCartas(miPartidaCartas);
+
+    /* REVISAR QUE SE INSERTAN TODAS LAS CARTAS
+    std::vector<Carta> partidaCartas = mipartida.ObtenerCartas();
+    std::vector<Carta>::iterator cardIt = partidaCartas.begin();
+
+    int inventario = 1;
+
+    std::cout<<"\n----------------------------------------------PAISES PARTIDA--------------------------------------------------";
+    std::cout << std::endl << std::setw(20) << "Tipo carta" << std::setw(30) << "Pais" << std::setw(30) << "tropa" << std::endl;
+
+    for(cardIt = partidaCartas.begin(); cardIt != partidaCartas.end(); cardIt++){
+      std::cout << std::setw(2) << inventario << ") " << std::setw(20) << cardIt->ObtenerTipo() << std::setw(30) << cardIt->ObtenerPais() << std::setw(25) << cardIt->ObtenerTropa() << std::endl;
+      inventario++;
+    }
+    */
+
+  //Esta seccion es para obtener todo de los jugadores
+  //Obtiene solo el contenido de la llave jugadores, delimitado por [ ]
+   std::string jugadores = "";
+    contador = 0;
+    posicionTipo = linea.find("\"jugadores\":");
+    posicionInicio = linea.find('[', posicionTipo);
+    for(int i = posicionInicio; i < linea.length(); i++) {
+      jugadores += linea[i];
+      if (linea[i] == '[') {
+        contador++;
+      }
+      else if(linea[i] == ']') {
+        contador--;
+        if(contador == 0) {
+          break;
+        } 
+      }
+    }
+    std::string jugador = "";
+    std::queue<Jugador> miPartidaJugadores;
+    conta1 = 0;
+    conta2 = 0;
+
+    //Recorre el contenido de la llave jugadores
+    for(char c : jugadores) {
+      if(c == '[') {
+        conta1++;
+      }
+      else if(c == ']') {
+        conta1--;
+      }
+      else if(c == '{') {
+        conta2++;
+      }
+      else if(c == '}') {
+        conta2--;
+      }
+      if(conta1 == 1 && conta2 == 0) {
+        jugador += '}';
+
+        //Se ejecuta para cada jugador
+        if(jugador.length() != 1) {
+          Jugador player;
+
+          //Busca y asigna el id del jugador
+          posicionTipo = jugador.find("\"id\":");
+          posicionInicio = jugador.find(' ', posicionTipo);
+          posicionFinal = jugador.find(',', posicionInicio);
+          player.FijarId(std::stoi(jugador.substr(posicionInicio + 2, posicionFinal - posicionInicio -3)));
+
+          //Busca y asigna el estado del jugador
+          posicionTipo = jugador.find("\"estado\":");
+          posicionInicio = jugador.find(' ', posicionTipo);
+          posicionFinal = jugador.find(',', posicionInicio);
+          if("false" == jugador.substr(posicionInicio + 2, posicionFinal - posicionInicio -3)) {
+            player.FijarEstado(false);
+          }
+          else {
+            player.FijarEstado(true);
+          }
+
+          //Busca y asigna el color del jugador
+          posicionTipo = jugador.find("\"color\":");
+          posicionInicio = jugador.find(' ', posicionTipo);
+          posicionFinal = jugador.find(',', posicionInicio);
+          player.FijarColor(jugador.substr(posicionInicio + 2, posicionFinal - posicionInicio -3));
+          
+          //std::cout <<"jugador) "<< player.ObtenerId() << ":" << player.ObtenerEstado() << ":" << player.ObtenerColor() << std::endl;
+
+          //TODO: FALTA LA PARTE DE CARGAR LAS CARTAS DEL JUGADOR
+
+          //Lo añade a un queue de jugadores que luego se añadira a la partida
+          miPartidaJugadores.push(player);
+        }
+        
+        jugador = "";
+      }
+      else {
+        jugador += c;
+      }
+    }
+    //Añade los jugadores a la partida
+    mipartida.FijarJugadores(miPartidaJugadores);
+
     // Cierra el archivo
     archivo.close();
   } 
@@ -2177,8 +2553,8 @@ void Menu::comando_guardar(std::string nombreArchivo) {
     for(continentIt = partidaContinentes.begin(); continentIt != partidaContinentes.end(); continentIt++){
       //Continente a JSON
       std::string continenteJSON = "{";
-      continenteJSON += "\"nombre\": \""+continentIt->ObtenerNombre() +"\",";
-      continenteJSON += "\"tropas adicionales\": \""+ std::to_string(continentIt->ObtenerTropasAdicionales())+ "\",";
+      continenteJSON += "\"nombre_continente\": \""+continentIt->ObtenerNombre() +"\",";
+      continenteJSON += "\"tropas_adicionales\": \""+ std::to_string(continentIt->ObtenerTropasAdicionales())+ "\",";
       continenteJSON += "\"bonificacion\": \""+ std::to_string(continentIt->ObtenerBonificacion())+ "\",";
       
       //Lista de paises del continente a JSON
@@ -2250,7 +2626,7 @@ void Menu::comando_guardar(std::string nombreArchivo) {
     json += "],";
 
     //lista de cartas a JSON
-    json += "\"cartas\": [";
+    json += "\"cartas_partida\": [";
 
     std::vector<Carta> cartas = mipartida.ObtenerCartas();
     std::vector<Carta>::iterator cartaIt = cartas.begin();
