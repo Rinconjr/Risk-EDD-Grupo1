@@ -2644,12 +2644,8 @@ void Menu::comando_turno(std::string comando) {
   std::cin.ignore();
 }
 
-//Con esta función se guarda la partida
-void Menu::comando_guardar(std::string nombreArchivo) {
-  //Si deseas ver el json, ejecuta el codigo y pegalo en la consola de inspeccionar de un navegador
-  if(mipartida.ObtenerNombre() != "") {
-    std::cout << "Guardando partida...\n";
-    std::string json = "{";
+std::string partida_a_JSON() {
+  std::string json = "{";
 
     //nombre a JSON
     json += "\"nombre\": \""+mipartida.ObtenerNombre()+"\",";
@@ -2759,6 +2755,16 @@ void Menu::comando_guardar(std::string nombreArchivo) {
 
     json.pop_back();
     json += "]}";
+    return json;
+}
+
+//Con esta función se guarda la partida
+void Menu::comando_guardar(std::string nombreArchivo) {
+  //Si deseas ver el json, ejecuta el codigo y pegalo en la consola de inspeccionar de un navegador
+  if(mipartida.ObtenerNombre() != "") {
+    std::cout << "Guardando partida...\n";
+    std::string partidaJSON = partida_a_JSON();
+    
 
     // Abrir el archivo para escribir
     std::string partidaTextoPlano = nombreArchivo + ".json";
@@ -2770,12 +2776,13 @@ void Menu::comando_guardar(std::string nombreArchivo) {
     }
     else {
       // Escribir datos en el archivo
-      archivoSalida << json;
+      archivoSalida << partidaJSON;
 
       // Cerrar el archivo
       archivoSalida.close();
 
       std::cout << "Se ha guardado la partida." << std::endl;
+      std::cout << "Se ha guardado como " << partidaTextoPlano << std::endl;
     }
   }
   else {
