@@ -44,8 +44,8 @@ Partida mipartida;
 // if s[i]=='1' then move to node->right
 // if s[i]=='0' then move to node->left
 // if leaf node append the node->data to our output string
-string decode_file(struct MinHeapNode* root, string s)
-{
+/*
+string decode_file(struct MinHeapNode* root, string s){
     string ans = "";
     struct MinHeapNode* curr = root;
     for (int i = 0; i < s.size(); i++) {
@@ -57,12 +57,12 @@ string decode_file(struct MinHeapNode* root, string s)
         // reached leaf node
         if (curr->left == NULL and curr->right == NULL) {
             ans += curr->data;
-            curr = root;
+            curr = root;d
         }
     }
     // cout<<ans<<endl;
     return ans + '\0';
-}
+}*/
 
 //************************************************************************
 // INICIO - FUNCIONES
@@ -147,6 +147,7 @@ void Menu::comando_inicializar_nueva_partida() {
   //Variables para crear queue jugadores
   int cantidad_jugadores;
   std::queue<Jugador> jugadoresPartida;
+  std::queue<Pais> paisesPartida;
 
   //Variables para crear colores
   std::vector<std::string> colores = {"Gris","Amarillo","Rojo","Negro","Verde","Azul"};
@@ -369,92 +370,191 @@ void Menu::comando_inicializar_nueva_partida() {
         i++;
       }
     }
-  }
-  while(i!=cantidad_jugadores);
-
+  }while(i!=cantidad_jugadores);
   //Se empieza con la creacion de todo relacionado con la partida
   //Previamente se agrego el nombre
   //Previamente se agrego tipo partida
   mipartida.FijarsetsTradeados(0);
   mipartida.FijarJugadores(jugadoresPartida); //Se agregan jugadores a la partida
 
-  //Crear Paises
-  srand(time(0));
+
+
+
+
+
 
   int paisesTotal = 42;
   int tropas_pais = paisesTotal / cantidad_jugadores;
   int dividirPaises = paisesTotal % cantidad_jugadores;
+  bool creacion=false;
+  std::string opcion_paises;
+  int y = 0;
+  int inventario;
+  std::vector<Continente> partidaContinentes = mipartida.ObtenerContinentes();
+  std::vector<Continente>::iterator continentIt = partidaContinentes.begin(); 
+  
 
-  if (dividirPaises == 0) {
-    std::cout << "\n  Se dara la misma cantidad de paises a cada jugador\n";
-  } else {
-    std::cout << "\n  Al tener " << cantidad_jugadores << " jugadores, dos de los jugadores tendran un pais extra\n";
-  }
+  while(creacion==false){
+    std::cout << "\nComo desea la eleccion de paises?\n";
+    std::cout << "1. Aleatorio\n";
+    std::cout << "2. Manual\n";
+    std::getline(std::cin, cinUsuario);
+    std::stringstream stream(cinUsuario);
+    argumentos.clear();
+    std::queue<Jugador> jugadores = mipartida.ObtenerJugadores();
+    Jugador jugadorTurno = jugadores.front();
 
-   if (cantidad_jugadores == 3) {
-    tropas_pais = 14;
-  } else if (cantidad_jugadores == 4) {
-    tropas_pais = 10;
-  } else if (cantidad_jugadores == 5) {
-    tropas_pais = 8;
-  } else if (cantidad_jugadores == 6) {
-    tropas_pais = 7;
-  }
+    if(cinUsuario=="1"){
+      std::cout<<"ENTRO OPCION 1\n";
+      
+      //Crear Paises
+      srand(time(0));
+      if (dividirPaises == 0) {
+        std::cout << "\n  Se dara la misma cantidad de paises a cada jugador\n";
+      } else {
+        std::cout << "\n  Al tener " << cantidad_jugadores << " jugadores, dos de los jugadores tendran un pais extra\n";
+      }
 
+      if (cantidad_jugadores == 3) {
+        tropas_pais = 14;
+      } else if (cantidad_jugadores == 4) {
+        tropas_pais = 10;
+      } else if (cantidad_jugadores == 5) {
+        tropas_pais = 8;
+      } else if (cantidad_jugadores == 6) {
+        tropas_pais = 7;
+      }
+      //Creacion de paises y continentes
+      std::vector<int> vectorJugadoresIguales;
+      for(nombreIt = nombrePaises.begin(); nombreIt != nombrePaises.end(); nombreIt++,paisIt++){
+        bool t = true;
+        int numeroAleatorio;
+        while(t) {
+              //Genera un numero aleatorio para elegir al dueño del pais
+              numeroAleatorio = (rand() % cantidad_jugadores);
 
-  //Creacion de paises y continentes
-  std::vector<int> vectorJugadoresIguales;
-  for(nombreIt = nombrePaises.begin(); nombreIt != nombrePaises.end(); nombreIt++,paisIt++){
-    bool t = true;
-    int numeroAleatorio;
-    while(t) {
-      //Genera un numero aleatorio para elegir al dueño del pais
-      numeroAleatorio = (rand() % cantidad_jugadores);
+              //Para procurar que todos los jugadors tengan la misma cantidad de paises, (o similar),  cada vez que se elige al dueño de un pais, este se pone en un vector para que, 
+              //en caso de que salga el mismo jugador de forma aleatoria, no se le permita elegir pais hasta que todos los demas tengan la misma cantidad de paises que el
+              bool tr = false;
+              for (int i = 0; i < vectorJugadoresIguales.size(); ++i) {
+                //Busca al jugador en la blacklist
+                if(vectorJugadoresIguales[i] == numeroAleatorio) {
+                  tr = true;
+                }
+              }
 
-      //Para procurar que todos los jugadors tengan la misma cantidad de paises, (o similar),  cada vez que se elige al dueño de un pais, este se pone en un vector para que, 
-      //en caso de que salga el mismo jugador de forma aleatoria, no se le permita elegir pais hasta que todos los demas tengan la misma cantidad de paises que el
-      bool tr = false;
-      for (int i = 0; i < vectorJugadoresIguales.size(); ++i) {
-        //Busca al jugador en la blacklist
-        if(vectorJugadoresIguales[i] == numeroAleatorio) {
-          tr = true;
+          //Si el jugador no esta en la blacklist, se agrega a la misma y se le asigna un territorio
+          if(!tr) {
+            vectorJugadoresIguales.push_back(numeroAleatorio);
+            t = false;
+          }
+
+          //Si todos los jugadores tienen la misma cantidad de paises, se libera el número de los jugadores de la blacklist
+          if(vectorJugadoresIguales.size() == cantidad_jugadores) {
+            vectorJugadoresIguales.clear();
+          }
         }
-      }
-
-      //Si el jugador no esta en la blacklist, se agrega a la misma y se le asigna un territorio
-      if(!tr) {
-        vectorJugadoresIguales.push_back(numeroAleatorio);
-        t = false;
-      }
-
-      //Si todos los jugadores tienen la misma cantidad de paises, se libera el número de los jugadores de la blacklist
-      if(vectorJugadoresIguales.size() == cantidad_jugadores) {
-        vectorJugadoresIguales.clear();
-      }
-    }
-    numeroAleatorio += 1;
-    Pais paisAux;
-    if(temp != *paisIt || nombreIt == nombrePaises.end() - 1) {
-      if(nombreIt == nombrePaises.end() -1){
+        numeroAleatorio += 1;
+        Pais paisAux;
+        if(temp != *paisIt || nombreIt == nombrePaises.end() - 1) {
+          if(nombreIt == nombrePaises.end() -1){
+            paisAux.FijarNombre(*nombreIt);
+            paisAux.FijarDueno(numeroAleatorio);
+            paisesContinente.push_back(paisAux);
+          }
+          Continente auxContinente;
+          auxContinente.FijarNombre(temp);
+          auxContinente.FijarPaises(paisesContinente);
+          continentes.push_back(auxContinente);
+          paisesContinente.clear();
+          temp = *paisIt;
+        }
         paisAux.FijarNombre(*nombreIt);
         paisAux.FijarDueno(numeroAleatorio);
         paisesContinente.push_back(paisAux);
       }
-      Continente auxContinente;
-      auxContinente.FijarNombre(temp);
-      auxContinente.FijarPaises(paisesContinente);
-      continentes.push_back(auxContinente);
-      paisesContinente.clear();
-      temp = *paisIt;
+
+
+      creacion=true;
+
+
+
+
+
+    }else if(cinUsuario=="2"){
+      int y=0;
+      int num_pais=1;
+      do {
+          Pais auxPais;
+          auxPais.FijarDueno(y + 1);
+          num_pais=1;
+          // Mostrar los países disponibles
+          std::cout << "Los siguientes son los paises disponibles: \n";
+          for (nombreIt = nombrePaises.begin(); nombreIt != nombrePaises.end(); nombreIt++) {
+              std::cout << num_pais << "  - " << *nombreIt << std::endl;
+              num_pais++;
+          }
+
+          
+          int numero_pais;
+
+          std::cout << "Para el jugador con Id '" << jugadorTurno.ObtenerId() << "' por favor ingrese el numero del pais que desea: ";
+          std::getline(std::cin, cinUsuario);
+
+          // Intenta convertir la entrada del usuario en un número
+          try {
+              numero_pais = std::stoi(cinUsuario);
+          } catch (const std::invalid_argument& e) {
+              std::cerr << "Error: Ingrese un numero valido." << std::endl;
+              continue;  // Vuelve al inicio del bucle
+          }
+
+          // Verificar si el número ingresado está dentro del rango válido
+          if (numero_pais < 1 || numero_pais > nombrePaises.size()) {
+              std::cerr << "Error: Ingrese un numero valido dentro del rango." << std::endl;
+              continue;  // Vuelve al inicio del bucle
+          }
+
+          // Obtener el nombre del país seleccionado
+          std::string nombre_pais;
+          auto it = nombrePaises.begin();
+          std::advance(it, numero_pais - 1);
+          nombre_pais = *it;
+
+          // Revisar si el país ingresado existe
+          bool encontrado = false;
+
+          for (nombreIt = nombrePaises.begin(); nombreIt != nombrePaises.end();) {
+              if (nombre_pais.compare(*nombreIt) == 0) {
+                  encontrado = true;
+                  nombreIt = nombrePaises.erase(nombreIt);
+              } else {
+                  nombreIt++;
+              }
+          }
+
+          if (!encontrado) {
+              std::cout << "Pais: '" << nombre_pais << "' no encontrado o ya fue seleccionado. Por favor ingrese un numero valido. \n";
+              std::cout << "Presione enter para continuar.";
+              std::cin.ignore();
+          } else {
+              auxPais.FijarNombre(nombre_pais);
+              paisesPartida.push(auxPais);
+              y++;
+          }
+          if(y==42){
+            creacion=true;
+          }
+
+      } while (y != 42);
+    }else{
+    std::cout << "Ingreso un numero incorrecto, ingrese de nuevo la opcion";
     }
-    paisAux.FijarNombre(*nombreIt);
-    paisAux.FijarDueno(numeroAleatorio);
-    paisesContinente.push_back(paisAux);
+    
   }
+  std::cout<<"SALE DEL DO WHILE\n";
 
   continentes.erase(continentes.begin());
-  std::vector<Continente>::iterator continentIt = continentes.begin();
-  
 
   int contadorBonificacion = 0;
   for(continentIt = continentes.begin(); continentIt != continentes.end(); continentIt++){
@@ -506,6 +606,9 @@ void Menu::comando_inicializar_nueva_partida() {
 
   nombreIt = nombrePaises.begin();
 
+
+
+
   //Cartas normales
   for(nombreIt = nombrePaises.begin(); nombreIt != nombrePaises.end(); nombreIt++,tropaIt++){
     auxCarta.FijarTipo("Normal");
@@ -524,15 +627,16 @@ void Menu::comando_inicializar_nueva_partida() {
 
   mipartida.FijarCartas(cartas);
 
+
+
+
   //Mostrar continentes y paises creados con su respectivo dueño y cantidad de tropas
   std::cout << "  Se crearon los siguientes continentes y paises: \n";
-  std::vector<Continente> partidaContinentes = mipartida.ObtenerContinentes();
-  continentIt = partidaContinentes.begin(); 
 
   partidaContinentes = mipartida.ObtenerContinentes();
   continentIt = partidaContinentes.begin();
 
-  int inventario = 1;
+  inventario = 1;
 
   std::cout << std::endl << std::setw(20) << "Continentes" << std::setw(30) << "Pais" << std::setw(30) << "Cantidad de tropas" << std::setw(30) << "Dueno" << std::endl << std::endl;
 
@@ -550,6 +654,14 @@ void Menu::comando_inicializar_nueva_partida() {
       inventario++;
     }
   }
+
+
+
+
+
+
+
+
   std::cout << std::endl << "Cantidad de paises por jugador: " << std::endl;
   for(int i = 0; i < cantidad_jugadores; i++) {
     std::cout << "Jugador " << i+1 << ": " << contador[i] << std::endl;
@@ -559,6 +671,15 @@ void Menu::comando_inicializar_nueva_partida() {
   std::cout << "Presione enter para continuar.";
   std::cin.ignore();
 }
+
+
+
+
+
+
+
+
+
 
 //Mediante esta función se vuelve cargar un juego que ya exista previamente
 void Menu::comando_inicializar_existente(std::string comando) {
