@@ -551,6 +551,9 @@ void Menu::comando_inicializar_existente(std::string comando) {
   if (comando.rfind(".bin") != std::string::npos && comando.rfind(".bin") == comando.length() - 4) {
     ArbolH arbol = ArbolH();
     linea = arbol.leerArchivoBinario(comando);
+    if (linea == "") {
+      return;
+    }
     leido = true;
   }
   else if (comando.rfind(".json") != std::string::npos && comando.rfind(".json") == comando.length() - 5) {
