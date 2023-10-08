@@ -27,6 +27,12 @@
 #include <random> 
 #include <fstream>
 
+#include <queue>
+#include <map>
+
+#include "NodoH.h"
+#include "ArbolH.h"
+
 
 //************************************************************************
 // FIN - LIBRERIAS
@@ -39,30 +45,6 @@ Partida mipartida;
 //************************************************************************
 // FIN - VARIABLES GLOBALES
 //************************************************************************
- 
-// function iterates through the encoded string s
-// if s[i]=='1' then move to node->right
-// if s[i]=='0' then move to node->left
-// if leaf node append the node->data to our output string
-string decode_file(struct MinHeapNode* root, string s)
-{
-    string ans = "";
-    struct MinHeapNode* curr = root;
-    for (int i = 0; i < s.size(); i++) {
-        if (s[i] == '0')
-            curr = curr->left;
-        else
-            curr = curr->right;
- 
-        // reached leaf node
-        if (curr->left == NULL and curr->right == NULL) {
-            ans += curr->data;
-            curr = root;
-        }
-    }
-    // cout<<ans<<endl;
-    return ans + '\0';
-}
 
 //************************************************************************
 // INICIO - FUNCIONES
@@ -562,10 +544,16 @@ void Menu::comando_inicializar_nueva_partida() {
 
 //Mediante esta función se vuelve cargar un juego que ya exista previamente
 void Menu::comando_inicializar_existente(std::string comando) {
-    
-  // Comprobamos si se encontró la cadena y si está al final del string (para json cuanta los ultimos 5 caracteres, para zip los ultimos 4)
-  if (comando.rfind(".json") != std::string::npos && comando.rfind(".json") == comando.length() - 5) {
-    std::cout << "Abriendo archivo json\n";
+  bool leido = false;
+  std::string linea;
+
+  //si es extension .bin
+  if (comando.rfind(".bin") != std::string::npos && comando.rfind(".bin") == comando.length() - 4) {
+    ArbolH arbol = ArbolH();
+    linea = arbol.leerArchivoBinario(comando);
+    leido = true;
+  }
+  else if (comando.rfind(".json") != std::string::npos && comando.rfind(".json") == comando.length() - 5) {
     std::ifstream archivo(comando);
 
     // Verifica si el archivo se abrió correctamente
@@ -573,10 +561,17 @@ void Menu::comando_inicializar_existente(std::string comando) {
       std::cerr << "No se pudo abrir el archivo: " << comando << std::endl;
       return;
     }
-
-    // Lee y muestra el contenido del archivo línea por línea
-    std::string linea;
+    leido = true;
     std::getline(archivo, linea);
+
+    // Cierra el archivo
+    archivo.close();
+  }
+    
+  // Comprobamos si se encontró la cadena y si está al final del string (para json cuanta los ultimos 5 caracteres, para zip los ultimos 4)
+  if (leido) {
+    
+    // Lee y muestra el contenido del archivo línea por línea
 
     //Busca y asigna el nombre de la partida
     size_t posicionTipo = linea.find("\"nombre\":");
@@ -954,12 +949,7 @@ void Menu::comando_inicializar_existente(std::string comando) {
     }
     //Añade los jugadores a la partida
     mipartida.FijarJugadores(miPartidaJugadores);
-
-    // Cierra el archivo
-    archivo.close();
-  } 
-  else if(comando.rfind(".zip") != std::string::npos && comando.rfind(".zip") == comando.length() - 4) {
-    std::cout << "Abriendo archivo zip\n";
+    std::cout << "Se ha cargado la partida. " << std::endl;
   } 
   else {
     std::cout << " El archivo no es compatible con RISK.";
@@ -2689,8 +2679,7 @@ void Menu::comando_guardar(std::string nombreArchivo) {
       // Cerrar el archivo
       archivoSalida.close();
 
-      std::cout << "Se ha guardado la partida." << std::endl;
-      std::cout << "Se ha guardado como " << partidaTextoPlano << std::endl;
+      std::cout << "Se ha guardado la partida como " << partidaTextoPlano << std::endl;
     }
   }
   else {
@@ -2702,7 +2691,31 @@ void Menu::comando_guardar(std::string nombreArchivo) {
 
 //Mediante la función se guarda un comprimido de lo que se lleve del juego
 void Menu::comando_guardar_comprimido(std::string nombreArchivo) {
-  std::cout << " Dentro del comando 'guardar_comprimido'.\n";
+   if(mipartida.ObtenerNombre() != "") {
+    std::cout << "Guardando partida...\n";
+    std::string partidaJSON = partida_a_JSON();
+    
+
+    std::map<char, int> frequencies;
+
+    for (char c : partidaJSON) {
+        frequencies[c]++;
+    }
+
+    ArbolH ArbolH(frequencies);
+
+    std::string textoCifrado = ArbolH.codificar(partidaJSON);
+
+    std::string nameFile = nombreArchivo + ".bin";
+
+    ArbolH.guardarEnArchivoBinario(partidaJSON, nameFile, frequencies);
+
+    std::cout << "Se ha guardado la partida como " << nameFile << std::endl;
+
+  }
+  else {
+    std::cout << "debe crear o cargar una partida para guardarla\n";
+  }
   std::cout << " Presione enter para continuar.";
   std::cin.ignore();
 }
