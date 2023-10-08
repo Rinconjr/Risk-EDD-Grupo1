@@ -2666,7 +2666,7 @@ void Menu::comando_turno(std::string comando) {
   std::cin.ignore();
 }
 
-std::string partida_a_JSON() {
+std::string Menu::partida_a_JSON() {
   std::string json = "{";
 
     //nombre a JSON
