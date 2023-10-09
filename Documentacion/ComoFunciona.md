@@ -4,7 +4,7 @@
 
 🎲 [Turno](turno.md)
 
-🔒 [Guadar](guardar.md)
+🔒 [Guardar](guardar.md)
 
 🔐 [Guardar_comprimido](guardar_comprimido.md)
 
