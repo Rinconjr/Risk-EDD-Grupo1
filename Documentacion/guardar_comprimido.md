@@ -8,7 +8,7 @@
 
 **Explicación Funcionamiento:** 
 
-lo primero que se debe hacer es llamar la función “partida_a_JSON()” la cual devuelve un string con toda la partida en un solo string que se guarda en la variable **partidaJSON** que se utilizará más adelante.
+Lo primero que se debe hacer es llamar la función “partida_a_JSON()” la cual devuelve un string con toda la partida en un solo string que se guarda en la variable **partidaJSON** que se utilizará más adelante.
 
 Cabe recalcar que nosotros estamos utilizando el **Árbol de Huffman** para codificar la partida y que sea posible guardarla en un archivo **'.bin'**. Para poder generar este árbol con el cual se hará la codificación, se deben calcular las frecuencias en las cuales aparecen cada símbolo (carácter) de toda la partida.
 
