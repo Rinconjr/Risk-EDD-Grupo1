@@ -37,3 +37,12 @@ Si vuelve a salir el 3, este se rechaza porque este vector se utiliza para asegu
 </p>
 
 Una vez se encuentre que el tamaño del vector sea igual al tamaño de jugadores, a este vector se le hará .clear() para volver a iniciar el proceso de selección.
+
+**Inicializar con archivo:**
+
+Cuando se quiere cargar una partida, el usuario en la opción de “inicializar” pone el nombre del archivo para poder utilizarla. Lo primero que se hace es comparar la extensión del archivo y revisar si esta tiene la partida como texto plano, o como un archivo comprimido, para hacer la verificación se toman los últimos caracteres del nombre del archivo y busca si hay coincidencia con alguno de los dos formatos, de no ser así, le indica que el archivo es incompatible con el programa.
+Si el usuario indica un archivo con extensión .json, a partir de los valores de cada una de las llaves del string se construye la partida.
+Si el archivo indicado tiene la extensión .bin, el programa llamará a la función “leerArchivoBinario( )” del árbol de Huffman y se halla primeramente la tabla de frecuencia de caracteres de la partida para posteriormente decodificarlo y retornarlo como cadena de caracteres. Una vez que se hace la conversión de binario a string con formato json, a partir de los valores de cada una de las llaves se construye la partida.
+La siguiente figura ilustra el proceso de cargar una partida a Risk:
+
+![Inicializar con archivo](/Documentacion/Imagenes/Inicializar%20con%20archivo.png)

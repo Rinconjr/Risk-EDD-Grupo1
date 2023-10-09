@@ -13,4 +13,4 @@ Para generar el archivo, lo primero que se realiza es almacenar toda la informac
 Para finalizar, se genera un archivo con el nombre que el usuario haya querido darle a este, y con extensión .json, el contenido dentro del archivo es la cadena de caracteres en formato json que se ha creado previamente. Una vez se crea el archivo, se le indica al usuario que este ha sido creado con éxito, de no ser así, se le informa del problema.
 La siguiente figura ilustra el proceso de guardar en texto plano en RISK:
 
-![Flujo_Guardar](/Documentacion/Imagenes/Flujo%20Guardar%20Comprimido.png)
+![Flujo_Guardar](/Documentacion/Imagenes/Flujo%20Guardar.png)
