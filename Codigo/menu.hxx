@@ -359,12 +359,6 @@ void Menu::comando_inicializar_nueva_partida() {
   mipartida.FijarsetsTradeados(0);
   mipartida.FijarJugadores(jugadoresPartida); //Se agregan jugadores a la partida
 
-
-
-
-
-
-
   int paisesTotal = 42;
   int tropas_pais = paisesTotal / cantidad_jugadores;
   int dividirPaises = paisesTotal % cantidad_jugadores;
@@ -456,14 +450,31 @@ void Menu::comando_inicializar_nueva_partida() {
         paisesContinente.push_back(paisAux);
       }
 
-
       creacion=true;
+    }
+    else if(cinUsuario=="2"){
+      //Esta parte del codigo crea los paises pero SIN ASIGNAR DUEÑO
+      for(nombreIt = nombrePaises.begin(); nombreIt != nombrePaises.end(); nombreIt++,paisIt++){
+        Pais paisAux;
+        if(temp != *paisIt || nombreIt == nombrePaises.end() - 1) {
+          if(nombreIt == nombrePaises.end() -1){
+            paisAux.FijarNombre(*nombreIt);
+            paisAux.FijarDueno(0);
+            paisesContinente.push_back(paisAux);
+          }
+          Continente auxContinente;
+          auxContinente.FijarNombre(temp);
+          auxContinente.FijarPaises(paisesContinente);
+          continentes.push_back(auxContinente);
+          paisesContinente.clear();
+          temp = *paisIt;
+        }
+        paisAux.FijarNombre(*nombreIt);
+        paisAux.FijarDueno(0);
+        paisesContinente.push_back(paisAux);
+      }
 
-
-
-
-
-    }else if(cinUsuario=="2"){
+      //Esto es de Yañez
       int y=0;
       int num_pais=1;
       do {
@@ -476,11 +487,10 @@ void Menu::comando_inicializar_nueva_partida() {
               std::cout << num_pais << "  - " << *nombreIt << std::endl;
               num_pais++;
           }
-
           
           int numero_pais;
 
-          std::cout << "Para el jugador con Id '" << jugadorTurno.ObtenerId() << "' por favor ingrese el numero del pais que desea: ";
+          std::cout << "Para el jugador con Id '" << (y%cantidad_jugadores)+1 << "' por favor ingrese el numero del pais que desea: ";
           std::getline(std::cin, cinUsuario);
 
           // Intenta convertir la entrada del usuario en un número
@@ -519,9 +529,37 @@ void Menu::comando_inicializar_nueva_partida() {
               std::cout << "Pais: '" << nombre_pais << "' no encontrado o ya fue seleccionado. Por favor ingrese un numero valido. \n";
               std::cout << "Presione enter para continuar.";
               std::cin.ignore();
-          } else {
-              auxPais.FijarNombre(nombre_pais);
-              paisesPartida.push(auxPais);
+          } 
+          else {
+              //Esto es un print para que vean que ya los asigna, ahora el problema es que no se estan guardando en la variable continentes
+              
+              std::vector<Continente>continentesC;
+              for(continentIt = continentes.begin(); continentIt != continentes.end(); continentIt++){
+                Continente tempC;
+                tempC.FijarBonificacion(continentIt->ObtenerBonificacion());
+                tempC.FijarTropasAdicionales(continentIt->ObtenerTropasAdicionales());
+                tempC.FijarNombre(continentIt->ObtenerNombre());
+
+                std::vector<Pais> partidaPa = continentIt->ObtenerPaises();
+                std::vector<Pais>::iterator partidaPaIt = partidaPa.begin();
+
+                std::vector<Pais> paisesC;
+                for(partidaPaIt = partidaPa.begin(); partidaPaIt != partidaPa.end(); partidaPaIt++){
+                  Pais paisC;
+                  paisC.FijarNombre(partidaPaIt->ObtenerNombre());
+                  paisC.FijarCantidadTropas(partidaPaIt->ObtenerCantidadTropas());
+                  if (partidaPaIt->ObtenerNombre() == nombre_pais) {
+                    paisC.FijarDueno((y%cantidad_jugadores)+1);
+                  }
+                  else {
+                    paisC.FijarDueno(partidaPaIt->ObtenerDueno());
+                  }
+                  paisesC.push_back(paisC);
+                }
+                tempC.FijarPaises(paisesC);
+                continentesC.push_back(tempC);
+              }
+              continentes = continentesC;
               y++;
           }
           if(y==42){
@@ -543,6 +581,7 @@ void Menu::comando_inicializar_nueva_partida() {
     continentIt->FijarBonificacion(bonificacionContinentes[contadorBonificacion]);
     contadorBonificacion++;
   }
+  
 
   //Asignacion de tropas a territorios:
   int tropasPorJugador;
@@ -2666,7 +2705,7 @@ void Menu::comando_turno(std::string comando) {
   std::cin.ignore();
 }
 
-std::string Menu::partida_a_JSON() {
+std::string partida_a_JSON() {
   std::string json = "{";
 
     //nombre a JSON

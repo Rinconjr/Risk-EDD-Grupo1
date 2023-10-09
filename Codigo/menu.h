@@ -32,7 +32,6 @@ class Menu{
     static void comando_inicializar_nueva_partida();
     static void comando_inicializar_existente(std::string comando);
     static void comando_turno(std::string comando);
-    std::string partida_a_JSON();
     static void comando_guardar(std::string nombreArchivo);
     static void comando_guardar_comprimido(std::string nombreArchivo);
     static void comando_costo_conquista(std::string territorio);
