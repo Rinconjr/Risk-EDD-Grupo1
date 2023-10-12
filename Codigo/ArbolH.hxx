@@ -113,7 +113,14 @@ void ArbolH::guardarEnArchivoBinario(std::string mensaje, std::string nombreArch
         if (bitsFaltantes != 8) {
             binarioCompleto += std::string(bitsFaltantes, '0');
         }
-        archivo.write(binarioCompleto.c_str(), binarioCompleto.size());
+
+        for (size_t i = 0; i < binarioCompleto.size(); i += 8) {
+            unsigned char byteDecimal = 0;
+            for (int j = 0; j < 8; j++) {
+                byteDecimal = (byteDecimal << 1) | (binarioCompleto[i + j] - '0');
+            }
+            archivo.write(reinterpret_cast<char*>(&byteDecimal), sizeof(byteDecimal));
+        }
 
         // Cerrar el archivo
         archivo.close();
@@ -150,8 +157,10 @@ std::string ArbolH::leerArchivoBinario(std::string nombreArchivo) {
         char buffer;
         std::string secuenciaBinaria;
 
-        while (archivo.get(buffer)) {
-            secuenciaBinaria.push_back(buffer);
+        while (archivo.read(&buffer, sizeof(buffer))) {
+            for (int i = 7; i >= 0; --i) {
+                secuenciaBinaria += ((buffer >> i) & 1) ? "1" : "0";
+            }
         }
 
         // Eliminar los '0' agregados para completar los bits
