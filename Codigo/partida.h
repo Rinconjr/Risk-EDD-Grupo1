@@ -103,6 +103,10 @@ class Partida {
     void FijarContinentes(std::vector<Continente> ncontinentes);
     void FijarJugadores(std::queue<Jugador> njugadores);
     void FijarCartas(std::vector<Carta> ncartas);
+
+    int (*obtenerMatriz())[42] {
+      return this->matriz_adyacencia;
+    }
 };
 
 //*****************************************************************

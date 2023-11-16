@@ -1226,6 +1226,7 @@ void Menu::comando_turno(std::string comando) {
     }
     std::cout << "5) Siguiente fase.\n";
     std::cout << "6) Salir.\n";
+    std::cout << "7) TEMPORAL PARA REVISAR MATRIZ DE ADYACENCIA Mirar vecinos de un pais.\n";
     std::cout<<"---------------------MENU TURNO-------------------------\n";
 
     do {
@@ -1723,6 +1724,81 @@ void Menu::comando_turno(std::string comando) {
       else{
       }
     }
+
+
+    //$%&
+    else if(cinUsuario == "7") {
+      int numeroPais;
+      std::cout<<"Numero del pais a revisar: ";
+      std::getline(std::cin, cinUsuario);
+      std::stringstream stream(cinUsuario);
+
+      try {
+        numeroPais = std::stoi(cinUsuario); 
+        int (*matrizCompleta)[42] = mipartida.obtenerMatriz();
+        std::string nombrePais;
+
+
+
+
+      inventario = 1;
+
+      //Buscar el pais
+      for(continentIt = partidaContinentes.begin(); continentIt != partidaContinentes.end(); continentIt++){
+        std::vector<Pais> partidaPais = continentIt->ObtenerPaises();
+        std::vector<Pais>::iterator partidaPaisIt = partidaPais.begin();
+
+        for(partidaPaisIt = partidaPais.begin(); partidaPaisIt != partidaPais.end(); partidaPaisIt++){
+          if(inventario == numeroPais) {
+            nombrePais= partidaPaisIt->ObtenerNombre();
+          }
+          
+          inventario++;
+        }
+      }
+
+      inventario = 1;
+
+      std::cout<<"\n----------------------------------------------PAISES VECINOS DE " << nombrePais << " --------------------------------------------------";
+      std::cout << std::endl << std::setw(20) << "Continentes" << std::setw(30) << "Pais" << std::setw(30) << "Cantidad de tropas" << std::setw(30) << "Dueno" << std::endl;
+
+      for(continentIt = partidaContinentes.begin(); continentIt != partidaContinentes.end(); continentIt++){
+        std::vector<Pais> partidaPais = continentIt->ObtenerPaises();
+        std::vector<Pais>::iterator partidaPaisIt = partidaPais.begin();
+
+        for(partidaPaisIt = partidaPais.begin(); partidaPaisIt != partidaPais.end(); partidaPaisIt++){
+          if(matrizCompleta[numeroPais-1][inventario-1] == 1) {
+            std::cout << std::setw(2) << inventario << ") " << std::setw(20) << continentIt->ObtenerNombre() << std::setw(30) << partidaPaisIt->ObtenerNombre() << std::setw(25) << partidaPaisIt->ObtenerCantidadTropas() << std::setw(30) << partidaPaisIt->ObtenerDueno()<< std::endl;
+          }
+          
+          inventario++;
+        }
+      }
+      std::cout<<"----------------------------------------------PAISES PARTIDA--------------------------------------------------\n\n";
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      } 
+      catch (const std::invalid_argument& e) {
+        std::cout << "Argumento invalido. Debe ingresar el numero del pais. " << std::endl;
+        continue;
+      }
+    }
+
     else {
       std::cout << "\nOpcion '" << cinUsuario << "' no encontrada. \n";
     }
