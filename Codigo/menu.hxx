@@ -30,6 +30,8 @@
 #include <queue>
 #include <map>
 
+#include <climits>
+
 #include "NodoH.h"
 #include "ArbolH.h"
 
@@ -1735,63 +1737,43 @@ void Menu::comando_turno(std::string comando) {
 
       try {
         numeroPais = std::stoi(cinUsuario); 
-        int (*matrizCompleta)[42] = mipartida.obtenerMatriz();
+        std::vector<std::vector<int>> matrizCompleta = mipartida.obtenerMatriz();
         std::string nombrePais;
 
+        inventario = 1;
 
+        //Buscar el pais
+        for(continentIt = partidaContinentes.begin(); continentIt != partidaContinentes.end(); continentIt++){
+          std::vector<Pais> partidaPais = continentIt->ObtenerPaises();
+          std::vector<Pais>::iterator partidaPaisIt = partidaPais.begin();
 
-
-      inventario = 1;
-
-      //Buscar el pais
-      for(continentIt = partidaContinentes.begin(); continentIt != partidaContinentes.end(); continentIt++){
-        std::vector<Pais> partidaPais = continentIt->ObtenerPaises();
-        std::vector<Pais>::iterator partidaPaisIt = partidaPais.begin();
-
-        for(partidaPaisIt = partidaPais.begin(); partidaPaisIt != partidaPais.end(); partidaPaisIt++){
-          if(inventario == numeroPais) {
-            nombrePais= partidaPaisIt->ObtenerNombre();
+          for(partidaPaisIt = partidaPais.begin(); partidaPaisIt != partidaPais.end(); partidaPaisIt++){
+            if(inventario == numeroPais) {
+              nombrePais= partidaPaisIt->ObtenerNombre();
+            }
+            
+            inventario++;
           }
-          
-          inventario++;
         }
-      }
 
-      inventario = 1;
+        inventario = 1;
 
-      std::cout<<"\n----------------------------------------------PAISES VECINOS DE " << nombrePais << " --------------------------------------------------";
-      std::cout << std::endl << std::setw(20) << "Continentes" << std::setw(30) << "Pais" << std::setw(30) << "Cantidad de tropas" << std::setw(30) << "Dueno" << std::endl;
+        std::cout<<"\n----------------------------------------------PAISES VECINOS DE " << nombrePais << " --------------------------------------------------";
+        std::cout << std::endl << std::setw(20) << "Continentes" << std::setw(30) << "Pais" << std::setw(30) << "Cantidad de tropas" << std::setw(30) << "Dueno" << std::endl;
 
-      for(continentIt = partidaContinentes.begin(); continentIt != partidaContinentes.end(); continentIt++){
-        std::vector<Pais> partidaPais = continentIt->ObtenerPaises();
-        std::vector<Pais>::iterator partidaPaisIt = partidaPais.begin();
+        for(continentIt = partidaContinentes.begin(); continentIt != partidaContinentes.end(); continentIt++){
+          std::vector<Pais> partidaPais = continentIt->ObtenerPaises();
+          std::vector<Pais>::iterator partidaPaisIt = partidaPais.begin();
 
-        for(partidaPaisIt = partidaPais.begin(); partidaPaisIt != partidaPais.end(); partidaPaisIt++){
-          if(matrizCompleta[numeroPais-1][inventario-1] == 1) {
-            std::cout << std::setw(2) << inventario << ") " << std::setw(20) << continentIt->ObtenerNombre() << std::setw(30) << partidaPaisIt->ObtenerNombre() << std::setw(25) << partidaPaisIt->ObtenerCantidadTropas() << std::setw(30) << partidaPaisIt->ObtenerDueno()<< std::endl;
+          for(partidaPaisIt = partidaPais.begin(); partidaPaisIt != partidaPais.end(); partidaPaisIt++){
+            if(matrizCompleta[numeroPais-1][inventario-1] == 1) {
+              std::cout << std::setw(2) << inventario << ") " << std::setw(20) << continentIt->ObtenerNombre() << std::setw(30) << partidaPaisIt->ObtenerNombre() << std::setw(25) << partidaPaisIt->ObtenerCantidadTropas() << std::setw(30) << partidaPaisIt->ObtenerDueno()<< std::endl;
+            }
+            
+            inventario++;
           }
-          
-          inventario++;
         }
-      }
-      std::cout<<"----------------------------------------------PAISES PARTIDA--------------------------------------------------\n\n";
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        std::cout<<"----------------------------------------------PAISES PARTIDA--------------------------------------------------\n\n";
       } 
       catch (const std::invalid_argument& e) {
         std::cout << "Argumento invalido. Debe ingresar el numero del pais. " << std::endl;
@@ -1820,7 +1802,9 @@ void Menu::comando_turno(std::string comando) {
     std::cout << "1) Atacar.\n";
     std::cout << "2) Ver mis paises y cantidad de tropas\n";
     std::cout << "3) Ver paises enemigos y cantidad de tropas\n";
-    std::cout << "4) Siguiente fase.\n";
+    std::cout << "4) costo conquista\n";
+    std::cout << "5) conquista mas barata\n";
+    std::cout << "6) Siguiente fase.\n";
     std::cout<<"---------------------MENU TURNO-------------------------\n\n";
 
     do {
@@ -2461,7 +2445,115 @@ void Menu::comando_turno(std::string comando) {
       std::cout<<"---------------------------------------------PAISES ENEMIGOS-------------------------------------------------\n\n";
 
     }
-    if(cinUsuario.compare("4") == 0) {
+    else if(cinUsuario.compare("4") == 0) {
+      int numeroPais; //input de pais objetivo
+      int inventario2 = 0; //Filtrar paises del jugador y de otros jugadores
+      bool continuar = true;
+      std::vector<int>idPaisesEnemigos; //paises enemigos
+      std::vector<int>idPaisesJugador; //paises jugador
+      std::vector<std::string> nombrePaises; //nombre de los paises para imprimir directamente por id
+      std::vector<std::vector<int>> matrizCompleta = mipartida.obtenerMatriz(); //matriz de adyacencia
+      
+      partidaContinentes = mipartida.ObtenerContinentes();
+      continentIt = partidaContinentes.begin();
+
+      //mostrar los paises que no le pertenecen al jugador (A los que puede Atacar)
+      inventario = 1;
+      std::cout<<"\n---------------------------------------------PAISES ENEMIGOS-------------------------------------------------";
+      std::cout << std::endl << std::setw(20) << "Continentes" << std::setw(30) << "Pais" << std::setw(30) << "Cantidad de tropas" << std::setw(30) << "Dueno\n";
+      for(continentIt = partidaContinentes.begin(); continentIt != partidaContinentes.end(); continentIt++){
+        std::vector<Pais> partidaPais = continentIt->ObtenerPaises();
+        std::vector<Pais>::iterator partidaPaisIt = partidaPais.begin();
+
+        for(partidaPaisIt = partidaPais.begin(); partidaPaisIt != partidaPais.end(); partidaPaisIt++){
+          if (partidaPaisIt->ObtenerDueno() != turnoJugador) { // Cambia la condición
+            std::cout << std::setw(2) << inventario << ") " << std::setw(20) << continentIt->ObtenerNombre() << std::setw(30) << partidaPaisIt->ObtenerNombre() << std::setw(25) << partidaPaisIt->ObtenerCantidadTropas() << std::setw(30) << partidaPaisIt->ObtenerDueno()<< std::endl;
+            idPaisesEnemigos.push_back(inventario2);
+            inventario++;
+          }
+          else {
+            idPaisesJugador.push_back(inventario2);
+          }
+          nombrePaises.push_back(partidaPaisIt->ObtenerNombre());
+          inventario2++;
+        }
+      }
+      std::cout<<"---------------------------------------------PAISES ENEMIGOS-------------------------------------------------\n\n";
+      
+      do {
+        std::cout << "Seleccione el # pais que le gustaria atacar para conocer que paises debe conquistar para llegar hasta el: ";
+        std::getline(std::cin, cinUsuario);
+        std::stringstream stream(cinUsuario);
+
+        try {
+          numeroPais = std::stoi(cinUsuario); 
+          numeroPais--;
+          std::string nombrePais;
+        } 
+        catch (const std::invalid_argument& e) {
+          std::cout << "Argumento invalido. Debe ingresar el numero del pais. " << std::endl;
+          continue;
+        }
+        if(numeroPais < 0 || numeroPais > idPaisesEnemigos.size()) {
+          std::cout << "Id del pais enemigo no existe. "<< std::endl;
+          continue;
+        }
+        continuar = false;
+      }
+      while (continuar);
+
+      //Empieza algoritmo de busqueda Dijsktra
+      std::vector<int> distancia(42, INT_MAX);
+      std::vector<int> padre(42, -1);
+
+      distancia[idPaisesEnemigos[numeroPais]] = 0;
+
+      std::queue<int> cola;
+      cola.push(idPaisesEnemigos[numeroPais]);
+
+      while (!cola.empty()) {
+          int actual = cola.front();
+          cola.pop();
+
+          for (int vecino = 0; vecino < 42; ++vecino) {
+              if (matrizCompleta[actual][vecino] && distancia[vecino] == INT_MAX) {
+                  distancia[vecino] = distancia[actual] + 1;
+                  padre[vecino] = actual;
+                  cola.push(vecino);
+              }
+          }
+      }
+
+      //hallar camino más corto de cada uno de los paises del jugador al pais objetivo
+      int nodoMasCercano = -1;
+      int longitudMasCercana = INT_MAX;
+      for (int destino : idPaisesJugador) {
+          int saltos = 0;
+          int temp = destino;
+          while (temp != -1) {
+              temp = padre[temp];
+              saltos++;
+          }
+          if(saltos < longitudMasCercana) {
+              nodoMasCercano = destino;
+              longitudMasCercana = saltos;
+          }
+      }
+      
+      //Imprimir resultado
+      std::cout << "Camino mas corto para llegar a " << nombrePaises[idPaisesEnemigos[numeroPais]] << " desde tus paises: ";
+      while (nodoMasCercano != -1) {
+          std::cout << nombrePaises[nodoMasCercano];
+          nodoMasCercano = padre[nodoMasCercano];
+          if(nodoMasCercano != -1) {
+            std::cout << " -> ";
+          }
+      }
+    }
+    else if(cinUsuario.compare("5") == 0) {
+      
+    }
+    else if(cinUsuario.compare("6") == 0) {
       fase2 = false;
     }
   }

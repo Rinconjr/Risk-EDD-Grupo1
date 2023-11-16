@@ -34,7 +34,7 @@ class Partida {
     std::vector<Continente> continentes;
     std::queue<Jugador> jugadores;
     std::vector<Carta> cartas;
-    int matriz_adyacencia[42][42] = {
+    std::vector<std::vector<int>> matriz_adyacencia= {
                                       {0,1,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0},
                                       {1,0,0,0,0,1,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
                                       {0,0,0,1,0,0,0,0,1,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
@@ -104,9 +104,7 @@ class Partida {
     void FijarJugadores(std::queue<Jugador> njugadores);
     void FijarCartas(std::vector<Carta> ncartas);
 
-    int (*obtenerMatriz())[42] {
-      return this->matriz_adyacencia;
-    }
+    std::vector<std::vector<int>> obtenerMatriz();
 };
 
 //*****************************************************************
