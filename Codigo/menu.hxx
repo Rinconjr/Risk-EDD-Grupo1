@@ -34,6 +34,7 @@
 
 #include "NodoH.h"
 #include "ArbolH.h"
+#include "grafo.h"
 
 
 //************************************************************************
@@ -44,6 +45,7 @@
 // INICIO - VARIABLES GLOBALES
 //************************************************************************
 Partida mipartida;
+Grafo miGrafo;
 //************************************************************************
 // FIN - VARIABLES GLOBALES
 //************************************************************************
@@ -1737,7 +1739,7 @@ void Menu::comando_turno(std::string comando) {
 
       try {
         numeroPais = std::stoi(cinUsuario); 
-        std::vector<std::vector<int>> matrizCompleta = mipartida.obtenerMatriz();
+        std::vector<std::vector<int>> matrizCompleta = miGrafo.obtenerMatriz();
         std::string nombrePais;
 
         inventario = 1;
@@ -2452,7 +2454,7 @@ void Menu::comando_turno(std::string comando) {
       std::vector<int>idPaisesEnemigos; //paises enemigos
       std::vector<int>idPaisesJugador; //paises jugador
       std::vector<Pais> nombrePaises; //nombre de los paises para imprimir directamente por id
-      std::vector<std::vector<int>> matrizCompleta = mipartida.obtenerMatriz(); //matriz de adyacencia
+      std::vector<std::vector<int>> matrizCompleta = miGrafo.obtenerMatriz(); //matriz de adyacencia
       
       partidaContinentes = mipartida.ObtenerContinentes();
       continentIt = partidaContinentes.begin();

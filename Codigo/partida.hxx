@@ -87,10 +87,6 @@
         this->cartas = ncartas;
     }
 
-    std::vector<std::vector<int>> Partida::obtenerMatriz() {
-        return this->matriz_adyacencia;
-    }
-
 //************************************************************************
 // FIN - FUNCIONES
 //************************************************************************
