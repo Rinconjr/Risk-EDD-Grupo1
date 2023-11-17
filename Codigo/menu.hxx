@@ -1730,7 +1730,7 @@ void Menu::comando_turno(std::string comando) {
     }
 
 
-    //$%&
+    //$%& rev1
     else if(cinUsuario == "7") {
       int numeroPais;
       std::cout<<"Numero del pais a revisar: ";
@@ -2557,7 +2557,58 @@ void Menu::comando_turno(std::string comando) {
       std::cout << ". Debe conquistar " << sumatoriaTropas << " unidades de ejercito. \n";
     }
     else if(cinUsuario.compare("5") == 0) {
-      
+      //Declaracion de variables
+      std::vector<int>idPaisesJugador;
+      std::vector<Pais> paisesTodos;
+      std::vector<std::vector<int>> matrizCompleta = miGrafo.obtenerMatriz();
+      Pais menorPais, mejorPaisAtaque;
+      bool encontrado = false;
+
+      //Obtiene el id de los paises del jugador y de paso el de todos los paises en un vector aparte
+      inventario = 1;
+      std::cout << std::endl << std::setw(20) << "Continentes" << std::setw(30) << "Pais" << std::setw(30) << "Cantidad de tropas" << std::setw(30) << "Dueno\n";
+      for(continentIt = partidaContinentes.begin(); continentIt != partidaContinentes.end(); continentIt++){
+        std::vector<Pais> partidaPais = continentIt->ObtenerPaises();
+        std::vector<Pais>::iterator partidaPaisIt = partidaPais.begin();
+        for(partidaPaisIt = partidaPais.begin(); partidaPaisIt != partidaPais.end(); partidaPaisIt++){
+          if (partidaPaisIt->ObtenerDueno() == turnoJugador) {
+            idPaisesJugador.push_back(inventario);
+          }
+          paisesTodos.push_back(*partidaPaisIt);
+          inventario++;
+        }
+      }
+
+      //∀ pais del jugador, se obtienen los vecinos, si el vecino tiene menor cantidad de tropas, se escoge.
+      //Si hay dos paises con la menor cantidad de tropas, se escoge aquel pais vecino y del jugador en donde el jugador tenga mas tropas
+      for(int a : idPaisesJugador) {
+        inventario = 1;
+        int contador = 0;
+        for(int adyacencia : matrizCompleta[a-1]) {
+          //Si está la arista en el grafo, y si ese pais tiene menos o igual tropas que el  menor pais escogido
+          if(adyacencia == 1 && menorPais.ObtenerCantidadTropas() >= paisesTodos[contador].ObtenerCantidadTropas()) {
+            //Si tienen la misma cantidad de tropas, y el pais del jugador tiene mas tropas que con el que se iba a atacar al vecino.
+            if(menorPais.ObtenerCantidadTropas() == paisesTodos[contador].ObtenerCantidadTropas()){
+              if(mejorPaisAtaque.ObtenerCantidadTropas() < paisesTodos[a-1].ObtenerCantidadTropas()) {
+                menorPais = paisesTodos[contador];
+                mejorPaisAtaque = paisesTodos[a-1];
+              }
+              //Si tiene menos tropas, entonces se ignora
+            }
+            //Si es estrictamente menor la cantidad de tropas del escogido antes
+            else if(!encontrado || mejorPaisAtaque.ObtenerCantidadTropas() < paisesTodos[a-1].ObtenerCantidadTropas()) {
+              menorPais = paisesTodos[contador];
+              mejorPaisAtaque = paisesTodos[a-1];
+              encontrado = true;
+            }
+          }
+          contador++;
+        }
+      }
+
+      std::cout << "La conquista mas barata es avanzar sobre el territorio " << menorPais.ObtenerNombre() << " desde " << mejorPaisAtaque.ObtenerNombre() << ". Debe conquistar " << menorPais.ObtenerCantidadTropas() << " unidades de ejercito.\n";
+      std::cout << "Presione enter para continuar. " << std::endl;
+      std::cin.ignore();
     }
     else if(cinUsuario.compare("6") == 0) {
       fase2 = false;
