@@ -2556,7 +2556,7 @@ void Menu::comando_turno(std::string comando) {
       }
       std::cout << ". Debe conquistar " << sumatoriaTropas << " unidades de ejercito. \n";
     }
-    else if(cinUsuario.compare("5") == 0) {
+    else if(cinUsuario.compare("5") == 0) { //Comando conquista_mas_barata
       //Declaracion de variables
       std::vector<int>idPaisesJugador;
       std::vector<Pais> paisesTodos;
@@ -2566,7 +2566,7 @@ void Menu::comando_turno(std::string comando) {
 
       //Obtiene el id de los paises del jugador y de paso el de todos los paises en un vector aparte
       inventario = 1;
-      std::cout << std::endl << std::setw(20) << "Continentes" << std::setw(30) << "Pais" << std::setw(30) << "Cantidad de tropas" << std::setw(30) << "Dueno\n";
+      //std::cout << std::endl << std::setw(20) << "Continentes" << std::setw(30) << "Pais" << std::setw(30) << "Cantidad de tropas" << std::setw(30) << "Dueno\n";
       for(continentIt = partidaContinentes.begin(); continentIt != partidaContinentes.end(); continentIt++){
         std::vector<Pais> partidaPais = continentIt->ObtenerPaises();
         std::vector<Pais>::iterator partidaPaisIt = partidaPais.begin();
@@ -2606,7 +2606,7 @@ void Menu::comando_turno(std::string comando) {
         }
       }
 
-      std::cout << "La conquista mas barata es avanzar sobre el territorio " << menorPais.ObtenerNombre() << " desde " << mejorPaisAtaque.ObtenerNombre() << ". Debe conquistar " << menorPais.ObtenerCantidadTropas() << " unidades de ejercito.\n";
+      std::cout << "\nLa conquista mas barata es avanzar sobre el territorio " << menorPais.ObtenerNombre() << " desde " << mejorPaisAtaque.ObtenerNombre() << ". Para conquistar el territorio "<< menorPais.ObtenerNombre() << ", debe atacar desde " << menorPais.ObtenerNombre() << ". Debe conquistar " << menorPais.ObtenerCantidadTropas() << " unidades de ejercito.\n";
       std::cout << "Presione enter para continuar. " << std::endl;
       std::cin.ignore();
     }
