@@ -14,4 +14,4 @@ Una vez que el usuario haya ingresado a la segunda fase del turno, deberá proce
 
 La siguiente figura ilustra el proceso del comando costo conquista:
 
-![Diagrama de flujo conquista mas barata](../Documentacion/Imagenes/Diagrama de flujo conquista_barata.png)
+![Diagrama de flujo conquista mas barata](../Documentacion/Imagenes/Diagrama%20de%20flujo%20conquista_barata.png)
