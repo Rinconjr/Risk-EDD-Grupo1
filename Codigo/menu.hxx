@@ -1804,8 +1804,8 @@ void Menu::comando_turno(std::string comando) {
     std::cout << "1) Atacar.\n";
     std::cout << "2) Ver mis paises y cantidad de tropas\n";
     std::cout << "3) Ver paises enemigos y cantidad de tropas\n";
-    std::cout << "4) costo conquista\n";
-    std::cout << "5) conquista mas barata\n";
+    std::cout << "4) Costo conquista\n";
+    std::cout << "5) Conquista mas barata\n";
     std::cout << "6) Siguiente fase.\n";
     std::cout<<"---------------------MENU TURNO-------------------------\n\n";
 
@@ -2483,26 +2483,25 @@ void Menu::comando_turno(std::string comando) {
       std::cout<<"---------------------------------------------PAISES ENEMIGOS-------------------------------------------------\n\n";
       
       do {
-        std::cout << "Seleccione el # pais que le gustaria atacar para conocer que paises debe conquistar para llegar hasta el: ";
-        std::getline(std::cin, cinUsuario);
-        std::stringstream stream(cinUsuario);
+          std::cout << "Seleccione el # pais que le gustaria atacar para conocer que paises debe conquistar para llegar hasta el: ";
+          std::getline(std::cin, cinUsuario);
+          std::stringstream stream(cinUsuario);
 
-        try {
-          numeroPais = std::stoi(cinUsuario); 
+          if (!std::isdigit(cinUsuario[0])) {
+            std::cout << "Solo debe ingresar el numero del pais.\n";
+            continue;
+          }
+
+          numeroPais = std::stoi(cinUsuario);
           numeroPais--;
-          std::string nombrePais;
-        } 
-        catch (const std::invalid_argument& e) {
-          std::cout << "Argumento invalido. Debe ingresar el numero del pais. " << std::endl;
-          continue;
-        }
-        if(numeroPais < 0 || numeroPais > idPaisesEnemigos.size()) {
-          std::cout << "Id del pais enemigo no existe. "<< std::endl;
-          continue;
-        }
-        continuar = false;
-      }
-      while (continuar);
+
+          if (numeroPais < 0 || numeroPais >= idPaisesEnemigos.size()) {
+            std::cout << "Id del pais enemigo no existe, ingrese de nuevo el numero del pais\n";
+            continue;
+          }
+
+          continuar = false;
+      }while (continuar);
 
       //Empieza algoritmo de busqueda Dijsktra
       std::vector<int> distancia(42, INT_MAX);
