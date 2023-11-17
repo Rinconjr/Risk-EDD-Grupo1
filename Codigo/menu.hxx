@@ -2451,7 +2451,7 @@ void Menu::comando_turno(std::string comando) {
       bool continuar = true;
       std::vector<int>idPaisesEnemigos; //paises enemigos
       std::vector<int>idPaisesJugador; //paises jugador
-      std::vector<std::string> nombrePaises; //nombre de los paises para imprimir directamente por id
+      std::vector<Pais> nombrePaises; //nombre de los paises para imprimir directamente por id
       std::vector<std::vector<int>> matrizCompleta = mipartida.obtenerMatriz(); //matriz de adyacencia
       
       partidaContinentes = mipartida.ObtenerContinentes();
@@ -2474,7 +2474,7 @@ void Menu::comando_turno(std::string comando) {
           else {
             idPaisesJugador.push_back(inventario2);
           }
-          nombrePaises.push_back(partidaPaisIt->ObtenerNombre());
+          nombrePaises.push_back(*partidaPaisIt);
           inventario2++;
         }
       }
@@ -2541,14 +2541,19 @@ void Menu::comando_turno(std::string comando) {
       }
       
       //Imprimir resultado
-      std::cout << "Camino mas corto para llegar a " << nombrePaises[idPaisesEnemigos[numeroPais]] << " desde tus paises: ";
+      std::cout << "Para conquistar el territorio " << nombrePaises[idPaisesEnemigos[numeroPais]].ObtenerNombre() << ", debe atacar desde ";
+      int sumatoriaTropas = 0;
+      std::cout << nombrePaises[nodoMasCercano].ObtenerNombre() << " pasando por los territorios ";
+      nodoMasCercano = padre[nodoMasCercano];
       while (nodoMasCercano != -1) {
-          std::cout << nombrePaises[nodoMasCercano];
+          std::cout << nombrePaises[nodoMasCercano].ObtenerNombre();
+          sumatoriaTropas += nombrePaises[nodoMasCercano].ObtenerCantidadTropas();
           nodoMasCercano = padre[nodoMasCercano];
           if(nodoMasCercano != -1) {
-            std::cout << " -> ";
+            std::cout << ", ";
           }
       }
+      std::cout << ". Debe conquistar " << sumatoriaTropas << " unidades de ejercito. \n";
     }
     else if(cinUsuario.compare("5") == 0) {
       
