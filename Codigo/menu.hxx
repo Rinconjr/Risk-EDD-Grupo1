@@ -2607,7 +2607,7 @@ void Menu::comando_turno(std::string comando) {
       }
 
       std::cout << "\nLa conquista mas barata es avanzar sobre el territorio " << menorPais.ObtenerNombre() << " desde " << mejorPaisAtaque.ObtenerNombre() << ". Para conquistar el territorio "<< menorPais.ObtenerNombre() << ", debe atacar desde " << menorPais.ObtenerNombre() << ". Debe conquistar " << menorPais.ObtenerCantidadTropas() << " unidades de ejercito.\n";
-      std::cout << "Presione enter para continuar. " << std::endl;
+      std::cout << "\nPresione enter para continuar. " << std::endl;
       std::cin.ignore();
     }
     else if(cinUsuario.compare("6") == 0) {
