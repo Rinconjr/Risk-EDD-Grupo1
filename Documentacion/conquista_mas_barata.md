@@ -8,9 +8,10 @@
 
 **Explicacion funcionamiento**
 
-Para establecer el coste de la conquista más barata disponible para el jugador, es imprescindible seguir un procedimiento específico. Inicialmente, el usuario debe encontrarse en la opción de turno, particularmente en la segunda fase.
+Para determinar el costo de la conquista más económica disponible para el jugador, se requiere seguir un procedimiento específico. En primer lugar, es fundamental que el usuario se sitúe en la opción de turno correspondiente, específicamente en la segunda fase.
 
-Una vez que el usuario haya ingresado a la segunda fase del turno, deberá proceder a seleccionar la opción numerada como cinco, a fin de que el programa muestre la conquista que posee el coste más reducido.
+Una vez dentro de la segunda fase del turno, el usuario deberá seleccionar la opción numerada como cinco, lo que permitirá al programa mostrar la conquista que tenga el costo más bajo. El programa obtendrá el ID de todos los países pertenecientes al jugador y los IDs de los países de los demás jugadores para realizar una comparación de tropas entre el jugador y sus vecinos. Finalmente, el programa mostrará la conquista de menor costo disponible.
+
 
 La siguiente figura ilustra el proceso del comando costo conquista:
 

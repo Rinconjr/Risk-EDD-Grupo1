@@ -8,9 +8,10 @@
 
 **Explicacion funcionamiento**
 
-Para determinar el costo de conquista de un país que se quiere atacar, es importante seguir un proceso específico dentro del sistema. Al ingresar a la opción de turno, el jugador debe completar la fase 1 obligatoriamente para avanzar a la fase 2, donde se encuentra la funcionalidad destinada a calcular el costo de conquista de un país en particular. 
+Para determinar el costo de conquista de un país que se pretende atacar, es importante seguir un procedimiento específico dentro del sistema. Al acceder a la opción de turno, el jugador debe completar obligatoriamente la fase 1 para avanzar a la fase 2, donde se ubica la funcionalidad destinada a calcular el costo de conquista de un país en particular.
 
-Una vez accedido a la sección de costo de conquista, se desplegará ante el jugador una tabla con todos los países disponibles para un posible ataque. En este punto, se solicitará al usuario que introduzca el ID correspondiente al país sobre el cual desea conocer el costo de ataque. Es importante destacar que el jugador debe seleccionar un ID de país válido para que el programa proporcione la información relativa al costo de conquista.
+Una vez dentro de la sección de costo de conquista, se presentará al jugador una tabla que enumera todos los países disponibles para un ataque potencial. En este punto, se solicitará al usuario ingresar el ID correspondiente al país sobre el cual desea conocer el costo de ataque. Una vez que el usuario haya seleccionado un ID válido de país, se iniciará el algoritmo de Dijkstra para determinar el camino más corto desde cada país del jugador. Finalmente, el programa mostrará el costo de la conquista hacia el país que se desea atacar.
+
 
 La siguiente figura ilustra el proceso del comando costo conquista:
 
