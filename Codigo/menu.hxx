@@ -1230,7 +1230,7 @@ void Menu::comando_turno(std::string comando) {
     }
     std::cout << "5) Siguiente fase.\n";
     std::cout << "6) Salir.\n";
-    std::cout << "7) TEMPORAL PARA REVISAR MATRIZ DE ADYACENCIA Mirar vecinos de un pais.\n";
+    //std::cout << "7) TEMPORAL PARA REVISAR MATRIZ DE ADYACENCIA Mirar vecinos de un pais.\n";
     std::cout<<"---------------------MENU TURNO-------------------------\n";
 
     do {
@@ -1730,7 +1730,7 @@ void Menu::comando_turno(std::string comando) {
     }
 
 
-    //$%& rev1
+    //Opcion Secreta para revisar la matriz de adyacencia
     else if(cinUsuario == "7") {
       int numeroPais;
       std::cout<<"Numero del pais a revisar: ";
@@ -2606,7 +2606,7 @@ void Menu::comando_turno(std::string comando) {
         }
       }
 
-      std::cout << "\nLa conquista mas barata es avanzar sobre el territorio " << menorPais.ObtenerNombre() << " desde " << mejorPaisAtaque.ObtenerNombre() << ". Para conquistar el territorio "<< menorPais.ObtenerNombre() << ", debe atacar desde " << menorPais.ObtenerNombre() << ". Debe conquistar " << menorPais.ObtenerCantidadTropas() << " unidades de ejercito.\n";
+      std::cout << "\nLa conquista mas barata es avanzar sobre el territorio " << menorPais.ObtenerNombre() << " desde " << mejorPaisAtaque.ObtenerNombre() << ". Para conquistar el territorio "<< menorPais.ObtenerNombre() << ", debe atacar desde " << mejorPaisAtaque.ObtenerNombre() << ". Debe conquistar " << menorPais.ObtenerCantidadTropas() << " unidades de ejercito.\n";
       std::cout << "\nPresione enter para continuar. " << std::endl;
       std::cin.ignore();
     }
