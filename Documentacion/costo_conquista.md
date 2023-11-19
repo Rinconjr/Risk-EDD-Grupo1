@@ -15,7 +15,7 @@ Una vez dentro de la sección de costo de conquista, se presentará al jugador u
 
 La siguiente figura ilustra el proceso del comando costo conquista:
 
-![Diagrama_flujo_costo_conquista](/Documentacion\Imagenes\Diagrama%20de%20Flujo%20costo%20conquista.png)
+![Diagrama_flujo_costo_conquista](/Documentacion/Imagenes/Diagrama%20de%20Flujo%20costo%20conquista.png)
 
 
 

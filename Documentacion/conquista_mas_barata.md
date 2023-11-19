@@ -15,4 +15,4 @@ Una vez dentro de la segunda fase del turno, el usuario deberá seleccionar la o
 
 La siguiente figura ilustra el proceso del comando costo conquista:
 
-![Diagrama de flujo conquista mas barata](/Documentacion\Imagenes\Diagrama%20de%20Flujo%20conquista%20mas%20barata.png)
+![Diagrama de flujo conquista mas barata](/Documentacion/Imagenes/Diagrama%20de%20Flujo%20conquista%20mas%20barata.png)
