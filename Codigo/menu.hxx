@@ -1342,6 +1342,11 @@ void Menu::comando_turno(std::string comando) {
             std::cout << "Argumento invalido. Debe ingresar el numero del pais. " << std::endl;
             continue;
           }
+          //Esto hace que no pete   
+          if (numeroPais < 1 || numeroPais >= inventario) {
+            std::cout << "El pais que estas tratando de seleccionar no te pertenece. " << std::endl;
+            continue;
+          }
           
           if(numeroPais > inventario) {
             std::cout << "El pais que estas tratando de seleccionar no te pertenece. " << std::endl;
